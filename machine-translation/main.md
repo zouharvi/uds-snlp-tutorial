@@ -1,6 +1,8 @@
 ---
 title:
-- \{Phrase-Based,Vanilla Neural\} Machine Translation
+- "Statistical Machine Translation"
+subtitle:
+- \{Phrase-Based,Vanilla Neural\} (SNLP tutorial)
 author:
 - Vilém Zouhar
 theme:
@@ -15,11 +17,11 @@ classoption: notes
 
 # Overview
 
-- Task
-- - Metrics
+- Task, metrics
 - PBMT
 - - Decoding
-- - - NP-hard
+- - - Proof of NP-hardness
+- - - Log-linear model
 - - Alignment
 - - - IBM1
 - - - Phrase extraction
@@ -34,6 +36,13 @@ classoption: notes
 > - $= argmax_t\{p(s|t) \cdot p(t)\}$ 
 > - Modelling $p(s|t)$ is as hard/easy as $p(t|s)$ \newline
     Modelling $p(t)$ is easier 
+
+# Approaches
+- RBMT (rule-based)
+- EBMT (example-based)
+- SMT (statistical)
+- - PBMT (phrase-based)
+- - NMT (neural)
 
 # Metrics - BLEU
 
@@ -108,25 +117,39 @@ Source: [1]
 - Start with 0 coverage and keep track of already covered words
 - Estimate the cost of the existing phrases (language model) (+ future cost)
 
-![](img/beam_search.png){width=85%}
+![](img/beam_search.png){width=80%}
 Source: [1]
 
-# Beam search - NP complete
+# Beam search - NP-complete
 
-1. Consider traveling salesman / hamilton circuit
+1. Consider travelling salesman / hamilton circuit
 2. $LM(x,y) = -\log dist(x, y)$
 3. $LM$ prohibits repetitions\newline
    $LM$ adds the distance between the first and the last word
 4. Source sentence: `NULL-NULL-NULL-NULL-...` \newline
    `NULL` can be covered by any city/node
 5. Beam search finds the most probable / cheapest ordering:\newline
-   `NewYork-Boston-Treton-...`
+   `NewYork-Boston-Trenton-...`
 
 <br>
 
 - MT beam search solves the traveling salesman problem $\rightarrow$ vanilla beam search is NP-hard.
 - Future cost estimation is used + top N hypothesis paths considered (rest pruned).
 - Much faster, but no optimal solution guarantee.
+
+# PBMT Log-linear Model
+
+- Not statistically sound, but:
+- $t = argmax_t\{p(s|t) \cdot p(t)^2\}$ for more fluent output
+- $t = argmax_t\{p(t|s) \cdot p(t)^2\}$ works equally well
+
+Log-linear model:
+
+> - $t = argmax_t\ exp(\sum_{\text{feature } f} \lambda_f f(e, t))$
+> - Adequacy: $f_{TM}(e,t) = \log p(t|s)$\
+> - Language model: $f_{LM}(e,t) = \log p(t)$\
+> - $f_{Phr}(e,t) = \textit{number of covering phrases}, \lambda_{Phr} = -1 \textit{ (e.g.)}$\
+> - - Perhaps we want larger phrases to cover the source sentence
 
 # Alignment
 
@@ -136,7 +159,7 @@ Source: [1]
 > - Yes: $T(x|y) = \frac{\sum_{\text{sents } s, t} A_{s,t}(x|y)}{T(\cdot|y)}$
 > - Given word translation probabilities (T), can we construct word alignment (A)? 
 > - Yes: $A_{s,t}(x|y) = \frac{T(x|y)}{\sum_{u \in s} T(u|y)}$
-> - If we start from $A^1$, then compute $T^1$ and then $A^2$, wille $A^1 = A^2$
+> - If we start from $A^1$, then compute $T^1$ and then $A^2$, will $A^1 = A^2$?
 > - No, in most cases.
 > - Main idea behind IBM Model 1: change "views" e.g. 5 times.
 > - Start with $A^0_{s,t}(x|y) = \frac{1}{|s|}$ (uniform distribution)
@@ -145,6 +168,7 @@ Source: [1]
 
 ```
 # expectation
+words_prob = np.zeros((len(words2), len(words1)))
 for (sent_src, sent_tgt), probs in zip(sents, alignment_probs):
     for word_tgt, probline in zip(sent_tgt, probs):
         for word_src, prob in zip(sent_src, probline):
@@ -165,15 +189,15 @@ for sent_i, (sent_src, sent_tgt) in enumerate(sents):
 
 - At the end, take $H_{s,t}(y) = argmax_{x} (A_{s,t}(x|y))$ 
 - Assumption: every target token is aligned to exactly one source token
-- What about alignment between a slavic language without articles and a germanic one, with articles?
+- What about alignment between a Slavic language without articles and a Germanic one, with articles?
 - - Czech-German [3]: 24% target tokens unaligned
 - - Czech-German [3]: 1.1 aligned tokens per one target token (excluding unaligned)
 
 - Solution:
 - - Add NULL token to every sentence, then remove alignments to it in post-processing
-- - Use different a extraction method than argmax (threshold, dynamic threshold, ..)
+- - Use a different extraction method than argmax (threshold, dynamic threshold, ..)
 
-# NMT
+# NMT - Training
 
 - Traditional NMT pipeline too big + lots of preprocessing
 - End-to-end training
@@ -187,11 +211,24 @@ for sent_i, (sent_src, sent_tgt) in enumerate(sents):
 ```
 2. Feed the whole sentence sequentially into an RNN (vanilla, LSTM, GRU)
 3. Get a hidden state representing the whole sentence
+4. The output of this last step is the first translate word (distribution) \newline
+    We know the correct word, start accumulating gradient
+5. Push the output word into the hidden state, get next word
+6. Repeat 4.+5. util `<EOS>` on the training sentence
+
+# NMT - Translation
+
+- Traditional NMT pipeline too big + lots of preprocessing
+- End-to-end training
+
+1. Embedd words in one-hot embedding
+2. Feed the whole sentence sequentially into an RNN (vanilla, LSTM, GRU)
+3. Get a hidden state representing the whole sentence
 4. The output of this last step is the first translate word (distribution)
 5. Push this word into the hidden state, get next word
 6. Repeat 4.+5. util `<EOS>`
 
-In 4. apply beam search or (we have the probabilities) or just take the max.
+In 4. apply beam search or (since we have the probabilities) just take the max.
 
 # NMT - Issues
 
@@ -199,21 +236,40 @@ In 4. apply beam search or (we have the probabilities) or just take the max.
 > - Lots of crucial information is at the beginning of the sentence \newline
     People judge the beginning much more than the rest
 > - Solution: Feed in the sentence reverse
+> - Solution: BiRNN
+> - Solution: Explicit attention
 
 > - Issue: Whole sentence meaning captured by a single vector
 > - Solution: Explicit attention mechanism (also alleviates vanishing gradients) \newline
-    Transformer architecture (encoder can also be paralelized)
+    Transformer architecture (encoder can also be parallelized)
 
 > - Issue: |broccoli-broccolis|$_2^2$ = |broccoli-dog|$_2^2$
 > - Solution: learn word embeddings from monolingual data \newline
     (word2vec: CBOW/skip-gram, Glove)
 > - Also allows for basic arithmetics: king - man + woman = queen
 
+# Tools
+
+- Alignment:
+- - fast\_align (easy to setup+run, fast, adjusted IBM2) [8]
+- - (M)GIZA++ (more advanced, slightly better results) [9]
+- PBMT:
+- - Moses MT [10]
+- NMT:
+- - Marian NMT (fast, used by most in WMT, maintained, a bit harder to debug - C++) [11]
+- - Huggingface's transformer (harder to setup, easy Python interop) [12]
+
 # References
 
-1. http://www.statmt.org/moses/?n=Moses.Background
-2. https://nlp.fi.muni.cz/en/MachineTranslation
-3. http://ufal.mff.cuni.cz/czech-english-manual-word-alignment
-4. https://www.aclweb.org/anthology/P18-1198.pdf
-5. https://www.aclweb.org/anthology/2020.wmt-1.41.pdf
-6. https://github.com/mjpost/sacreBLEU
+1.  <http://www.statmt.org/moses/?n=Moses.Background>
+2.  <https://nlp.fi.muni.cz/en/MachineTranslation>
+3.  <http://ufal.mff.cuni.cz/czech-english-manual-word-alignment>
+4.  <https://www.aclweb.org/anthology/P18-1198.pdf>
+5.  <https://www.aclweb.org/anthology/2020.wmt-1.41.pdf>
+6.  <https://github.com/mjpost/sacreBLEU>
+7.  <http://ufal.mff.cuni.cz/courses/npfl087>
+8.  <https://github.com/clab/fast_align>
+9.  <http://www.statmt.org/moses/giza/GIZA++.html>
+10. <http://www.statmt.org/moses/>
+11. <https://marian-nmt.github.io/>
+12. <https://huggingface.co/transformers/usage.html>
