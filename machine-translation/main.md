@@ -261,15 +261,15 @@ In 4. apply beam search or (since we have the probabilities) just take the max.
 
 # References
 
-1.  <http://www.statmt.org/moses/?n=Moses.Background>
-2.  <https://nlp.fi.muni.cz/en/MachineTranslation>
-3.  <http://ufal.mff.cuni.cz/czech-english-manual-word-alignment>
-4.  <https://www.aclweb.org/anthology/P18-1198.pdf>
-5.  <https://www.aclweb.org/anthology/2020.wmt-1.41.pdf>
-6.  <https://github.com/mjpost/sacreBLEU>
-7.  <http://ufal.mff.cuni.cz/courses/npfl087>
-8.  <https://github.com/clab/fast_align>
-9.  <http://www.statmt.org/moses/giza/GIZA++.html>
-10. <http://www.statmt.org/moses/>
-11. <https://marian-nmt.github.io/>
-12. <https://huggingface.co/transformers/usage.html>
+1.  PBMT pipeline: <http://www.statmt.org/moses/?n=Moses.Background>
+2.  Phrase extraction: <https://nlp.fi.muni.cz/en/MachineTranslation>
+3.  Aligned CSEN corpus: <http://ufal.mff.cuni.cz/czech-english-manual-word-alignment>
+4.  Capacity of a single $&!#* vector: <https://www.aclweb.org/anthology/P18-1198.pdf>
+5.  BLEU-human annotation correlation: <https://www.aclweb.org/anthology/2020.wmt-1.41.pdf>
+6.  Go-to BLEU implementation: <https://github.com/mjpost/sacreBLEU>
+7.  SMT course: <http://ufal.mff.cuni.cz/courses/npfl087>
+8.  fast_align: <https://github.com/clab/fast_align>
+9.  GIZA++: <http://www.statmt.org/moses/giza/GIZA++.html>
+10. Moses MT: <http://www.statmt.org/moses/>
+11. Marian NMT: <https://marian-nmt.github.io/>
+12. Transformers: <https://huggingface.co/transformers/usage.html>
