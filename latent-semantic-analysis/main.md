@@ -153,6 +153,18 @@ A^T A V = V S^2 \rightarrow V \text{ eigenvectors of } A^T A, S \text{ root of e
 > - Term $\rightarrow$ term representation: $U_k S_k$
 > - Term representation $\rightarrow$ term representation: $S_k V_k^T$
 
+# LSA Concepts
+
+- $U_k \S_k$ maps terms to "concepts" $(m \rightarrow k)$
+- $(\S_k V_k^T)^T=V_k \S_k^T=V_k \S_k$ maps documents to "concepts" $(n \rightarrow k)$
+- "concepts" are latent
+
+\note{
+    - The k then becomes obvious is the number of concepts
+    - We don't specify the concepts, they are determined by SVD
+    - From our point of view, they are latent
+}
+
 # LSA Example
 
 
@@ -170,8 +182,20 @@ A^T A V = V S^2 \rightarrow V \text{ eigenvectors of } A^T A, S \text{ root of e
 > - Query-document match: cosine similairty:  $\frac{r_q \cdot r_d}{|r_q| \cdot |r_d|} = \frac{0.01205}{.10879} \approx 0.11$
 
 \note{
-    Whether that's a good match or not depends on the ranking and/or threshold
+    - Whether that's a good match or not depends on the ranking and/or threshold
 }
+
+# LSA Graphics
+
+![Term-document matrix, no ordering, $k=5$; Source [6]](img/visualization_0.png){height=80%}
+
+# LSA Graphics
+
+![Term-document matrix, group documents, $k=5$; Source [6]](img/visualization_1.png){height=80%}
+
+# LSA Graphics
+
+![Term-document matrix, group documents+terms, $k=5$; Source [6]](img/visualization_2.png){height=80%}
 
 # Notes
 
@@ -181,6 +205,8 @@ Fast SVD
 > - Jacobi rotation [4, 5]: \newline
     Create almost a diagonal matrix (bidiagonal): $A = U B V$, $O(m n^2)$ \newline
     Compute SVD of $2\times 2$ matricis $O(n^2)$
+
+. . .
 
 Latent Semantic Analysis
 
@@ -200,3 +226,4 @@ Latent Semantic Analysis
 3. SVD example: <http://web.mit.edu/be.400/www/SVD/Singular_Value_Decomposition.htm>
 4. Computation: <https://en.wikipedia.org/wiki/Singular_value_decomposition#Calculating_the_SVD>
 5. Computation: <https://www.cs.utexas.edu/users/inderjit/public_papers/HLA_SVD.pdf>
+6. Visualization: <https://topicmodels.west.uni-koblenz.de/ckling/tmt/svd_ap.html>

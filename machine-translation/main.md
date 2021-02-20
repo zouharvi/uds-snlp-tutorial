@@ -143,6 +143,8 @@ Source: [1]
 - $t = argmax_t\{p(s|t) \cdot p(t)^2\}$ for more fluent output
 - $t = argmax_t\{p(t|s) \cdot p(t)^2\}$ works equally well
 
+. . .
+
 Log-linear model:
 
 > - $t = argmax_t\ exp(\sum_{\text{feature } f} \lambda_f f(e, t))$
