@@ -1,6 +1,8 @@
 ---
 title:
 - Conditional Random Fields
+subtitle: |
+    | (SNLP tutorial)
 author:
 - Vilém Zouhar
 theme:

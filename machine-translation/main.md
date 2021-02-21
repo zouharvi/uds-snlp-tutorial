@@ -1,8 +1,9 @@
 ---
 title:
 - "Statistical Machine Translation"
-subtitle:
-- \{Phrase-Based,Vanilla Neural\} (SNLP tutorial)
+subtitle: |
+    | \{Phrase-Based,Vanilla Neural\}
+    | (SNLP tutorial)
 author:
 - Vilém Zouhar
 theme:
