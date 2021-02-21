@@ -202,7 +202,7 @@ A^T A V = V S^2 \rightarrow V \text{ eigenvectors of } A^T A, S \text{ root of e
 Fast SVD
 
 > - Naive approach $det (A-\lambda I) =$ solving $n$-th order polynomial (variable $\lambda$)
-> - Jacobi rotation [4, 5]: \newline
+> - Jacobi rotation [4, 5], Jacobi eigenvalue algorithm [7]: \newline
     Create almost a diagonal matrix (bidiagonal): $A = U B V$, $O(m n^2)$ \newline
     Compute SVD of $2\times 2$ matricis $O(n^2)$
 
@@ -227,3 +227,4 @@ Latent Semantic Analysis
 4. Computation: <https://en.wikipedia.org/wiki/Singular_value_decomposition#Calculating_the_SVD>
 5. Computation: <https://www.cs.utexas.edu/users/inderjit/public_papers/HLA_SVD.pdf>
 6. Visualization: <https://topicmodels.west.uni-koblenz.de/ckling/tmt/svd_ap.html>
+7. Computation <https://en.wikipedia.org/wiki/Jacobi_eigenvalue_algorithm>

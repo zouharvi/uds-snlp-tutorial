@@ -12,19 +12,18 @@ date:
 aspectratio: 169
 
 documentclass: beamer
-classoption: notes
+# classoption: notes
 ---
 
 # Overview
 
 - Task, metrics
 - PBMT
+- - Alignment - Phrase extraction
 - - Decoding
 - - - Proof of NP-hardness
 - - - Log-linear model
-- - Alignment
-- - - IBM1
-- - - Phrase extraction
+- - Alignment - IBM{1,2,3,4,5}
 - NMT
 - - encoder-decoder
 - - embedding 
@@ -195,9 +194,78 @@ for sent_i, (sent_src, sent_tgt) in enumerate(sents):
 - - Czech-German [3]: 24% target tokens unaligned
 - - Czech-German [3]: 1.1 aligned tokens per one target token (excluding unaligned)
 
-- Solution:
-- - Add NULL token to every sentence, then remove alignments to it in post-processing
-- - Use a different extraction method than argmax (threshold, dynamic threshold, ..)
+. . .
+
+Solution:
+
+- Add NULL token to every sentence, then remove alignments to it in post-processing
+- Use a different extraction method than argmax (threshold, dynamic threshold, ..)
+
+. . .
+
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad $AER = \frac{|A\cap sure|+|A\cap poss|}{|A|+|S|}$
+
+# IBM Model 2
+
+![Two alignments with equal probability in IBM1](img/ibm_2.jpg){width=70%}
+
+IBM Model 1: $p(s, \text{algn} |t) \propto \prod_{j=1}^{|s|} \text{trans} (s_j|t_{\text{algn}(j)})$ \newline
+IBM Model 2: $p(s, \text{algn} |t) \propto \prod_{j=1}^{|s|} \text{trans} (s_j|t_{\text{algn}(j)}) \cdot a(i\rightarrow j,|t|,|s|)$ \newline
+\qquad E.g. $\big|\frac{i}{|t|} - \frac{j}{|s|}\big|$
+
+\note{
+    The IBM Model 2 introduces a new component, which just scores the probability of two alignments
+}
+
+# IBM Model 3
+
+![Generative process of IBM3; Source [13]](img/ibm_3.png){height=80%}
+
+\note{
+    - The IBM model 3 deals with something called the fertility. That's a concept which captures the fact that for example in Spanish, the English word _slap_ is translated to three distinct words _dió una botefada_.
+    - The fertility of every word can be again estimated using the parallel data. 
+}
+
+# IBM Model 4
+
+- Work with classes
+- Polish noun-adjective inversion:
+- _train station_ $\rightarrow$ _stacja kolejowa_
+- _[train:N] [station:N]_ $\rightarrow$ _[stacja:N] [kolejowa:N]_
+
+
+\note{
+    - IBM Model 4 conditions the alignment probability on word classes of the given word and also the surrounding ones.
+    - A typical example is the polish noun-adjective inversion, which creates a prior to swap the alignment.
+}
+
+# IBM Model 5
+
+- Alignment context
+- Where to align _Übersetzung_ if we have low translation priors?
+
+![Unfinished alignment process, German $\rightarrow$ Sotho (South Africa); [14]](img/ibm_5.svg){width=50%}
+
+\note{
+    - Finally, IBM model 5 takes the alignment context into consideration.
+    - That is, it allows placement of words into places that have low translation mass.
+    - In this example we may have little lexical knowledge
+    - This can be compensated 
+}
+
+# Beyond IBM models
+
+> - More heuristics and tricks:
+> - - Align everything with levenstein distance at most e.g. $0.1$
+> - - Align interpunction (`, . ?`)
+> - - Precision is the biggest issue:\newline
+      Compute multiple alignments and output their intersection
+> - Use existing MT to get translation probabilities
+> - Transformers for alignment
+
+\note{
+
+}
 
 # NMT - Training
 
@@ -261,7 +329,7 @@ In 4. apply beam search or (since we have the probabilities) just take the max.
 - - Marian NMT (fast, used by most in WMT, maintained, a bit harder to debug - C++) [11]
 - - Huggingface's transformer (harder to setup, easy Python interop) [12]
 
-# References
+# References 1
 
 1.  PBMT pipeline: <http://www.statmt.org/moses/?n=Moses.Background>
 2.  Phrase extraction: <https://nlp.fi.muni.cz/en/MachineTranslation>
@@ -273,5 +341,10 @@ In 4. apply beam search or (since we have the probabilities) just take the max.
 8.  fast_align: <https://github.com/clab/fast_align>
 9.  GIZA++: <http://www.statmt.org/moses/giza/GIZA++.html>
 10. Moses MT: <http://www.statmt.org/moses/>
+
+# References 2
+
 11. Marian NMT: <https://marian-nmt.github.io/>
 12. Transformers: <https://huggingface.co/transformers/usage.html>
+13. Stanford lecture: <https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1114/handouts/cs224n-lecture-05-2011-MT.pdf>
+14. Alignment visualizer: <https://vilda.net/s/slowalign/>
