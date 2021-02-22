@@ -26,8 +26,8 @@ documentclass: beamer
 - - - Log-linear model
 - - Alignment - IBM{1,2,3,4,5}
 - NMT
-- - encoder-decoder
-- - embedding 
+- - Encoder-Decoder
+- - Embedding 
 
 # Task
 
@@ -38,11 +38,31 @@ documentclass: beamer
     Modelling $p(t)$ is easier 
 
 # Approaches
+
+::: columns
+
+:::: column
 - RBMT (rule-based)
 - EBMT (example-based)
 - SMT (statistical)
 - - PBMT (phrase-based)
 - - NMT (neural)
+::::
+
+:::: column
+
+![Vauquois Triangle; Source [7]](img/vauquois_triangle.png){width=100%}
+
+::::
+:::
+
+\note{
+    - Rule-based methods are now a history, though one interesting concept is this triangle.
+    - Machine translation is split into analysis, transfer and synthesis.
+    - Example based machine translation is heavily used even today by translation companies, which keep and build translation memories.
+    - SMT has two parts: phrase based and neural.
+    - Rule-based are still used in post editing after NMT
+}
 
 # Metrics - BLEU
 
@@ -72,7 +92,7 @@ $p_1 = 7/8, p_2 = 5/7, p_4 = 1/5$, BP = $1$, BLEU = $50$.
 - Strongly depends on:
 - - Tokenization scheme (+10 BLEU(!))
 - - Used corpus
-- _Always_ use existing BLEU implementation [6]
+- _Always_ use existing BLEU implementation and standardized test sets [6]
 
 # Components of PBMT
 
@@ -99,8 +119,8 @@ $p_1 = 7/8, p_2 = 5/7, p_4 = 1/5$, BP = $1$, BLEU = $50$.
 ::::
 
 :::: column
-![](img/word_matrix.png){height=80%}
-Source: [2]
+![Consistent and inconsistent phrases; Source [2]](img/word_matrix.png){height=70%}
+
 ::::
 
 :::
@@ -109,23 +129,22 @@ Source: [2]
 
 - Cover the source sentence with extracted phrases
 
-![](img/decoder_cover.png){width=100%}
-Source: [1]
+![Covering of source sentence; Source [1]](img/decoder_cover.png){width=100%}
+
 
 # Beam search
 
 - Start with 0 coverage and keep track of already covered words
 - Estimate the cost of the existing phrases (language model) (+ future cost)
 
-![](img/beam_search.png){width=80%}
-Source: [1]
+![Partially expanded beam search; Source [1]](img/beam_search.png){width=73%}
 
 # Beam search - NP-complete
 
 1. Consider travelling salesman / hamilton circuit
 2. $LM(x,y) = -\log dist(x, y)$
-3. $LM$ prohibits repetitions\newline
-   $LM$ adds the distance between the first and the last word
+3. $LM$: prohibit repetitions\newline
+   $LM$: add the distance between the first and the last word
 4. Source sentence: `NULL-NULL-NULL-NULL-...` \newline
    `NULL` can be covered by any city/node
 5. Beam search finds the most probable / cheapest ordering:\newline
@@ -135,7 +154,7 @@ Source: [1]
 
 - MT beam search solves the traveling salesman problem $\rightarrow$ vanilla beam search is NP-hard.
 - Future cost estimation is used + top N hypothesis paths considered (rest pruned).
-- Much faster, but no optimal solution guarantee.
+- Polynomial, but no optimal solution guarantee.
 
 # PBMT Log-linear Model
 
@@ -150,8 +169,12 @@ Log-linear model:
 > - $t = argmax_t\ exp(\sum_{\text{feature } f} \lambda_f f(e, t))$
 > - Adequacy: $f_{TM}(e,t) = \log p(t|s)$\
 > - Language model: $f_{LM}(e,t) = \log p(t)$\
-> - $f_{Phr}(e,t) = \textit{number of covering phrases}, \lambda_{Phr} = -1 \textit{ (e.g.)}$\
-> - - Perhaps we want larger phrases to cover the source sentence
+> - $f_{Phr}(e,t) = \textit{number of covering phrases}, \lambda_{Phr} = -1 \textit{ (e.g.)}$\newline
+    Perhaps we want larger phrases to cover the source sentence
+
+\note{
+    - The reason for this notation is that it makes it easy to combine language and adequacy modelling as well as other restrictions. 
+}
 
 # Alignment
 
@@ -163,7 +186,7 @@ Log-linear model:
 > - Yes: $A_{s,t}(x|y) = \frac{T(x|y)}{\sum_{u \in s} T(u|y)}$
 > - If we start from $A^1$, then compute $T^1$ and then $A^2$, will $A^1 = A^2$?
 > - No, in most cases.
-> - Main idea behind IBM Model 1: change "views" e.g. 5 times.
+> - Main idea behind Expectation-Maximization: change "views" e.g. 5 times.
 > - Start with $A^0_{s,t}(x|y) = \frac{1}{|s|}$ (uniform distribution)
 
 # IBM Model 1 Code
@@ -215,12 +238,13 @@ IBM Model 2: $p(s, \text{algn} |t) \propto \prod_{j=1}^{|s|} \text{trans} (s_j|t
 \qquad E.g. $\big|\frac{i}{|t|} - \frac{j}{|s|}\big|$
 
 \note{
-    The IBM Model 2 introduces a new component, which just scores the probability of two alignments
+    - The IBM Model 2 introduces a new component, which just scores the probability of just an alignment
+    - E.g. this way we may force diagonal alignment
 }
 
 # IBM Model 3
 
-![Generative process of IBM3; Source [13]](img/ibm_3.png){height=80%}
+![Generative process of IBM3; Source [13]](img/ibm_3.png){height=75%}
 
 \note{
     - The IBM model 3 deals with something called the fertility. That's a concept which captures the fact that for example in Spanish, the English word _slap_ is translated to three distinct words _dió una botefada_.
@@ -232,8 +256,7 @@ IBM Model 2: $p(s, \text{algn} |t) \propto \prod_{j=1}^{|s|} \text{trans} (s_j|t
 - Work with classes
 - Polish noun-adjective inversion:
 - _train station_ $\rightarrow$ _stacja kolejowa_
-- _[train:N] [station:N]_ $\rightarrow$ _[stacja:N] [kolejowa:N]_
-
+- _[train:N] [station:N]_ $\rightarrow$ _[stacja:N] [kolejowa:Adj]_ (post-nominal)
 
 \note{
     - IBM Model 4 conditions the alignment probability on word classes of the given word and also the surrounding ones.
@@ -262,11 +285,7 @@ IBM Model 2: $p(s, \text{algn} |t) \propto \prod_{j=1}^{|s|} \text{trans} (s_j|t
 > - - Precision is the biggest issue:\newline
       Compute multiple alignments and output their intersection
 > - Use existing MT to get translation probabilities
-> - Transformers for alignment
-
-\note{
-
-}
+> - Transformers (attention scores) for alignment
 
 # NMT - Training
 

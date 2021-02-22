@@ -25,11 +25,11 @@ documentclass: beamer
 
 # Text Classification / Entity Recognition
 
-> - `My name is V. Zouhar, I live in Saarbrücken and my ticket number is 10110.`
-> - `My name is [V. Zouhar:person], I live in [Saarbrücken:loc] and my ticket number is [10110:ticket-num].`
+> - `My name is V. Zouhar, I live in Saarbrücken and my matriculation number is 1234.`
+> - `My name is [V. Zouhar:person], I live in [Saarbrücken:loc] and my matriculation number is [1234:mat-num].`
 > - NER as Sequence labeling: \newline
     $X$: sequence of words \newline
-    $Y$: labels `{ticket-num, person, location, none}`
+    $Y$: labels `{mat-num, person, location, none}`
 
 \note{
     - NER can be reformulated as sequence labeling, which includes also e.g. part of speech tagging
@@ -37,18 +37,20 @@ documentclass: beamer
 
 # Rule-based
 
-> - Regex substitute: `ticket (number)? (is)? (\d+)` $\rightarrow$ `[\3:ticket-num]`
-> - Gets out of hand quickly: `(am|name (is)?) (.*?) (and|\s[.,?])?` $\rightarrow$ `[\3:person]`
+> - Regex substitute:\newline
+    `matriculation (number)? (is)? (\d+)` $\rightarrow$ `[\3:mat-num]`
+> - Gets out of hand quickly:\newline
+    `(am|name (is)?) (.*?) (and|\s[.,?])?` $\rightarrow$ `[\3:person]`
 > - No automated learning
 
 # HMM
 
-> - Hidden states: `{ticket-num, person, location, none}`
-> - Better hidden states: `{ticket-num, START+person, INTERNAL+person, END+person, location, none, ...}`
+> - Hidden states: `{mat-num, person, location, none}`
+> - Better hidden states: `{mat-num, START+person, INTERNAL+person, END+person, location, none, ...}`
 > - Transitions: MLE from annotated data
 > - Emission probabilities: MLE from annotated data (+ smoothing)
 > - Not performant enough
-> - Optimizes $argmax p(x, y |\theta)$, though we are interested in $argmax p(y|x,\theta)$
+> - Optimizes $argmax\ p(x, y |\theta)$, though we are interested in $argmax\ p(y|x,\theta)$
 
 \note{
     - The reason for low performance is that the emission probabilities capture only features that dependent only on the current state
@@ -59,13 +61,12 @@ documentclass: beamer
 
 # Log-linear 1st Order Sequential Model
 
-Define just two features (loosened feature restriction):
-
-> - Sequence of hidden states: $y$, `{ticket-num, person, location, none}`
+> - Sequence of hidden states: $y$, `{mat-num, person, location, none}`
 > - Observed sequence of variables: $x$ (words)
-> - $p(y|x) \propto \exp \big\{\sum_j a(y_{j-1}, y_{j}) + o(y_j, x_j)\}$
-> - $p(y|x) = \frac{1}{Z(x)} \cdot  \exp \big\{\sum_j a(y_{j-1}, y_{j}) + o(y_j, x_j)\}$
-> - $argmax p(y|x) \ldots$ 
+> - $p(y|x) \propto \exp \big\{\sum_j \log a(y_{j-1}, y_{j}) + \log o(y_j, x_j)\}$
+> - $p(y|x) = \frac{1}{Z(x)} \cdot \exp \big\{\sum_j \log a(y_{j-1}, y_{j}) + \log o(y_j, x_j)\}$
+> - $p(y|x) = \frac{1}{Z(x)} \cdot \prod_j  \{ a(y_{j-1}, y_{j}) o(y_j, x_j)\}$
+> - $argmax\ p(y|x) \ldots$ 
 
 \note{
     - Looks like logistic regression.
@@ -120,9 +121,32 @@ Forward:
     - And finally, there is no reason to not allow features to observe the whole sequence
 }
 
+# Model overview
+
+![CRF in relation to other models; Source [2]](img/model_overview.png){width=80%}
+
+\note{
+    - There is a system of models with different properties.
+    - First, there is naive bayes and the conditional version, multinomial logistic regression.
+    - These model single class predictions. While naive bayes does this generatively, linear regression uses the scoring mechanism.
+    - On sequences, 
+}
+
+# Model overview
+
+- Multinomial logistic regression: \newline
+    $p(y_j|x) = \frac{exp(Z_j\cdot x)}{\sum_i exp(Z_i\cdot x)}$
+- Multiclass naïve Bayes: \newline
+    $p(y_j|x) = \frac{p(x|y_j)p(y_j)}{p(x)} \propto p(x|y_j) p(y_j) \approx p(y_j) \prod_i p(x_i|y_j)$
+
+\note{
+    - Bayes splits input features. 
+    - Why generative? p(x|y_j) is the generative part, while p(y_j|x) is discriminative.
+}
+
 # CRF
 
-- Sequence of hidden states: $y$, `{ticket-num, person, location, none}`
+- Sequence of hidden states: $y$, `{mat-num, person, location, none}`
 - Observed sequence of variables: $x$ (words)
 - $p(y|x) \propto \prod_t \exp \big\{\sum_{\text{feature } f} \theta_i f_i(y_{t-1}, y_t, x, t) \big\}$
 - $p(y|x) = \frac{1}{Z(x)}\prod_t \exp \big\{\sum_{\text{feature } f_i} \theta_i f_i(y_{t-1}, y_t, x, t) \big\}$
@@ -200,15 +224,22 @@ $$\theta_f \leftarrow \theta_f + \epsilon \Bigg[ \sum_{t=1}^T f(y_{t-1}, y_t, x,
 
 # Notes
 
-> - Markov Random Fields - more than two latent variables in feature function
-> - Feature selection \newline
-    1. Start with no features. \newline  
-    2a. If there exists a feature that improves the performance by $> t$, add it. Repeat 2. \newline
-    2b. If not, exit.
+General CRFs
+
+- More than two latent variables in feature function
+- Used latent variables have to form a clicque in the model graph
+
+. . .
+
+Feature selection:
+
+1. Start with no features.
+2. a. If there exists a feature that improves the performance by $> t$, add it. Repeat 2.
+2. b. If not, exit.
       
 
 \note{
-    - CRF is a specific case of Markov Random Fields, which requires more theory regarding graph based probability model. In general, it allows the feature functions to access latent variables beyond the current and the last one. It is based on the 
+    - Linear Chain CRFs fulfill these requirements
     - In practice, one may also wish to use just a limited number of features.
     - When adding, it is possible to consider also combining with existing ones. Especially for indicator features, it is possible to combine them using boolean operators. 
     - This can also be done in reverse - remove least useful features.
