@@ -8,8 +8,7 @@ author:
 - Vilém Zouhar
 theme:
 - Boadilla
-date:
-- February, 2021
+date: \today
 aspectratio: 169
 
 documentclass: beamer
@@ -43,7 +42,7 @@ documentclass: beamer
 . . .
 
 - System: $Q\times D \rightarrow \mathbb{R}$
-- {Precision,Recall}$@k$retrieve $k$ documents (top $k$ scoring) 
+- {Precision,Recall}$@k$ retrieve $k$ documents (top $k$ scoring) 
 - Recall$@k$ $\frac{|\text{retrieved}@k \cap \text{relevant}|}{|\text{relevant}|}$
 - Precision$@k$ $\frac{|\text{retrieved}@k \cap \text{relevant}|}{k}$
 
@@ -161,10 +160,9 @@ Always depends on the task.
 # Term Frequency - Inverse Document Frequency
 
 \begin{block}{TF-IDF}
-$$\text{Corpus} C$$
 $$tf(term, doc) = \frac{count_{doc}(term)}{|doc|}$$
-$$df(term) = |\{doc| term \in doc, doc \in C\}|$$ 
-$$idf'(term) = \frac{|C|}{df(term)}, idf(term) = \log_2\bigg(\frac{|C|}{df(term)}\bigg)$$
+$$df(term) = \frac{|\{doc| term \in doc, doc \in D\}|}{|D|}$$ 
+$$idf'(term) = \frac{|D|}{df(term)}, idf(term) = \log_2\bigg(\frac{|D|}{df(term)}\bigg)$$
 $$tf-idf(term, doc) = tf(term, doc) \times idf(term)$$
 \end{block}
 
@@ -199,21 +197,72 @@ $$tf'(term, doc) = 0.5 + 0.5 \cdot \frac{count_{doc}(term)}{ max_{term'} \{count
 |Faust|0|1|0|0|
 |Goethe|0|1|0|1|
 |devil|0|1|1|0|
-|demon|1|0|0|1|
+|demon|1|0|01|
 |lassagne|0|0|1|0|
 |German|0|1|0|1|
 
-\note{
-    The example uses counts, but for better representation of term importance in the document, one would use tf-idf.
-}
+::: notes
+The example uses counts, but for better representation of term importance in the document, one would use tf-idf.
+:::
+
+# Approximation of $A$
+
+::: columns
+:::: column
+||$d_1$|$d_2$|$d_3$|$d_4$|
+|-|-|-|-|-|
+|Wolfgang|1|1|0|0|
+|Mephistopheles|1|**1**|0|**1**|
+|Faust|**1**|1|0|0|
+|Goethe|**1**|1|0|**0**|
+|devil|**1**|1|**0**|**1**|
+|demon|1|**1**|0|1|
+|lassagne|0|0|1|0|
+|German|**1**|1|0|**0**|
+::::
+:::: column
+||$c_1$|$c_2$|$c_3$|
+|-|-|-|-|
+|Wolfgang|1|0|0|
+|Mephistopheles|0|1|0|
+|Faust|1|0|0|
+|Goethe|1|0|0|
+|devil|0|1|0|
+|demon|0|1|0|
+|lassagne|0|0|1|
+|German|1|0|0|
+::::
+:::
+
+3 latent concepts:\newline
+{Goethe (Wolfgang, Faust, German), devil (Mephistopheles, demon), lassagne} 
+
+. . .
+
+\centering
+$d_1 = 1\times c_1 + 1\times c_2$
+
+::: notes
+TODO
+:::
+
+# Approximation of $A$
+
+> - Given: $A, k$
+> - $A' = argmin_{A' \text{rank} k} ||A-A'||$
+> - Distance e.g. Frobenius $(\sqrt{\sum_{i,j} a_{i,j}})$ 
+
+::: notes
+Given $k$ concepts, we may wish to find such a matrix $A'$, that's as close to the original one, but with every document being a combination of $k$ independent vectors.
+:::
 
 # SVD
 
 - $A_{i,j} =$ # occurences of term $t_i$ id document $d_j$ (replace with tf-idf later)
-- $(A^TA)_{i,j} =$ # same terms of documents $d_i$ and $d_j$
-- $(AA^T)_{i,j} =$ # documents in which both terms $t_i$ and $t_j$ occur
-- $S =$ eigenvectors of $A^TA$
-- $U =$ eigenvectors of $AA^T$
+- $(A^TA)_{i,j} =$ # intersection of documents $d_i$ and $d_j$
+- $(AA^T)_{i,j} =$ # documents in which both terms $t_i$ and $t_j$ occur (multiplied counts)
+- $U =$ eigenvectors of $A^TA$
+- $V =$ eigenvectors of $AA^T$
 - $S =$ roots of corresponding eigenvalues of $A^TA$
 - $A=U S V^T$
 
@@ -241,30 +290,61 @@ $$Av = \lambda v$$
 "The stretch ($\lambda$) of eigenvector $v$ by $A$."
 \end{block}
 
-# SVD - "proof"
+# SVD 
+
+## Proof sketch
+
 \begin{gather*}
 A=USV^T, A^T = VSU^T, S \text{ diagonal} \\
 U^T U = V V^T = I \text{ orthogonal} \\
 A A^T U = U S^2 \rightarrow U \text{ eigenvectors of } A A^T, S \text{ root of eigenvalues} \\
-(\forall U_{i,\*}: A A^T U_{i,\*} = U_{i,\*} \cdot S^2_{i,i}) \\
+(\forall i: A A^T U_{i,*} = U_{i,*} \cdot S^2_{i,i}) \\
 A^T A V = V S^2 \rightarrow V \text{ eigenvectors of } A^T A, S \text{ root of eigenvalues} \\
-(\forall V_{i,\*}: A^T A V_{i,\*} = V_{i,\*} \cdot S^2_{i,i}) \\
+(\forall i: A^T A V_{i,*} = V_{i,*} \cdot S^2_{i,i}) \\
 \end{gather*}
 
 # LSA
 
-1. Order eigenvectors by descending values ($S_{i,i} > S_{i+1,i+1}$)
+1. Order eigenvalues by descending values ($S_{i,i} > S_{i+1,i+1} \ge 0$) \newline 
+   (proof next slide)
 2. Take top-k eigenvectors + values (or all above threshold)
 3. $A_K = U_K S_K V^T_K$ $[(m\times n), (n\times n), (n\times n)] \rightarrow [(m\times k), (k\times k), (k\times n)]$
 
-> - Term $\rightarrow$ term representation: $U_k S_k$
-> - Term representation $\rightarrow$ term representation: $S_k V_k^T$
+. . .
+
+> - Term $\rightarrow$ latent representation: $U_k S_k$
+> - Document $\rightarrow$ latent representation: $(S_k V_k^T)^T = V_k S_k^T = V_k S_k$
+
+::: notes
+- We are free to permute the eigenvalues, so we can order them (together with the vectors) and also we know that the eigenvalues are non-negative 
+- Therefore we can just take the top-k eigenvalues and replace the rest with zero.
+- Essentially this crops the neighbouring matricies to first k columns and first k rows of V^T.
+:::
+
+# Properties of S
+
+## Descending
+
+\begin{gather*}
+U' = U \text{ +swapped $i, j$ column}, S' = S \text{ +swapped $i, j$ values}, {V'}^T = V^T \text{ +swapped $i, j$ row} \\
+U' = U \times C(i,j), S' = S \times C(i, j), {V'}^T = V^T \times R(i,j) \\
+U' S' = (US) \text{ with swapped $i, j$ columns}, U'S' = (US)\times C(i,j) \\
+U' S' {V'}^T = (US)\times C(i,j) \times V^T \times R(i,j) = (US)\times C(i,j) \times C(i, j) V^T = USV^T
+\end{gather*}
+
+. . .
+
+## Non-negative
+
+\begin{gather*}
+A^T A \text{ is positive semidefinite} \Rightarrow S_{i,i} > 0 \\
+\forall x \ne \overrightarrow{0}: x^T A^T A x = (Ax)(Ax) = ||Ax|| \ge 0
+\end{gather*}
 
 # LSA Concepts
 
-- $U_k \S_k$ maps terms to "concepts" $(m \rightarrow k)$
-- $(\S_k V_k^T)^T=V_k \S_k^T=V_k \S_k$ maps documents to "concepts" $(n \rightarrow k)$
-- "concepts" are latent
+- $U_k S_k$ maps terms to latent "concepts" $(m \rightarrow k)$
+- $V_k S_k$ maps documents to "concepts" $(n \rightarrow k)$
 
 \note{
     - The k then becomes obvious is the number of concepts
@@ -304,11 +384,39 @@ A^T A V = V S^2 \rightarrow V \text{ eigenvectors of } A^T A, S \text{ root of e
 
 ![Term-document matrix, group documents+terms, $k=5$; Source [6]](img/visualization_2.png){height=80%}
 
+# LSA Code
+
+```
+from sklearn.decomposition import TruncatedSVD
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+vectorizer = TfidfVectorizer(stop_words='english', 
+max_features= 1000,
+max_df = 0.5, 
+smooth_idf=True)
+X = vectorizer.fit_transform(documents)
+
+svd_model = TruncatedSVD(n_components=20)
+svd_model.fit(X)
+```
+
+. . .
+
+\centering
+$m\times n \rightarrow m\times k + n\times k + k\times k$
+
+::: notes
+- max_features takes to top 1000 terms, max_df removes all words which appear in at least half the documents.
+- smooth_idf adds one to ever seen term
+- The reason it's called Truncated SVD is because it can be used for matrix compression. Instead of transmitting $m\times n$ matrix, we can just transmit the three separate matricies.
+:::
+
 # Notes
 
 Fast SVD
 
-> - Naive approach $det (A-\lambda I) =$ solving $n$-th order polynomial (variable $\lambda$)
+> - Naive approach $det (A-\lambda I) =$ solving $n$-th order polynomial (variable $\lambda$)\newline
+    Eigenvector Decomposition (EVD), get eigenvectors
 > - Jacobi rotation [4, 5], Jacobi eigenvalue algorithm [7]: \newline
     Create almost a diagonal matrix (bidiagonal): $A = U B V$, $O(m n^2)$ \newline
     Compute SVD of $2\times 2$ matricis $O(n^2)$
@@ -329,6 +437,21 @@ Latent Semantic Analysis
     - Can be parallelized at the cost of a slightly less accurate approximation
 }
 
+# Considerations
+
+Pros:
+
+- Easy to implement
+- Explainable terms
+- Quite fast runtime
+
+. . .
+
+Cons:
+
+- Only surface dependencies
+- SVD is not updatable
+
 # Resources
 
 1. Python code: <https://medium.com/acing-ai/what-is-latent-semantic-analysis-lsa-4d3e2d18417a>
@@ -337,4 +460,5 @@ Latent Semantic Analysis
 4. Computation: <https://en.wikipedia.org/wiki/Singular_value_decomposition#Calculating_the_SVD>
 5. Computation: <https://www.cs.utexas.edu/users/inderjit/public_papers/HLA_SVD.pdf>
 6. Visualization: <https://topicmodels.west.uni-koblenz.de/ckling/tmt/svd_ap.html>
-7. Computation <https://en.wikipedia.org/wiki/Jacobi_eigenvalue_algorithm>
+7. Computation: <https://en.wikipedia.org/wiki/Jacobi_eigenvalue_algorithm>
+8. Python code: <https://www.analyticsvidhya.com/blog/2018/10/stepwise-guide-topic-modeling-latent-semantic-analysis/>

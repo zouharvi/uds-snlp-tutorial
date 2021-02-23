@@ -7,8 +7,7 @@ author:
 - Vilém Zouhar
 theme:
 - Boadilla
-date:
-- February, 2021
+date: \today
 aspectratio: 169
 
 documentclass: beamer
