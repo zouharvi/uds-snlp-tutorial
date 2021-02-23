@@ -27,6 +27,7 @@ documentclass: beamer
 - - Solution 2 (tf)
 - - Solution 3 (tf-idf)
 - - Solution 4 (LSA, SVD)
+- Code & Considerations
 
 # Information retrieval - metrics
 
