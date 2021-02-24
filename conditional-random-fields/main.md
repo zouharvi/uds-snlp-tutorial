@@ -26,6 +26,7 @@ documentclass: beamer
 - - Linear Chain CRF / CRF
 - Model comparison
 - Code
+- Homework
 
 # Text Classification / Entity Recognition
 
@@ -119,6 +120,42 @@ $p(\text{Sprinkler}|\text{Cloudy},\text{Rain}) =p(\text{Sprinkler}|\text{Cloudy}
 
 ::: notes
 None, Mild, Heavy
+:::
+
+# HMM
+
+\centering
+\begin{tikzpicture}[
+  node distance=0.5cm and 0cm,
+  mynode/.style={draw,ellipse,text width=1.7cm,align=center},
+  observed/.style={draw,rectangle,text width=1.7cm,align=center}
+]
+\node[mynode] at (3, 2.3) (start) {Start};
+\node[mynode] at (0, 1.3) (cl) {Cloudy};
+\node[mynode] at (6, 1.3) (ra) {Rainy};
+\node[observed] at (0, 0) (wa) {Walk (0.4hr)};
+\node[observed] at (3, 0) (sh) {Shop (1.2hr)};
+\node[observed] at (6, 0) (st) {Study (0.1hr)};
+\path
+(start) edge[-latex] (cl)
+(start) edge[-latex] (ra)
+(cl) edge[-latex] (ra)
+(cl) edge[latex-] (ra)
+(ra) edge[-latex] (wa)
+(ra) edge[-latex] (sh)
+(ra) edge[-latex] (st)
+(cl) edge[-latex] (wa)
+(cl) edge[-latex] (sh)
+(cl) edge[-latex] (st);
+\end{tikzpicture}
+
+\centering
+
+Sketch of HMM structure with observed variables Walk, Shop, Study
+
+::: notes
+- From bayesian network point of view, HMMs model a structure in which latent variable is connected to another one, which in turn is connected to observed ones.
+- These relationships are explicitly modeled by the transition and emission functions.
 :::
 
 # Log-linear 1st Order Sequential Model
@@ -423,6 +460,10 @@ Properties
 - When adding, it is possible to consider also combining with existing ones. Especially for indicator features, it is possible to combine them using boolean operators. 
 - This can also be done in reverse - remove least useful features.
 :::
+
+# Homework
+
+TODO
 
 # Resources
 

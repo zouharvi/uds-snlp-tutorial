@@ -17,6 +17,8 @@ documentclass: beamer
 
 # Overview
 
+::: columns
+:::: column
 - Task, metrics
 - PBMT
 - - Alignment - Phrase extraction
@@ -24,9 +26,15 @@ documentclass: beamer
 - - - Proof of NP-hardness
 - - - Log-linear model
 - - Alignment - IBM{1,2,3,4,5}
+::::
+:::: column
 - NMT
 - - Encoder-Decoder
 - - Embedding 
+- - Example
+- Homework
+::::
+:::
 
 # Task
 
@@ -347,6 +355,44 @@ In 4. apply beam search or (since we have the probabilities) just take the max.
 - NMT:
 - - Marian NMT (fast, used by most in WMT, maintained, a bit harder to debug - C++) [11]
 - - Huggingface's transformer (harder to setup, easy Python interop) [12]
+
+# Code
+
+::: columns
+:::: column
+Train:
+
+```
+marian \
+  --train-sets corpus.en corpus.de \
+  --vocabs vocab.en vocab.de \
+  --model model.npz
+```
+
+. . .
+
+\vspace{0.7cm}
+
+Translate:
+
+```
+echo "This is a test." | marian-decoder \
+ -m model.npz \
+ -v vocab.en vocab.de
+
+> _Das _hi er _ist _ein _Test _.
+```
+::::
+
+. . .
+
+:::: column
+![Marian NMT command line options](img/marian_options.png){width=60%}
+::::
+:::
+# Homework
+
+TODO
 
 # References 1
 

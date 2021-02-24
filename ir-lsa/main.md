@@ -23,11 +23,11 @@ documentclass: beamer
 - Retrieval using LM
 - Retrieval example
 - Document vector representation
-- - Solution 1 (counts)
-- - Solution 2 (tf)
+- - Solution 1, 2 (counts, tf)
 - - Solution 3 (tf-idf)
 - - Solution 4 (LSA, SVD)
 - Code & Considerations
+- Homework
 
 # Information retrieval - metrics
 
@@ -452,6 +452,10 @@ Cons:
 
 - Only surface dependencies
 - SVD is not updatable
+
+# Homework
+
+TODO
 
 # Resources
 
