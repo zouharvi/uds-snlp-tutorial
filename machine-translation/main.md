@@ -17,24 +17,21 @@ documentclass: beamer
 
 # Overview
 
-::: columns
-:::: column
-- Task, metrics
-- PBMT
-- - Alignment - Phrase extraction
-- - Decoding
-- - - Proof of NP-hardness
-- - - Log-linear model
-- - Alignment - IBM{1,2,3,4,5}
-::::
-:::: column
-- NMT
-- - Encoder-Decoder
-- - Embedding 
-- - Example
-- Homework
-::::
-:::
+\begin{itemize}
+\setlength{\itemsep}{-0.2cm}
+\item Task, metrics
+\item PBMT
+\item - Alignment - Phrase extraction
+\item - Decoding
+\item - - Proof of NP-hardness
+\item - - Log-linear model
+\item - Alignment - IBM{1,2,3,4,5}
+\item NMT
+\item - Encoder-Decoder
+\item - Embedding 
+\item - Example
+\item Homework
+\end{itemize}
 
 # Task
 
@@ -390,9 +387,10 @@ echo "This is a test." | marian-decoder \
 ![Marian NMT command line options](img/marian_options.png){width=60%}
 ::::
 :::
+
 # Homework
 
-TODO
+TBD
 
 # References 1
 

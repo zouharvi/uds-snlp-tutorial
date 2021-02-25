@@ -439,13 +439,13 @@ c1 = lambda1, c2 = lambda2
 Feature selection:
 
 1. Start with all features.
-2. a. If there exists a feature that worsens the performance by $< t$, remove it. Repeat 2.
+2. a. If there exists a feature removing which worsens the performance by $< t$, remove it. Repeat 2.
 2. b. If not, exit.
 
 . . .
 
 1. Start with no features.
-2. a. If there exists a feature that improves the performance by $> t$, add it. Repeat 2.
+2. a. If there exists a feature adding which improves the performance by $> t$, add it. Repeat 2.
 2. b. If not, exit.
 
 . . . 
@@ -463,7 +463,7 @@ Properties
 
 # Homework
 
-TODO
+TBD
 
 # Resources
 

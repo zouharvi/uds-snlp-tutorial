@@ -17,17 +17,21 @@ documentclass: beamer
 
 # Overview
 
-- Information retrieval
-- - Metrics
-- - Preprocessing
-- Retrieval using LM
-- Retrieval example
-- Document vector representation
-- - Solution 1, 2 (counts, tf)
-- - Solution 3 (tf-idf)
-- - Solution 4 (LSA, SVD)
-- Code & Considerations
-- Homework
+\begin{itemize}
+\setlength{\itemsep}{-0.2cm}
+\item Information retrieval
+\item - Metrics
+\item - Preprocessing
+\item Retrieval using LM
+\item Retrieval example
+\item Document vector representation
+\item - Solution 1 (counts)
+\item - Solution 2 (tf)
+\item - Solution 3 (tf-idf)
+\item - Solution 4 (LSA, SVD)
+\item Code \& Considerations
+\item Homework
+\end{itemize}
 
 # Information retrieval - metrics
 
@@ -130,9 +134,20 @@ Always depends on the task.
 
 . . .
 
+- Jelinek-Mercer smoothing [9]: $p(q_i|d,C) = \lambda \cdot p(q_i|d) + (1-\lambda) \cdot p(q_i|C)$
+- High $\lambda$: documents with all query words (conjunctive)
+- Low $\lambda$: suitable for long queries (disjunctive)
+
+. . .
+
 - Issue: Without word embeddings, no word relatedness \newline 
     Query: **Goethe, devil** \newline
     A: Wolfgang's idea of the demon Mephistopheles who makes a bet with God
+
+::: notes
+- Other smoothing schemas exist, like discounting, adding epsilon or linear interpolation between multiple LMs, including zerogram
+- Other improvements, such as special grammar, prior knowledge of the document (length), list of synonyms, etc 
+:::
 
 # Document vector representation
 
@@ -173,9 +188,12 @@ $$tf-idf(term, doc) = tf(term, doc) \times idf(term)$$
 $$tf'(term, doc) = 0.5 + 0.5 \cdot \frac{count_{doc}(term)}{ max_{term'} \{count_{doc}(term')\}}$$
 \end{block}
 
-\note{
 
-}
+::: notes
+- Probability that i-th term occurs k times in the document: $p_{\lambda_i}(k)=e^{-\lambda_i}\frac{\lambda_i^k}{k!}$ ($\lambda_i$ parameter of the distribution)
+- Expected value of occurence: $N \cdot E_i(k) = N\cdot \lambda_i = \text{collection frequency}_i$
+- Term present at least once: $N \cdot (1-P_{\lambda_i}(0)) = \text{document frequency}_i$
+:::
 
 # Solution 3
 
@@ -455,7 +473,7 @@ Cons:
 
 # Homework
 
-TODO
+TBD
 
 # Resources
 
@@ -467,3 +485,4 @@ TODO
 6. Visualization: <https://topicmodels.west.uni-koblenz.de/ckling/tmt/svd_ap.html>
 7. Computation: <https://en.wikipedia.org/wiki/Jacobi_eigenvalue_algorithm>
 8. Python code: <https://www.analyticsvidhya.com/blog/2018/10/stepwise-guide-topic-modeling-latent-semantic-analysis/>
+9. Jelinek-Mercer: <http://ctp.di.fct.unl.pt/~jmag/ir/slides/a05%20Language%20models.pdf>
