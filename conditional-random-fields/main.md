@@ -13,7 +13,9 @@ header-includes:
   - \AtBeginDocument{\usepackage{tikz}\usetikzlibrary{positioning,shapes,arrows}}
 
 documentclass: beamer
+# classoption:
 # classoption: notes
+classoption: notes,handout
 ---
 
 # Overview
@@ -124,24 +126,29 @@ $p(\text{Sprinkler}|\text{Cloudy},\text{Rain}) =p(\text{Sprinkler}|\text{Cloudy}
   mynode/.style={draw,ellipse,text width=1.7cm,align=center},
   observed/.style={draw,rectangle,text width=1.7cm,align=center}
 ]
-\node[mynode] at (-3, 1.3) (clf) {Forecast};
-\node[mynode] at (0, 1.3) (cl) {Cloudy};
+\node[mynode] at (0, 1.3) (clf) {Forecast};
 \node[mynode] at (3, 1.3) (ra) {Sprinkler};
 \node[mynode] at (6, 1.3) (gw) {Grass wet};
 \node[mynode] at (9, 1.3) (cs) {Car splash};
-\node[observed] at (3, 0) (sp) {Rain \{N,M,H\}};
+\node[observed] at (1.5, 0) (cl) {Cloudy};
+\node[observed] at (4.5, 0) (sp) {Rain};
+\node[observed] at (7.5, 0) (gw) {Grass wet};
 \path
 (sp) edge[latex-] (clf)
-(sp) edge[latex-] (cl)
 (sp) edge[latex-] (ra)
-(sp) edge[latex-] (gw)
-(sp) edge[latex-] (cs);
+(sp) edge[latex-] (cs)
+(cl) edge[latex-] (clf)
+(cl) edge[latex-] (ra)
+(cl) edge[latex-] (cs)
+(gw) edge[latex-] (clf)
+(gw) edge[latex-] (ra)
+(gw) edge[latex-] (cs);
 \end{tikzpicture}
 
 ::: notes
 - In Naïve Bayes we artificially flatten the network so that the observed variable is directly dependent to all causes and there are no other dependencies.
 - The formula shows where the approximation is taking place.
-- A practical example why this is naïve is that the variable _Cloudy_ is heavily dependent on the _Forecast_ variable. And if we put both there in the formula, then we give one "cause" double to power.
+- A practical example why this is naïve is that the variable _Rain_ is heavily dependent on the _Cloudy_ variable. And if we put both there in the formula, then we assign higher weight to the concept of _raining_ or _cloudyness_ than whether the grass was wet.
 - Labels: None, Mild, Heavy
 :::
 
@@ -302,7 +309,7 @@ $O(|Y|^2\cdot T)$
 - Observed sequence of variables: $x$ (words)
 - $p(y|x) \propto \prod_t \exp \big\{\sum_{\text{feature } f} \theta_i f_i(y_{t-1}, y_t, x, t) \big\}$
 - $p(y|x) = \frac{1}{Z(x)}\prod_t \exp \big\{\sum_{\text{feature } f_i} \theta_i f_i(y_{t-1}, y_t, x, t) \big\}$
-- Features: $f_i(y_{t-1}, y_t, x, t) \rightarrow \mathbb{R}$
+- Features: $f_i(y_{t-1}, y_t, x, t) \ge 0$
 - Parameters: $\theta$
 
 ::: notes
@@ -331,13 +338,13 @@ $O(|Y|^2\cdot T)$
 \end{cases} \\
 & f_a(y_{t-1}, y_t, x, t) =
 \begin{cases}
-    1 \qquad \text{if } x_{t-1} = y_{t-1} = \texttt{number} \wedge y_t = \texttt{none} \\
+    1 \qquad \text{if } y_{t-1} = \texttt{number} \wedge y_t = \texttt{none} \\
     0 \qquad \text{else}
 \end{cases} \\
 & \qquad \qquad \qquad \qquad \theta_a = a(\text{number}, \texttt{none}) \\
 & f_o(y_{t-1}, y_t, x, t) =
 \begin{cases}
-    1 \qquad \text{if } x_{t-1} = y_{t} = \texttt{number} \wedge x_t = \texttt{<num>} \\
+    1 \qquad \text{if } x_{t-1} = \texttt{number} \wedge x_t = \texttt{<num>} \\
     0 \qquad \text{else}
 \end{cases} \\
 & \qquad \qquad \qquad \qquad  \theta_o = o(\text{number}, \texttt{<num>})
@@ -358,7 +365,6 @@ $O(|Y|^2\cdot T)$
 \end{align*}
 
 ::: notes
-- The features do not necessarily have to be indicators, in the second case here the whole sentence is processed into a single vector by an LSTM and the final hidden state multiplied by a single dense layer.
 - In CRFs it is common to have an order of thousands features
 :::
 
