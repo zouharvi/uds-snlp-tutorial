@@ -12,7 +12,9 @@ date: \today
 aspectratio: 169
 
 documentclass: beamer
+# classoption:
 # classoption: notes
+classoption: handout,notes
 ---
 
 # Overview
@@ -60,13 +62,13 @@ documentclass: beamer
 ::::
 :::
 
-\note{
-    - Rule-based methods are now a history, though one interesting concept is this triangle.
-    - Machine translation is split into analysis, transfer and synthesis.
-    - Example based machine translation is heavily used even today by translation companies, which keep and build translation memories.
-    - SMT has two parts: phrase based and neural.
-    - Rule-based are still used in post editing after NMT
-}
+::: notes
+- Rule-based methods are now a history, though one interesting concept is this triangle.
+- Machine translation is split into analysis, transfer and synthesis.
+- Example based machine translation is heavily used even today by translation companies, which keep and build translation memories.
+- SMT has two parts: phrase based and neural.
+- Rule-based are still used in post editing after NMT
+:::
 
 # Metrics - BLEU
 
@@ -143,7 +145,7 @@ $p_1 = 7/8, p_2 = 5/7, p_4 = 1/5$, BP = $1$, BLEU = $50$.
 
 ![Partially expanded beam search; Source [1]](img/beam_search.png){width=73%}
 
-# Beam search - NP-complete
+# Beam search - NP-hard
 
 1. Consider travelling salesman / hamilton circuit
 2. $LM(x,y) = -\log dist(x, y)$
@@ -176,9 +178,9 @@ Log-linear model:
 > - $f_{Phr}(e,t) = \textit{number of covering phrases}, \lambda_{Phr} = -1 \textit{ (e.g.)}$\newline
     Perhaps we want larger phrases to cover the source sentence
 
-\note{
-    - The reason for this notation is that it makes it easy to combine language and adequacy modelling as well as other restrictions. 
-}
+::: notes
+- The reason for this notation is that it makes it easy to combine language and adequacy modelling as well as other restrictions. 
+:::
 
 # Alignment
 
@@ -231,7 +233,7 @@ Solution:
 
 . . .
 
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad $AER = \frac{|A\cap sure|+|A\cap poss|}{|A|+|S|}$
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad $AER = \frac{|A\cap sure|+|A\cap poss|}{|A|+|sure|}$
 
 # IBM Model 2
 
@@ -241,19 +243,19 @@ IBM Model 1: $p(s, \text{algn} |t) \propto \prod_{j=1}^{|s|} \text{trans} (s_j|t
 IBM Model 2: $p(s, \text{algn} |t) \propto \prod_{j=1}^{|s|} \text{trans} (s_j|t_{\text{algn}(j)}) \cdot a(i\rightarrow j,|t|,|s|)$ \newline
 \qquad E.g. $\big|\frac{i}{|t|} - \frac{j}{|s|}\big|$
 
-\note{
-    - The IBM Model 2 introduces a new component, which just scores the probability of just an alignment
-    - E.g. this way we may force diagonal alignment
-}
+::: notes
+- The IBM Model 2 introduces a new component, which just scores the probability of just an alignment
+- E.g. this way we may force diagonal alignment
+:::
 
 # IBM Model 3
 
 ![Generative process of IBM3; Source [13]](img/ibm_3.png){height=75%}
 
-\note{
-    - The IBM model 3 deals with something called the fertility. That's a concept which captures the fact that for example in Spanish, the English word _slap_ is translated to three distinct words _dió una botefada_.
-    - The fertility of every word can be again estimated using the parallel data. 
-}
+::: notes
+- The IBM model 3 deals with something called the fertility. That's a concept which captures the fact that for example in Spanish, the English word _slap_ is translated to three distinct words _dió una botefada_.
+- The fertility of every word can be again estimated using the parallel data. 
+:::
 
 # IBM Model 4
 
@@ -262,10 +264,10 @@ IBM Model 2: $p(s, \text{algn} |t) \propto \prod_{j=1}^{|s|} \text{trans} (s_j|t
 - _train station_ $\rightarrow$ _stacja kolejowa_
 - _[train:N] [station:N]_ $\rightarrow$ _[stacja:N] [kolejowa:Adj]_ (post-nominal)
 
-\note{
-    - IBM Model 4 conditions the alignment probability on word classes of the given word and also the surrounding ones.
-    - A typical example is the polish noun-adjective inversion, which creates a prior to swap the alignment.
-}
+::: notes
+- IBM Model 4 conditions the alignment probability on word classes of the given word and also the surrounding ones.
+- A typical example is the polish noun-adjective inversion, which creates a prior to swap the alignment.
+:::
 
 # IBM Model 5
 
@@ -274,12 +276,12 @@ IBM Model 2: $p(s, \text{algn} |t) \propto \prod_{j=1}^{|s|} \text{trans} (s_j|t
 
 ![Unfinished alignment process, German $\rightarrow$ Sotho (South Africa); [14]](img/ibm_5.svg){width=50%}
 
-\note{
-    - Finally, IBM model 5 takes the alignment context into consideration.
-    - That is, it allows placement of words into places that have low translation mass.
-    - In this example we may have little lexical knowledge
-    - This can be compensated 
-}
+::: notes
+- Finally, IBM model 5 takes the alignment context into consideration.
+- That is, it allows placement of words into places that have low translation mass.
+- In this example we may have little lexical knowledge
+- This can be compensated 
+:::
 
 # Beyond IBM models
 
@@ -293,7 +295,7 @@ IBM Model 2: $p(s, \text{algn} |t) \propto \prod_{j=1}^{|s|} \text{trans} (s_j|t
 
 # NMT - Training
 
-- Traditional NMT pipeline too big + lots of preprocessing
+- Traditional SMT pipeline too big + lots of preprocessing
 - End-to-end training
 
 1. Embedd words in one-hot embedding:
