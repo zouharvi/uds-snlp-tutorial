@@ -189,7 +189,7 @@ p(y|x) = \prod_i a(y_{i-1}, y_{i}) \cdot o(y_i, x_i) \text{ (HMM)}
 - These relationships are explicitly modeled by the transition (horizontal) and emission (vertical) functions.
 :::
 
-# Linear Regression
+# Logistic Regression
 
 \centering 
 $p(y|x) = \frac{\exp(\Phi(y,x))}{\sum_{y'} \exp(\Phi(y',x))}$
@@ -197,7 +197,7 @@ $p(y|x) = \frac{\exp(\Phi(y,x))}{\sum_{y'} \exp(\Phi(y',x))}$
 $\arg \max_y \frac{\exp(\Phi(y,x))}{\sum_{y'} \exp(\Phi(y',x))}$
 
 ::: notes
-- Another approach is to assign some probability of a score to every sequence and then pick the best one.
+- Another approach is to assign a score to every sequence and then pick the best one.
 - So Phi in this case would just score every possible sequence and by doing softmax we get a conditional probability
 :::
 
@@ -275,7 +275,7 @@ $O(|Y|^2\cdot T)$
 ::: notes
 - There is a system of models with different properties.
 - First, there is naive bayes and the conditional version, multinomial logistic regression.
-- These model single class predictions. While naive bayes does this generatively, linear regression uses the scoring mechanism.
+- These model single class predictions. While naive bayes does this generatively, logistic regression uses the scoring mechanism.
 - On sequences, we can either have the HMMs or a conditional version, which are linear chain CRFs.
 - Finally there are models for which there is no clear correspondence between a latent variable and a single observed one.
 :::
@@ -469,6 +469,7 @@ $C \subseteq C' \Rightarrow C = C'$
 - This requires the graph to be factorized into maximal clicques on which we define the potential function 
 - Linear Chain CRFs fulfill these requirements, because they form a chain of latent variables, so maximal cliques are single nodes
 - Explain cliques
+- There is just a single decomposition into maximal clicque and it creates a factorization of the whole graph
 :::
 
 # Code

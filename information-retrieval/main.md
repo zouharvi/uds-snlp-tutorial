@@ -12,7 +12,9 @@ date: \today
 aspectratio: 169
 
 documentclass: beamer
+# classoption: 
 # classoption: notes
+classoption: handout,notes
 ---
 
 # Overview
@@ -134,7 +136,7 @@ Always depends on the task.
 
 . . .
 
-- Jelinek-Mercer smoothing [9]: $p(q_i|d,C) = \lambda \cdot p(q_i|d) + (1-\lambda) \cdot p(q_i|C)$
+- Jelinek-Mercer smoothing [9]: $p(q_i|d,D) = \lambda \cdot p(q_i|d) + (1-\lambda) \cdot p(q_i|D)$
 - High $\lambda$: documents with all query words (conjunctive)
 - Low $\lambda$: suitable for long queries (disjunctive)
 
@@ -216,7 +218,7 @@ $$tf'(term, doc) = 0.5 + 0.5 \cdot \frac{count_{doc}(term)}{ max_{term'} \{count
 |Faust|0|1|0|0|
 |Goethe|0|1|0|1|
 |devil|0|1|1|0|
-|demon|1|0|01|
+|demon|1|0|0|1|
 |lassagne|0|0|1|0|
 |German|0|1|0|1|
 
@@ -356,8 +358,8 @@ U' S' {V'}^T = (US)\times C(i,j) \times V^T \times R(i,j) = (US)\times C(i,j) \t
 ## Non-negative
 
 \begin{gather*}
-A^T A \text{ is positive semidefinite} \Rightarrow S_{i,i} > 0 \\
-\forall x \ne \overrightarrow{0}: x^T A^T A x = (Ax)(Ax) = ||Ax|| \ge 0
+A^T A \text{ is positive semidefinite} \Rightarrow S_{i,i} \ge 0 \\
+\forall x \ne \overrightarrow{0}: x^T A^T A x = (Ax)^T(Ax) = ||Ax|| \ge 0
 \end{gather*}
 
 # LSA Concepts
@@ -365,11 +367,11 @@ A^T A \text{ is positive semidefinite} \Rightarrow S_{i,i} > 0 \\
 - $U_k S_k$ maps terms to latent "concepts" $(m \rightarrow k)$
 - $V_k S_k$ maps documents to "concepts" $(n \rightarrow k)$
 
-\note{
-    - The k then becomes obvious is the number of concepts
-    - We don't specify the concepts, they are determined by SVD
-    - From our point of view, they are latent
-}
+::: notes
+- The k then becomes obvious is the number of concepts
+- We don't specify the concepts, they are determined by SVD
+- From our point of view, they are latent
+:::
 
 # LSA Example
 
@@ -385,7 +387,7 @@ A^T A \text{ is positive semidefinite} \Rightarrow S_{i,i} > 0 \\
 > - Representation of `devil`: fifth row of $U_k$ ($m\times k \rightarrow 1\times 2$) scaled by $S_k$: $[0.58, -0.01]^T$
 > - Representation of $d_1$: first column of $V_k^T$ ($k\times n \rightarrow 2\times 1$) scaled first by $S_k$: $r_d = [0.3, 0.02]^T$
 > - Query representation: vector average: $r_q = [0.13, -0.13]^T/2 + [0.58, -0.01]^T/2 = [0.355, -0.07]^T$
-> - Query-document match: cosine similairty:  $\frac{r_q \cdot r_d}{|r_q| \cdot |r_d|} = \frac{0.01205}{.10879} \approx 0.11$
+> - Query-document match: cosine similairty:  $\frac{r_q \cdot r_d}{|r_q| \cdot |r_d|} = \frac{0.01205}{0.10879} \approx 0.11$
 
 \note{
     - Whether that's a good match or not depends on the ranking and/or threshold
@@ -410,9 +412,9 @@ from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 vectorizer = TfidfVectorizer(stop_words='english', 
-max_features= 1000,
-max_df = 0.5, 
-smooth_idf=True)
+    max_features= 1000,
+    max_df = 0.5, 
+    smooth_idf=True)
 X = vectorizer.fit_transform(documents)
 
 svd_model = TruncatedSVD(n_components=20)
@@ -422,7 +424,7 @@ svd_model.fit(X)
 . . .
 
 \centering
-$m\times n \rightarrow m\times k + n\times k + k\times k$
+Compression: $m\times n \rightarrow m\times k + n\times k + k\times k$
 
 ::: notes
 - max_features takes to top 1000 terms, max_df removes all words which appear in at least half the documents.
@@ -434,7 +436,7 @@ $m\times n \rightarrow m\times k + n\times k + k\times k$
 
 Fast SVD
 
-> - Naive approach $det (A-\lambda I) =$ solving $n$-th order polynomial (variable $\lambda$)\newline
+> - Naive approach $det (A-\lambda I) = 0$ solving $n$-th order polynomial (variable $\lambda$)\newline
     Eigenvector Decomposition (EVD), get eigenvectors
 > - Jacobi rotation [4, 5], Jacobi eigenvalue algorithm [7]: \newline
     Create almost a diagonal matrix (bidiagonal): $A = U B V$, $O(m n^2)$ \newline
