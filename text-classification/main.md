@@ -1,6 +1,6 @@
 ---
 title:
-- Word Sense Disambiguation
+- Text Classification
 subtitle: |
     | (SNLP tutorial)
 author:

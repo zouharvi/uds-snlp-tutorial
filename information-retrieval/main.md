@@ -96,7 +96,7 @@ classoption: handout,notes
 
 > - Stemming (_going $\rightarrow$ go_, _studies $\rightarrow$ studi_)
 > - \- Not always: query _becomes stressed_ vs. _becom stress_
-> - Lemmatization (_going $\rightarrow$ go_, _studies $\rightarrow$ study)
+> - Lemmatization (_going $\rightarrow$ go_, _studies $\rightarrow$ study_)
 > - \- Not always: query _becomes stressed_ vs. _become stress_
 > - Stop words (_for, of, and, or_)
 > - \- Not always: query _Wizard of Oz_ vs. _Wizard Oz_
@@ -204,6 +204,7 @@ $$tf'(term, doc) = 0.5 + 0.5 \cdot \frac{count_{doc}(term)}{ max_{term'} \{count
 
 > - Issue: still enormous vectors
 > - Issue: `demon - Mephistopheles` are equally separate concepts as `demon - lassagne`
+> - Issue: independent terms assumption
 
 # Solution 4 (LSA)
 
