@@ -15,7 +15,7 @@ header-includes:
 documentclass: beamer
 # classoption:
 # classoption: notes
-classoption: notes,handout
+# classoption: notes,handout
 ---
 
 # Overview
@@ -68,7 +68,7 @@ classoption: notes,handout
 > - Transitions: MLE from annotated data
 > - Emission probabilities: MLE from annotated data (+ smoothing)
 > - $p(x,y) = \prod_i a(y_{i-1}, y_{i}) \cdot o(y_i, x_i)$
-> - Optimizes $argmax\ p(x, y |\theta)$, though we are interested in $argmax\ p(y|x,\theta)$
+> - Optimizes $p(x, y |\theta)$, though we are interested in $p(y|x,\theta)$
 
 ::: notes
 - HMMs seem a better fit for this task, since it captures transition probabilities between latent variables and emission probabilities.
@@ -118,7 +118,7 @@ $p(\text{Sprinkler}|\text{Cloudy},\text{Rain}) =p(\text{Sprinkler}|\text{Cloudy}
 # Naïve Bayes
 
 - Assume absolute independence except for the one observed variable
-- $p(y=\text{Mild}|x) = p(y_j|x) = \frac{p(x|y_j)p(y_j)}{p(x)} \propto p(x|y_j) p(y_j) \approx p(y_j) \prod_i p(x_i|y_j)$
+- $p(y=\text{Yes}|x) = p(y_j|x) = \frac{p(x|y_j)p(y_j)}{p(x)} \propto p(x|y_j) p(y_j) \approx p(y_j) \prod_i p(x_i|y_j)$
 
 \centering
 \begin{tikzpicture}[
@@ -127,29 +127,19 @@ $p(\text{Sprinkler}|\text{Cloudy},\text{Rain}) =p(\text{Sprinkler}|\text{Cloudy}
   observed/.style={draw,rectangle,text width=1.7cm,align=center}
 ]
 \node[mynode] at (0, 1.3) (clf) {Forecast};
-\node[mynode] at (3, 1.3) (ra) {Sprinkler};
-\node[mynode] at (6, 1.3) (gw) {Grass wet};
-\node[mynode] at (9, 1.3) (cs) {Car splash};
-\node[observed] at (1.5, 0) (cl) {Cloudy};
-\node[observed] at (4.5, 0) (sp) {Rain};
-\node[observed] at (7.5, 0) (gw) {Grass wet};
+\node[mynode] at (3, 1.3) (ra) {Cloudy};
+\node[mynode] at (6, 1.3) (gw) {Foggy};
+\node[observed] at (3, 0) (sp) {Rain};
 \path
 (sp) edge[latex-] (clf)
 (sp) edge[latex-] (ra)
-(sp) edge[latex-] (cs)
-(cl) edge[latex-] (clf)
-(cl) edge[latex-] (ra)
-(cl) edge[latex-] (cs)
-(gw) edge[latex-] (clf)
-(gw) edge[latex-] (ra)
-(gw) edge[latex-] (cs);
+(sp) edge[latex-] (gw);
 \end{tikzpicture}
 
 ::: notes
 - In Naïve Bayes we artificially flatten the network so that the observed variable is directly dependent to all causes and there are no other dependencies.
 - The formula shows where the approximation is taking place.
-- A practical example why this is naïve is that the variable _Rain_ is heavily dependent on the _Cloudy_ variable. And if we put both there in the formula, then we assign higher weight to the concept of _raining_ or _cloudyness_ than whether the grass was wet.
-- Labels: None, Mild, Heavy
+- A practical example why this is naïve is that the variable _Rain_ is heavily dependent on the _Cloudy_ variable but as well on the _Foggy_, which in turn is almost the same thing as _Cloudy_. And if we put both all these in the formula, then we assign higher weight to the concept of _cloudyness_ than to _forecast_.
 :::
 
 # HMM
@@ -161,11 +151,11 @@ $p(\text{Sprinkler}|\text{Cloudy},\text{Rain}) =p(\text{Sprinkler}|\text{Cloudy}
   observed/.style={draw,rectangle,text width=1.5cm,align=center}
 ]
 \node[mynode] at (-3, 2) (y0) {Start};
-\node[mynode] at (0, 2) (y1) {Weather};
+\node[mynode] at (0, 2) (y1) {Sunny};
 \node[observed] at (0, 0) (x1) {X1 0.9 Walk};
-\node[mynode] at (3, 2) (y2) {Weather};
+\node[mynode] at (3, 2) (y2) {Cloudy};
 \node[observed] at (3, 0) (x2) {X2 0.0 Walk};
-\node[mynode] at (6, 2) (y3) {Weather};
+\node[mynode] at (6, 2) (y3) {Cloudy};
 \node[observed] at (6, 0) (x3) {X3 0.1 Walk};
 \path
 (y0) edge[-latex] (y1)
@@ -201,7 +191,7 @@ p(y|x) = \prod_i a(y_{i-1}, y_{i}) \cdot o(y_i, x_i) \text{ (HMM)}
 \centering 
 $p(y|x) = \frac{\exp(\Phi(y,x))}{\sum_{y'} \exp(\Phi(y',x))}$
 
-$\arg \max_y \frac{\exp(\Phi(y,x))}{\sum_{y'} \exp(\Phi(y',x))}$
+$\arg \max_y \frac{\exp(\Phi(y,x))}{\sum_{y'} \exp(\Phi(y',x))} = \arg \max_y \exp(\Phi(y,x))$
 
 ::: notes
 - Another approach is to assign a score to every sequence and then pick the best one.
@@ -218,7 +208,7 @@ $\arg \max_y \frac{\exp(\Phi(y,x))}{\sum_{y'} \exp(\Phi(y',x))}$
 > - $argmax\ p(y|x) \ldots$ 
 
 ::: notes
-- Looks like logistic regression.
+- Looks like HMM.
 - This has exactly the same number of parameters but they all model $p(y|x)$ and not $p(x,y)$. This is more ideal for us.
 :::
 
@@ -344,7 +334,7 @@ $O(|Y|^2\cdot T)$
 & \qquad \qquad \qquad \qquad \theta_a = a(\text{number}, \texttt{none}) \\
 & f_o(y_{t-1}, y_t, x, t) =
 \begin{cases}
-    1 \qquad \text{if } x_{t-1} = \texttt{number} \wedge x_t = \texttt{<num>} \\
+    1 \qquad \text{if } y_{t} = \texttt{number} \wedge x_t = \texttt{<num>} \\
     0 \qquad \text{else}
 \end{cases} \\
 & \qquad \qquad \qquad \qquad  \theta_o = o(\text{number}, \texttt{<num>})
