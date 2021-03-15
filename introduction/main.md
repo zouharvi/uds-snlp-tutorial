@@ -18,11 +18,11 @@ header-includes:
 \begin{itemize}
 \setlength{\itemsep}{-0.2cm}
 \item Hello
-\item Topics
-\item Requirements
-\item 
+\item Topics (10 minutes)
+\item Requirements (10 minutes)
+\item Materials
 \item Cheating
-\item Homework
+\item Homework (10 minutes)
 \end{itemize}
 
 # Hello
@@ -54,7 +54,44 @@ Task: Pick one not yet taken + why do you find it interesting.
 
 TBD
 
-# What's available / backpropagation
+||Points|Weight|
+|:-|:-:|:-:|
+|Homework|TBD|$\Rightarrow$ TBD%|
+|Final Project|TBD|$\Rightarrow$ TBD%|
+|Bonus Points|TBD|$\Rightarrow$ TBD%|
+|\midrule Required|TBD|$\Rightarrow$ TBD%|
+
+. . .
+
+
+## Bonus Points
+
+- Activity during tutorials
+- Extraordinarily nice solutions to HW
+- Contributing to \textbf{
+  \href{https://github.com/zouharvi/uds-snlp-tutorial}{github.com/zouharvi/uds-snlp-tutorial}
+}
+- Presenting one of the topics (details later)
+
+\note{
+Contributing:
+
+\begin{itemize}
+\item Semi-non-trivial (more than a single typo correction) PRs to get a bonus point\newline (although PR those as well!)
+\item Also aesthetical changes are permitted
+\item Any suggestions/activities on the repository are welcome
+\item Contact me if you run into technical issues (though just editing the markdown should be enough)
+\end{itemize}
+
+HW:
+
+\begin{itemize}
+\item Mention if you think you deserve extra points when submitting
+\end{itemize}
+
+}
+
+# What's available
 
 - Lectures by prof. Klakow
 - Live tutorials
@@ -66,7 +103,7 @@ TBD
 
 . . .
 
-\centering \small
+\centering \footnotesize
 
 no
 
@@ -76,5 +113,5 @@ TBD
 
 # Resources
 
-1. UdS SNLP Class, WSD: <https://teaching.lsv.uni-saarland.de/snlp/>
-2. Classical Statistical WSD: <https://www.aclweb.org/anthology/P91-1034.pdf>
+1. UdS SNLP Class: <https://teaching.lsv.uni-saarland.de/snlp/>
+2. Tutorial repository: <https://github.com/zouharvi/uds-snlp-tutorial>
