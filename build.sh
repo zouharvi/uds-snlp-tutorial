@@ -20,5 +20,5 @@ else
 fi
 
 cd $1 &&
-pandoc main.md -t beamer -o $OUTFILE -V "classoption=$CLASSOPTION" &&
+pandoc main.md -t beamer -o $OUTFILE -V "classoption=$CLASSOPTION" && 
 cd ..

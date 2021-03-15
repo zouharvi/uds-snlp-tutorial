@@ -6,7 +6,7 @@ Compile slides using pandoc and the provided script (handout includes notes and 
 - `./build.sh machine-translation handout`
 - `./build.sh machine-translation tutorial`
 
-Schedule (links provided only to finished materials):
+Schedule (links provided only to semi-finished materials):
 - Introduction
 - Language Properties
 - Entropy
