@@ -41,14 +41,15 @@ header-includes:
 
 Task: Pick one not yet taken + why do you find it interesting.
 
-- Language properties, Zipf's Law
+- Language properties, Zipf's Law, basic statistical formalism
 - Entropy, basic information theory (Shannon's game, entropy-based quantities, code lengths)
 - Language modelling, back-off models (interpolation, discounting)
-- Text classification, basic classification algorithms (kNN, decision trees, SVM, \ldots)
-- Word sense disambiguation, dictionary / translation / collocation based disambiguation
+- Text classification, basic algorithms (kNN, decision trees, SVM, \ldots)
+- Word sense disambiguation, basic algorithms (dictionary-, translation-, collocation-based)
 - Information retrieval, latent semantic analysis, singular value decomposition
 - Machine translation, word alignment, beamsearch
-- Sequence labeling (hidden markov chains / models, conditional random fields)
+- POS tagging, named entity recognition 
+- - sequence labeling (hidden markov chains / models, conditional random fields)
 
 # Requirements
 
@@ -99,6 +100,7 @@ HW:
 - Consultations {live, email, chat}
 - Corrected homework
 
+<!--
 # Cheating
 
 . . .
@@ -106,6 +108,11 @@ HW:
 \centering \footnotesize
 
 no
+-->
+
+# Dates
+
+TBD
 
 # Homework
 
