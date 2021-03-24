@@ -13,7 +13,7 @@ Schedule (links provided only to semi-finished materials):
 - Word Sense Disambiguation
 - [Information Retrieval](information-retrieval/handout.pdf)
 - [Machine Translation](machine-translation/handout.pdf)
-- [Conditional Random Fields](conditoinal-random-fields/handout.pdf)
+- [Conditional Random Fields](conditional-random-fields/handout.pdf)
 
 ## Contributing
 

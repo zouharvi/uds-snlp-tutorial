@@ -18,10 +18,10 @@ header-includes:
 \begin{itemize}
 \setlength{\itemsep}{-0.2cm}
 \item Hello
-\item Topics (10 minutes)
-\item Requirements (10 minutes)
+\item Topics (15 minutes)
+\item Requirements (5 minutes)
 \item Materials
-\item Cheating
+\item Assignments
 \item Homework (10 minutes)
 \end{itemize}
 
@@ -29,7 +29,7 @@ header-includes:
 
 \centering
 
-\large Who am I? 
+\large Who am I?
 
 . . .
 
@@ -53,51 +53,31 @@ Task: Pick one not yet taken + why do you find it interesting.
 
 # Requirements
 
-TBD
+::: frame
+## Tutorial Requirements (exam admission)
+- 60% of mandatory points (~10 assignments)
+- Presenting a solution to an excercise _at least_ once
+:::
 
-||Points|Weight|
-|:-|:-:|:-:|
-|Homework|TBD|$\Rightarrow$ TBD%|
-|Final Project|TBD|$\Rightarrow$ TBD%|
-|Bonus Points|TBD|$\Rightarrow$ TBD%|
-|\midrule Required|TBD|$\Rightarrow$ TBD%|
+::: frame
+## Tutorial Bonus Points
+- ~2pts for extra excercises in the assignments
+- 1pt for participating and _talking_ in an tutorial
+:::
 
-. . .
-
-
-## Bonus Points
-
-- Activity during tutorials
-- Extraordinarily nice solutions to HW
-- Contributing to \textbf{
-  \href{https://github.com/zouharvi/uds-snlp-tutorial}{github.com/zouharvi/uds-snlp-tutorial}
-}
-- Presenting one of the topics (details later)
-
-\note{
-Contributing:
-
-\begin{itemize}
-\item Semi-non-trivial (more than a single typo correction) PRs to get a bonus point\newline (although PR those as well!)
-\item Also aesthetical changes are permitted
-\item Any suggestions/activities on the repository are welcome
-\item Contact me if you run into technical issues (though just editing the markdown should be enough)
-\end{itemize}
-
-HW:
-
-\begin{itemize}
-\item Mention if you think you deserve extra points when submitting
-\end{itemize}
-
-}
+::: frame
+## Final Project
+- 25\% of the final grade
+- Details TBD
+:::
 
 # What's available
 
 - Lectures by prof. Klakow
 - Live tutorials
 - Tutorial handouts
-- Consultations {live, email, chat}
+- Consultations {live after tutorial, **no** email, **no** chat}
+- Public forum (TBD)
 - Corrected homework
 
 <!--
@@ -109,6 +89,11 @@ HW:
 
 no
 -->
+
+# Assignments
+
+- Google Collab templates
+- TODO describe asssignment format
 
 # Dates
 
