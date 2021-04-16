@@ -18,7 +18,8 @@ Schedule (links provided only to semi-finished materials):
 ## Contributing
 
 Compile slides using pandoc and the provided script (handout includes notes and disables iterative lists):
-- `./build.sh machine-translation handout`
-- `./build.sh machine-translation tutorial`
+- Slides: `./build.sh machine-translation tutorial`
+- Handout version: `./build.sh machine-translation handout`
+- Both: `./build.sh machine-translation`
 
 Make sure you have `pandoc` and `texlive` installed. You don't need to build the presentations if you want to contribute - editing the markdown is enough. If you still wish to compile them (great!) and encounter technical issues, contact me.

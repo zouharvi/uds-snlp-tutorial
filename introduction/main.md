@@ -4,7 +4,7 @@ title:
 subtitle: |
     | (SNLP tutorial)
 author:
-- Vilém Zouhar
+- Vilém Zouhar, Awantee Deshpande, Julius Steuer
 theme:
 - Boadilla
 date: \today
@@ -55,8 +55,9 @@ Task: Pick one not yet taken + why do you find it interesting.
 
 ::: frame
 ## Tutorial Requirements (exam admission)
-- 60% of mandatory points (~10 assignments)
+- 70% of mandatory points (~10 assignments)
 - Presenting a solution to an excercise _at least_ once
+- Tutorial points only for exam admission (no final grade influence)
 :::
 
 ::: frame
@@ -76,8 +77,12 @@ Task: Pick one not yet taken + why do you find it interesting.
 - Lectures by prof. Klakow
 - Live tutorials
 - Tutorial handouts
-- Consultations {live after tutorial, **no** email, **no** chat}
-- Public forum (TBD)
+- Consultations
+- - Only in specific cases
+- - **no** email and **no** chat by default
+- Public forum (please use [Piazza](https://piazza.com/uni-saarland.de/spring2021/snlp))
+- - Other students will also benefit from the answers
+- - You can answer someone else's issue
 - Corrected homework
 
 <!--
@@ -92,18 +97,30 @@ no
 
 # Assignments
 
-- Google Collab templates
-- TODO describe asssignment format
+- Mandatory groups of 2
+- Usually 3 excerises per one assignment
+- - Can't be changed later (very special exceptions)
+- Jupyter notebook templates
+- - Assignment + solution in the same notebook
+- - Can use Google Collab or local runtime
+- Only one submission per group
+- - Submit through Teams
 
-# Dates
+# Dates / Times
 
-TBD
+- Lecture: Fridays 8:30-10:00
+- Tutorials:
+- - Awantee: TODO
+- - Julius: TODO
+- - Vilém: TODO
+- Exam: (TBD) 30. Jul.
 
-# Homework
+# Current Homework
 
 TBD
 
 # Resources
 
 1. UdS SNLP Class: <https://teaching.lsv.uni-saarland.de/snlp/>
-2. Tutorial repository: <https://github.com/zouharvi/uds-snlp-tutorial>
+2. Tutorial repository for these slides: <https://github.com/zouharvi/uds-snlp-tutorial>
+3. Piazza: <https://piazza.com/uni-saarland.de/spring2021/snlp>
