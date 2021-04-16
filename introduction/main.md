@@ -19,10 +19,10 @@ header-includes:
 \setlength{\itemsep}{-0.2cm}
 \item Hello
 \item Topics (15 minutes)
-\item Requirements (5 minutes)
+\item Requirements
 \item Materials
 \item Assignments
-\item Homework (10 minutes)
+\item Homework (30 minutes)
 \end{itemize}
 
 # Hello
@@ -74,16 +74,17 @@ Task: Pick one not yet taken + why do you find it interesting.
 
 # What's available
 
-- Lectures by prof. Klakow
-- Live tutorials
-- Tutorial handouts
+- Lectures by prof. Klakow (recorded)
+- Tutorials
+- Corrected homework
 - Consultations
 - - Only in specific cases
-- - **no** email and **no** chat by default
+- - By default **no** email and **no** chat
+- - Better ask during the lecture / tutorials
 - Public forum (please use [Piazza](https://piazza.com/uni-saarland.de/spring2021/snlp))
+- - Ask questions
 - - Other students will also benefit from the answers
 - - You can answer someone else's issue
-- Corrected homework
 
 <!--
 # Cheating
@@ -114,6 +115,12 @@ no
 - - Julius: TODO
 - - Vilém: TODO
 - Exam: (TBD) 30. Jul.
+
+# Tutorial Content
+
+- Review of the topic (per demand)
+- Presentation of the past assignment
+- Troubleshooting current assignment
 
 # Current Homework
 
