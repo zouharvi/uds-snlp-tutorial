@@ -16,7 +16,15 @@ data_loss = defaultdict(lambda: [])
 # Input: cleaned exported csv file without the header (and without Vilém's vote which can't be removed)
 with open(sys.argv[1], 'r', newline='') as f:
     reader = csv.reader(f, quotechar='"')
-    for name, _email, slots in reader:
+    _header = next(reader)
+    _vilem_vote = next(reader)
+    print("Skipping:", _header)
+    print("Skipping:", _vilem_vote)
+    for line in reader:
+        # end of slots vote segment
+        if len(line) == 0:
+            break
+        name, _email, slots = line
         slots = slots.strip('"').replace('.',',').split(',')
         for slot in slots:
             slot = int(slot)
