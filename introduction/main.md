@@ -55,8 +55,7 @@ Task: Pick one not yet taken + why do you find it interesting.
 
 ::: frame
 ## Tutorial Requirements (exam admission)
-- 70% of mandatory points (~10 assignments)
-- Presenting a solution to an excercise _at least_ once
+- 70% of mandatory points (~10 assignments, 10 points each)
 - Tutorial points only for exam admission (no final grade influence)
 :::
 
@@ -64,6 +63,10 @@ Task: Pick one not yet taken + why do you find it interesting.
 ## Tutorial Bonus Points
 - ~2pts for extra excercises in the assignments
 - 1pt for participating and _talking_ in an tutorial
+- Presenting a solution to an excercise (~5 points)
+- - Presentable excercises are marked in the assignment sheet
+- - Let individual tutors known if you wish to present (first come - first serve)
+- - Every group can present _at most_ once, about 10 to 15 minutes
 :::
 
 ::: frame
@@ -114,6 +117,9 @@ no
 - - Awantee: TODO
 - - Julius: TODO
 - - Vilém: TODO
+- Assignments
+- - Release (usually) Friday 23:59
+- - Deadline (next) Friday 23:59 (also in Teams)
 - Exam: (TBD) 30. Jul.
 
 # Tutorial Content
