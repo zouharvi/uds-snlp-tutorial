@@ -69,10 +69,18 @@ Task: Pick one not yet taken + why do you find it interesting.
 - - Every group can present _at most_ once, about 10 to 15 minutes
 :::
 
-::: frame
+::: columns
+:::: column
 ## Final Project
 - 25\% of the final grade
 - Details TBD
+::::
+
+:::: column
+## Transfer from last year
+- Possible
+- Do project and exam
+::::
 :::
 
 # What's available
@@ -130,7 +138,10 @@ no
 
 # Current Homework
 
-TBD
+- Notebook instructions
+- Stick breaking
+- Zipf's law on words
+- Bonus: Zipf's law on characters
 
 # Resources
 
