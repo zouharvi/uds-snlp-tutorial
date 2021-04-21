@@ -88,7 +88,7 @@ Task: Pick one not yet taken + why do you find it interesting.
 # What's available
 
 - Lectures by prof. Klakow (recorded)
-- Tutorials
+- Tutorials (not recorded, but allowed - for private sharing)
 - Corrected homework
 - Consultations
 - - Only in specific cases
