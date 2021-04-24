@@ -18,12 +18,12 @@ header-includes:
 \begin{itemize}
 \setlength{\itemsep}{-0.2cm}
 \item Hello
-\item Topics (15 minutes)
+\item Topics
 \item Requirements
 \item Materials
 \item Assignments
 \item Homework
-\item Zipf's Law (30 minutes)
+\item Zipf's Law
 \item QA
 \end{itemize}
 
@@ -41,17 +41,15 @@ header-includes:
 
 # Topics
 
-Task: Pick one not yet taken + why do you find it interesting.
-
-- Language properties, Zipf's Law, basic statistical formalism
-- Entropy, basic information theory (Shannon's game, entropy-based quantities, code lengths)
-- Language modelling, back-off models (interpolation, discounting)
-- Text classification, basic algorithms (kNN, decision trees, SVM, \ldots)
-- Word sense disambiguation, basic algorithms (dictionary-, translation-, collocation-based)
-- Information retrieval, latent semantic analysis, singular value decomposition
-- Machine translation, word alignment, beamsearch
-- POS tagging, named entity recognition 
-- - sequence labeling (hidden markov chains / models, conditional random fields)
+- Language properties, Zipf's Law, Basic statistical formalism
+- Information theory (Shannon's game, Code Length, Compression), Entropy
+- Language modelling, Backing-off models (interpolation, discounting, smoothing)
+- Text classification, Algorithms (kNN, Decision Trees, SVM, \ldots)
+- Word Sense Disambiguation, Algorithms (Dictionary based-, translation-, Collocation-based)
+- Information retrieval, Latent Semantic Analysis, Singular Value Decomposition
+- Machine Translation, Word alignment
+- POS Tagging, Named Entity Recognition 
+- - Sequence labeling (Hidden Markov models, Conditional Random Fields)
 
 # Requirements
 
@@ -63,12 +61,11 @@ Task: Pick one not yet taken + why do you find it interesting.
 
 ::: frame
 ## Tutorial Bonus Points
-- ~2pts for extra excercises in the assignments
-- 1pt for participating and _talking_ in an tutorial
-- Presenting a solution to an excercise (~5 points)
-- - Presentable excercises are marked in the assignment sheet
-- - Let individual tutors known if you wish to present (first come - first serve)
-- - Every group can present _at most_ once, about 10 to 15 minutes
+- ~2pts for extra exercises in the assignments
+- 1pt for participating and _talking_ in a tutorial
+- Presenting a solution to the assignment (~5 points)
+- - Let individual tutors known if you wish to present (in the respective tutor's channel)
+- - Every group can present _at most_ once
 :::
 
 ::: columns
@@ -87,13 +84,13 @@ Task: Pick one not yet taken + why do you find it interesting.
 
 # What's available
 
-- Lectures by prof. Klakow (recorded)
-- Tutorials (not recorded, but allowed - for private sharing)
+- Lectures by Prof. Klakow (recorded)
+- Tutorials (not recorded, but allowed for private sharing)
 - Corrected homework
 - Consultations
 - - Only in specific cases
-- - By default **no** email and **no** chat
-- - Better ask during the lecture / tutorials
+- - By default **no** email and **no** personal chat
+- - Ask questions during the lecture / tutorials
 - Public forum (please use [Piazza](https://piazza.com/uni-saarland.de/spring2021/snlp))
 - - Ask questions
 - - Other students will also benefit from the answers
@@ -112,11 +109,12 @@ no
 # Assignments
 
 - Mandatory groups of 2
-- Usually 3 excerises per one assignment
-- - Can't be changed later (very special exceptions)
+- Usually 3 exercises per assignment + a possible bonus question
 - Jupyter notebook templates
 - - Assignment + solution in the same notebook
-- - Can use Google Collab or local runtime
+- - Can use Google Colab or local runtime
+- - Write solutions in Python files and import them
+- - Submitted notebook must only contain your analysis and outputs
 - Only one submission per group
 - - Submit through Teams
 
@@ -124,26 +122,27 @@ no
 
 - Lecture: Fridays 8:30-10:00
 - Tutorials:
-- - Awantee: TODO
-- - Julius: TODO
-- - Vilém: TODO
+- - Awantee: Tuesday 14:15-15:45
+- - Julius: Tuesday 12:15-13:45
+- - Vilém: Thursday 16:00-17:30
 - Assignments
-- - Release (usually) Friday 23:59
-- - Deadline (next) Friday 23:59 (also in Teams)
-- Exam: (TBD) 30. Jul.
+- - Released (usually) Friday 23:59 (available in Teams)
+- - Deadline (next) Friday 23:59 (submit in Teams)
+- Exam: 23rd. Jul. (8:00-10:00)
+- Project Deadline: Sometime in August
 
 # Tutorial Content
 
-- Review of the topic (per demand)
+- Review of the topics covered in class
 - Presentation of the past assignment
-- Troubleshooting current assignment
+- Discussing doubts in current assignment
 
 # Current Homework
 
-- Notebook instructions
-- Stick breaking
-- Zipf's law on words
-- Bonus: Zipf's law on characters
+- Exercise 1: Notebook instructions
+- Exercise 2: Stick breaking
+- Exercise 3: Zipf's law at word level
+- Bonus: Zipf's law at character level
 
 # Languages
 
@@ -195,7 +194,7 @@ Usually defined by the alphabet and production rules (Automata and Grammar).
 :::: column
 \vspace{1cm}
 1. Sort words/entries by frequency f(x)
-2. r(x) = position in the sorted list
+2. r(x) = rank = position in the sorted list
 - Then $f(x) \propto \frac{1}{r(x)^\gamma}$ ($\gamma$ parameter)
 3. Most common entry $m$.
 - Then $f(x) = \frac{f(m)}{r(x)^\gamma}$
@@ -268,7 +267,7 @@ $\log(C) - \gamma x$
 > - Works beyond natural languages
 > - DNA subsequences of fixed lengths
 > - Code (programming languages)
-> - Population of cities (frequency is city population) [5]
+> - Population of cities (frequency is city population)
 
 |Rank|City|Population|
 |:-|:-:|:-:|
@@ -282,8 +281,17 @@ $\log(C) - \gamma x$
 |8|San Diego, Calif.|1,381,069|
 |9|Dallas, Tex.|1,381,069|
 
+# Mandelbrot Distribution
+$$f(x) = \frac{m}{(c + r(x))^B}$$
+
+Parameters to determine:
+
+- m - Normalising term
+- c $\ge$ 0 
+- B > 1
+
 # Resources
 
-1. UdS SNLP Class: <https://teaching.lsv.uni-saarland.de/snlp/>
-2. Tutorial repository for these slides: <https://github.com/zouharvi/uds-snlp-tutorial>
-3. Piazza: <https://piazza.com/uni-saarland.de/spring2021/snlp>
+1. Course Website: <https://www.lsv.uni-saarland.de/statistical-natural-language-processing-summer-2021/>
+2. Piazza: <https://piazza.com/uni-saarland.de/spring2021/snlp>
+3. Teams channel: <https://teams.microsoft.com/l/channel/19%3ac27c6662bea5450ebd05aad405690742%40thread.tacv2/General?groupId=4aab09db-6c09-4284-bfb0-2a94317c1d57&tenantId=67610027-1ac3-49b6-8641-ccd83ce1b01f>
