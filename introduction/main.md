@@ -7,7 +7,7 @@ author:
 - Vilém Zouhar, Awantee Deshpande, Julius Steuer
 theme:
 - Boadilla
-date: \today
+date: 27th, 29th April
 aspectratio: 169
 header-includes:
   - \AtBeginDocument{}
