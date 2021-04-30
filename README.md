@@ -5,8 +5,8 @@ Incomplete slides for Statistical Natural Language Processing tutorials of Summe
 ## Outline
 
 Schedule (links provided only to semi-finished materials):
-- Introduction
-- Language Properties
+- [Introduction](introduction/handout.pdf)
+- [Language Properties](introduction/handout.pdf)
 - Entropy
 - Language Modelling
 - Text Classification

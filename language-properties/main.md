@@ -15,53 +15,43 @@ header-includes:
 
 # Overview 
 
-\begin{itemize}
-\setlength{\itemsep}{-0.2cm}
-\item Languages
-\item TODO
-\end{itemize}
+- Perplexity
+- Maximum Likelihood Estimation
+- Smoothing
 
-# Probability Theory
+# Perplexity
 
-TODO
+::: frame
+## Formulas
 
-::: columns
-:::: column
-
-## Word probability
-TODO
-
-## Marginalization
-TODO
-
-
-::::
-:::: column
-## Conditional probability
-TODO
-
-## Independent variables
-TODO
-
-::::
-:::
-
-# Probability Theory
+\begin{gather*}
+2^{\frac{1}{n} \sum^n_1 \log p(w_i|w_{i-1})} \\
+2^{-\sum_{w,h}f(w,h)\log_2 P(w|h)}
+\end{gather*}
+::: 
 
 TODO
 
-## Bayes rule/decomposition
+# Maximum Likelihood Estimation
 
-## Expected value
+TODO
+
+- A way to estimate language model (distribution) parameters
+- Trying to maximize probability of the training data
+
+# LM Smoothing
+
+TODO
+
+- Q: What happens if an unknown token is encountered and LM assigns it 0 probability?
 
 # Homework
 
-TBD
+- Perplexity calculation by hand
+- Plotting n-grams
+- MLE language model and smoothing
+- Custom alternative to perplexity
 
 # Resources
 
-1. UdS SNLP Class: <https://teaching.lsv.uni-saarland.de/snlp/>
-2. Tutorial repository: <https://github.com/zouharvi/uds-snlp-tutorial>
-3. Alice in Wonderland, Lewis Caroll
-4. SergioJimenez, CC BY-SA 4.0 <https://commons.wikimedia.org/wiki/File:Zipf_30wiki_en_labels.png>
-5. <https://www.futurelearn.com/info/courses/maths-linear-quadratic/0/steps/12150>
+1. TODO
