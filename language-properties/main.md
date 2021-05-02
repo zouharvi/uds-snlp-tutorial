@@ -15,16 +15,17 @@ header-includes:
 # Organisational Issues
 - Teammates 
 - Assignment submissions
-- - Naming your assignment folder: Name1\_id1\_Name1\_id2
+- - Naming your assignment folder: `Name1_id1_Name1_id2.zip`
 - - Your Notebooks and files should be directly inside the main folder (no unnecessary nesting)
-- - Do not submit the following files
--  > > \_\_pycache\_\_
-- > > .ipynb_checkpoints
--  > > data folder/files
--  > > any other pdf or information file accompanying the assignment
-- - Only submit: Notebook + Python files! Otherwise we could deduct your marks.
+- - Do not submit the following files:
+- > > `__pycache__`
+- > > `.ipynb_checkpoints`
+- > > `data/`
+- > > any other pdf or information file accompanying the assignment
+- - Only submit: Notebook + Python files. Otherwise points can be subtracted..
 
 # Part 1: Discussion of Assignment 1
+
 - Exercise 1: Instructions for setup
 - Exercise 2: Stick breaking
 - Exercise 3: Zipf's Law at word level
@@ -38,19 +39,29 @@ header-includes:
 - Smoothing
 
 # Probability Theory for language models
+
 ::: frame
 ## Predict
-$P(w_i|h_i)$ or $P(w_1, w_2 ... w_N)$
+$P(w_1, w_2 ... w_N)$ which can be decomposed as $\prod P(w_i|h_{:i})$
 ::: 
 
-Compare for uniform,unigram, bigram, trigram... ngram models. Where do we assume statistical independence?
+
+::: frame
+## Bonus question
+Compare for uniform, unigram, bigram, trigram... ngram models.
+
+- Where do we assume statistical independence?
+- How is this assumption called?
+::: 
 
 . . .
 
 ::: frame
-## Expectation value
+## Entropy as Expectation value
 $$E[f(V)] = \sum_{w_i \in V} p(w_i)f(w_i)$$
-For LMs,
+
+Entropy is a property of any distribution, e.g. that of a unigram language model.
+
 $$H = E[-log(p(w_i))] = -\sum_{w_i \in V} p(w_i)log(p(w_i))$$
 ::: 
 
@@ -59,7 +70,7 @@ What does this mean? What are we capturing by the entropy of the LM?
 # Perplexity
 
 ::: frame
-## Formulae
+## Formulas
 
 \begin{gather*}
 PP = 2^{\frac{1}{n} \sum^n_1 \log p(w_i|w_{i-1})} \\
@@ -67,7 +78,7 @@ PP  = 2^{-\sum_{w,h}f(w,h)\log_2 P(w|h)}
 \end{gather*}
 ::: 
 
-How do these two formulae relate to each other?
+How do these two formulas relate to each other?
 
 TODO
 
