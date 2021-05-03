@@ -7,7 +7,7 @@ author:
 - Vilém Zouhar, Awantee Deshpande, Julius Steuer
 theme:
 - Boadilla
-date: \today
+date: April 27th, 29th
 aspectratio: 169
 header-includes:
   - \AtBeginDocument{}
@@ -106,7 +106,7 @@ How do these two formulas relate to each other?
 
 Different smoothing methods will be covered in the further chapters.
 
-- Q: What are LMs useful in downstream tasks?
+- Q: Why are LMs useful? Can you think of a downstream task that profits from LMs?
 
 # Homework
 
