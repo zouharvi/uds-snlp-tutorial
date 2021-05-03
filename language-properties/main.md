@@ -18,10 +18,10 @@ header-includes:
 - - Naming your assignment folder: `Name1_id1_Name1_id2.zip`
 - - Your Notebooks and files should be directly inside the main folder (no unnecessary nesting)
 - - Do not submit the following files:
-- > > o `__pycache__`
-- > > o `.ipynb_checkpoints`
-- > > o `data/*`
-- > > o any other pdf or information file accompanying the assignment
+- - - `__pycache__`
+- - - `.ipynb_checkpoints`
+- - - `data/*`
+- - - Any other pdf or information file accompanying the assignment
 - - Only submit: Notebook + Python files. Otherwise points can be deducted.
 
 # Part 1: Discussion of Assignment 1
@@ -66,24 +66,22 @@ $$H = E[-\log(p(V))] = -\sum_{w_i \in V} p(w_i)\log(p(w_i))$$
 
 What does this mean? What are we capturing by the entropy of the LM distribution?
 
+. . .
+
 Consider a bigram model where
 
-$E[-log P(`in', w)] = 10.42$ \small{e.g. ('in', 'fact'), ('in', 'that'), ('in', 'my')}
+$E[-\log P(w|'in')] = 10.42$ \small{e.g. ('in', 'fact'), ('in', 'that'), ('in', 'my')}
 
-$E[-log P(`the', w)] = 15.11$ \small{e.g. ('the', 'day'), ('the', 'most'), ('the', 'end')}
+$E[-\log P(w|'the')] = 15.11$ \small{e.g. ('the', 'day'), ('the', 'most'), ('the', 'end')}
 
 What do the expectation values indicate here?
 
 # Bonus Questions
 
-1. What is the entropy of a fair die $p = (\frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6})$?
-
-2. What is the entropy of a loaded die $q = (\frac{1}{12}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{2}{6})$?
-
-3. What is the cross-entropy of the same distribution? $H(p, p)$
-
-4. What is the cross-entropy of the loaded die q if we assume a fair die p $H(q, p)$?
-
+> 1. What is the entropy of a fair die $p = (\frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6})$?
+> 2. What is the entropy of a loaded die $q = (\frac{1}{12}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{2}{6})$?
+> 3. What is the cross-entropy of the same distribution? $H(p, p)$
+> 4. What is the cross-entropy of the loaded die q if we assume a fair die p $H(q, p)$?
 
 # Perplexity
 
@@ -107,16 +105,17 @@ How do these two formulae relate to each other?
 
 # LM Smoothing 
 
-- Q: What happens if an unknown token is encountered and the LM assigns it 0 probability?
-- Q: What are some quick solutions to this issue?
+::: frame
+## Bonus Questions
+> 1. What happens if an unknown token is encountered and the LM assigns it 0 probability?
+> 2. What are some quick solutions to this issue?
+> 3. How are LMs useful in downstream tasks?
+
+:::
 
 . . .
 
 Different smoothing methods will be covered in the further chapters.
-
-. . .
-
-- Q: How are LMs useful in downstream tasks?
 
 # Homework
 
@@ -127,4 +126,5 @@ Different smoothing methods will be covered in the further chapters.
 
 # Resources
 
-1. TODO
+1. Why is Perplexity used over Entropy? <https://stats.stackexchange.com/questions/285798/perplexity-and-cross-entropy-for-n-gram-models>
+2. On Redundancy in Natural Languages <http://www-math.ucdenver.edu/~wcherowi/courses/m5410/m5410lc1.html>
