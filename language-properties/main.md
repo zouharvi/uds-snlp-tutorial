@@ -7,7 +7,7 @@ author:
 - Vilém Zouhar, Awantee Deshpande, Julius Steuer
 theme:
 - Boadilla
-date: 4th, 6th May, 2021
+date: 4th, 6th May 2021
 aspectratio: 169
 header-includes:
   - \AtBeginDocument{}
