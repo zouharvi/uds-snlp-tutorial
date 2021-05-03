@@ -38,7 +38,7 @@ header-includes:
 - Maximum Likelihood Estimation
 - Smoothing
 
-# Probability Theory for language models
+# Probability Theory for Language Models
 
 ::: frame
 ## Predict
@@ -54,7 +54,7 @@ Compare for uniform, unigram, bigram, trigram... ngram models.
 - How is this assumption called?
 ::: 
 
-. . .
+# Probability Theory for Language Models
 
 ::: frame
 ## Entropy as Expectation value
@@ -65,7 +65,14 @@ Entropy is a property of any distribution, e.g. that of a unigram language model
 $$H = E[-log(p(w_i))] = -\sum_{w_i \in V} p(w_i)log(p(w_i))$$
 ::: 
 
-What does this mean? What are we capturing by the entropy of the LM?
+What does this mean? What are we capturing by the entropy of the LM distribution?
+
+## Bonus Questions
+
+1. What is the entropy of a fair dice $p = (\frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6})$?
+2. What is the entropy of a loaded dice $q = (\frac{1}{12}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{2}{6})$?
+3. What is the cross entropy of the same distribution? $H(p, p)$
+4. What is the cross entropy of the loaded dice if we assume a fair dice $H(q, p)$?
 
 # Perplexity
 
@@ -80,26 +87,30 @@ PP  = 2^{-\sum_{w,h}f(w,h)\log_2 P(w|h)}
 
 How do these two formulas relate to each other?
 
-TODO
+## Other metrics
+
+- Q: What is the advantage of mean rank over perplexity?
+- Q: What is the advantage of perplexity over mean rank?
 
 # Maximum Likelihood Estimation
 
-TODO
-
 - A way to estimate language model (distribution) parameters
 - Trying to maximize probability of the training data
+- ALERT: Separate the text itself from the language model
+- LMs exist independent of the text and MLE only maximizes their performance on the text
 
 # LM Smoothing 
 
-TODO
-
 - Q: What happens if an unknown token is encountered and LM assigns it 0 probability?
+- Q: What are some quick solutions to this issue?
 
 Different smoothing methods will be covered in the further chapters.
 
+- Q: What are LMs useful in downstream tasks?
+
 # Homework
 
-- Exercise 1: Perplexity calculation by han
+- Exercise 1: Perplexity calculation by hand
 - Exercise 2: Plotting n-gram distributions
 - Exercise 3: MLE language models, smoothing, perplexity calculation
 - Bonus: Custom alternative to perplexity
