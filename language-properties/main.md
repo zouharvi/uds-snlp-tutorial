@@ -81,7 +81,15 @@ What do the expectation values indicate here?
 > 1. What is the entropy of a fair die $p = (\frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6})$?
 > 2. What is the entropy of a loaded die $q = (\frac{1}{12}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{3}{12})$?
 > 3. What is the cross-entropy of the same distribution? $H(p, p)$
-> 4. What is the cross-entropy of the loaded die q if we assume a fair die p $H(q, p)$?
+> 4. What is the cross-entropy of the loaded die q if we assume a wrongly loaded die k $(\frac{1}{6}, \frac{1}{12}, \frac{1}{6}, \frac{1}{6}, \frac{3}{12}, \frac{1}{6})$?
+> 5. What would happen if we assumed the correct distribution?
+> 6. What does the difference tell us?
+
+<!-- 
+np.log(6)
+-4/6*np.log(1/6)-1/12*np.log(1/12)-3/12*np.log(3/12)
+-1/12*np.log(1/6)-1/6*np.log(1/12)-2/6*np.log(1/6)-1/6*np.log(3/12)-3/12*np.log(1/6)
+ -->
 
 # Perplexity
 
@@ -89,7 +97,7 @@ What do the expectation values indicate here?
 ## Formulae
 
 \begin{gather*}
-PP = 2^{-\frac{1}{n} \sum^n_1 \log p(w_i|w_{i-1})} \\
+PP = 2^{-\frac{1}{n} \sum^n_1 \log p(w_i|w_{:i})} \\
 PP  = 2^{-\sum_{w,h}f(w,h)\log_2 P(w|h)}
 \end{gather*}
 ::: 
