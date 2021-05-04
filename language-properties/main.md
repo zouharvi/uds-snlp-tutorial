@@ -70,7 +70,7 @@ What does this mean? What are we capturing by the entropy of the LM distribution
 ## Bonus Questions
 
 1. What is the entropy of a fair dice $p = (\frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6})$?
-2. What is the entropy of a loaded dice $q = (\frac{1}{12}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{2}{6})$?
+2. What is the entropy of a loaded dice $q = (\frac{1}{12}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6}, \frac{3}{12})$?
 3. What is the cross entropy of the same distribution? $H(p, p)$
 4. What is the cross entropy of the loaded dice if we assume a fair dice $H(q, p)$?
 
