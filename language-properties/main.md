@@ -132,6 +132,15 @@ Different smoothing methods will be covered in the further chapters.
 - Exercise 3: MLE language models, Perplexity calculation
 - Bonus: Custom alternative to perplexity
 
+# Bonus Question
+
+- _If the most frequent unigram is X, will the most frequent bigram begin with X?_ \
+  (R.M.V., 2021)
+
+<!-- 
+ABACADXDX
+-->
+
 # Resources
 
 1. Why is Perplexity used over Entropy? <https://stats.stackexchange.com/questions/285798/perplexity-and-cross-entropy-for-n-gram-models>
