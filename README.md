@@ -7,7 +7,7 @@ Incomplete slides for Statistical Natural Language Processing tutorials of Summe
 Schedule (links provided only to semi-finished materials):
 - [Introduction](introduction/handout.pdf)
 - [Language Properties](language-properties/handout.pdf)
-- Entropy
+- [KL Divergece](kl-divergence/handout.pdf)
 - Language Modelling
 - Text Classification
 - Word Sense Disambiguation

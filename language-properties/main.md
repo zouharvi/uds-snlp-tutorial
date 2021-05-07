@@ -1,8 +1,8 @@
 ---
 title:
-- Assignment 1 + Language Properties
+- KL Divergence
 subtitle: |
-    | (SNLP tutorial 2)
+    | (SNLP tutorial 3)
 author:
 - Vilém Zouhar, Awantee Deshpande, Julius Steuer
 theme:
