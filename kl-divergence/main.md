@@ -42,19 +42,15 @@ TODO solution
 
 # Correlation function
 
-TODO, examples, questions
+TODO, examples, exercises, questions
 
 # Conditional entropy
 
-TODO, examples, questions
+TODO, examples, exercises, questions
 
-# Compression
+# KL-divergence
 
-TODO
-
-# Huffman
-
-TODO
+TODO, examples, exercises, questions
 
 # Resources
 
