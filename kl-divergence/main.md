@@ -1,8 +1,8 @@
 ---
 title:
-- Language Properties
+- KL Divergence
 subtitle: |
-    | (SNLP tutorial 2)
+    | (SNLP tutorial 3)
 author:
 - Vilém Zouhar, Awantee Deshpande, Julius Steuer
 theme:
@@ -13,7 +13,48 @@ header-includes:
   - \AtBeginDocument{}
 ---
 
-# Organisational Issues
+# Organisation
+
+TODO
+
+# Overview of Formulas
+
+Write down the following formulas both in full from and using expectation.
+
+::: columns
+:::: column
+- Entropy
+- Joint entropy
+- Cross-entropy
+- Perplexity 1
+- Perplexity 2
+- Conditional entropy
+- KL-Divergence
+::::
+
+. . .
+
+:::: column
+TODO solution
+::::
+
+:::
+
+# Correlation function
+
+TODO, examples, questions
+
+# Conditional entropy
+
+TODO, examples, questions
+
+# Compression
+
+TODO
+
+# Huffman
+
+TODO
 
 # Resources
 
