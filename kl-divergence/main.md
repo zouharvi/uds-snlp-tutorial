@@ -1,6 +1,6 @@
 ---
 title:
-- Assignment 2 + Entropy, KL Divergence
+- Assignment 2 + Information Theory
 subtitle: |
     | (SNLP Tutorial 3)
 author:
@@ -118,6 +118,13 @@ Applications of KL Divergence:
 - Bayesian inference
 - Compression techniques
 - Variational autoencoders
+
+# Assignment 3
+
+- Exercise 1: Understanding entropy in languages
+- Exercise 2: Entropy as a measure of uncertainty
+- Exercise 3: KL Divergence properties
+- Bonus: Computation of KL Divergence
 
 
 # Resources
