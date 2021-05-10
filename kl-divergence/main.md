@@ -37,7 +37,7 @@ Concepts and formulations. (Express also as expectation values.)
 
 . . .
 
-:::: {.column width="60%"}
+:::: {.column width="65%"}
 > - $I(x) = - \log p(x)$
 > - $H(X) = - \sum_{x \in X} p(x) \cdot \log p(x)$
 > - $H(X,Y) = - \sum_{x \in X} \sum_{y \in Y} p(x,y) \cdot \log p(x,y)$
@@ -52,7 +52,7 @@ Concepts and formulations. (Express also as expectation values.)
 
 - Chain Rule:
 $$H(X,Y) = H(X) + H(Y|X)$$
-$$H(X_1...X_n) = H(X_1) + H(X_2 \mid X_1) + ... + H(X_n \mid X_1,...X_{n-1})$$
+$$H(X_1...X_n) = H(X_1) + H(X_2 \mid X_1) + ... + H(X_n \mid X_1,...,X_{n-1})$$
 
 . . .
 
@@ -68,10 +68,12 @@ $$I(X;Y \mid Z) = I((X;Y)|Z) = H(X \mid Z) - H(X \mid Y, Z)$$
 ::: columns
 :::: column
 ![](images/entropy_2.png){width=250px}
+\tiny Source: https://syncedreview.com/2020/11/30/synced-tradition-and-machine-learning-series-part-1-entropy/
 ::::
 
 :::: column
 ![](images/entropy_3.png){width=250px}
+\tiny Source: https://en.wikipedia.org/wiki/Information_diagram
 ::::
 :::
 
@@ -80,7 +82,7 @@ $$I(X;Y \mid Z) = I((X;Y)|Z) = H(X \mid Z) - H(X \mid Y, Z)$$
 +--------+-----+----+
 | X \\ Y | 0   | 1  |
 +========+=====+====+
-| 0      | 1/2 | 1/5|
+| 0      | 1/2 | 1/6|
 +--------+-----+----+
 | 1      | 1/3 | 0  |
 +--------+-----+----+
@@ -103,8 +105,23 @@ What is the (in)equality relationship between H(X) and H(Y) when
 
 # KL-divergence
 
-TODO, examples, exercises, questions
+::: frame
+## Question: Can we use the chain rule on KL-Divergence?
+
+. . .
+
+$$D(p(x,y) \mid \mid q(x,y)) = D(p(x) \mid \mid q(x)) + D(p(y \mid x) \mid \mid q(y \mid x))$$
+:::
+
+Applications of KL Divergence:
+
+- Bayesian inference
+- Compression techniques
+- Variational autoencoders
+
 
 # Resources
 
-1. TODO
+1. http://csustan.csustan.edu/~tom/sfi-csss/info-theory/info-lec.pdf
+2. https://www.cs.cmu.edu/~odonnell/toolkit13/lecture20.pdf
+3. https://syncedreview.com/2020/11/30/synced-tradition-and-machine-learning-series-part-1-entropy/
