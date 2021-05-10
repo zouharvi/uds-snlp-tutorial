@@ -22,7 +22,7 @@ header-includes:
 
 # Overview of Formulas
 
-Concepts and formulations. (Express also as expectation values.)
+Concepts and formulations. 
 
 ::: columns
 :::: column
@@ -41,9 +41,9 @@ Concepts and formulations. (Express also as expectation values.)
 > - $I(x) = - \log p(x)$
 > - $H(X) = - \sum_{x \in X} p(x) \cdot \log p(x)$
 > - $H(X,Y) = - \sum_{x \in X} \sum_{y \in Y} p(x,y) \cdot \log p(x,y)$
-> - $H(X,Y) = - \sum_{x \in X} \sum_{y \in Y} p(x,y) \cdot \log p(y \mid x)$
+> - $H(X \mid Y) = - \sum_{x \in X} \sum_{y \in Y} p(x,y) \cdot \log p(y \mid x)$
 > - $I(X;Y) = - \sum_{x,y} p(x,y) \cdot \log \frac{p(x,y)}{p(x) \cdot p(y)}$
-> - $H(p,q) = - \sum_x p(x) \cdot \log q(y)$
+> - $H(p,q) = - \sum_{x,y} p(x) \cdot \log q(y)$
 > - $D(p || q) = -\sum_{x \in X} p(x) \cdot \log \frac{p(x)}{q(x)}$
 ::::
 :::
