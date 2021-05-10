@@ -22,7 +22,7 @@ header-includes:
 
 # Overview of Formulas
 
-Concepts and formulations.
+Concepts and formulations. (Express also as expectation values.)
 
 ::: columns
 :::: column
@@ -37,36 +37,19 @@ Concepts and formulations.
 
 . . .
 
-:::: column
-- $I(x) = - \log p(x)$
-
-. . .
-
-- $H(X) = - \sum_{x \in X} p(x) \cdot \log p(x)$
-
-. . .
-
-- $H(X,Y) = - \sum_{x \in X} \sum_{y \in Y} p(x,y) \cdot \log p(x,y)$
-
-. . .
-
-- $H(X,Y) = - \sum_{x \in X} \sum_{y \in Y} p(x,y) \cdot \log p(y \mid x)$
-
-. . .
-
-- $I(X;Y) = - \sum_{x,y} p(x,y) \cdot \log \frac{p(x,y)}{p(x) \cdot p(y)}$
-
-. . .
-
-- $CE(p,q) = - \sum_x p(x) \cdot \log q(y)$
-
-. . .
-
-- $D(p || q) = -\sum_{x \in X} p(x) \cdot \log \frac{p(x)}{q(x)}$
+:::: {.column width="60%"}
+> - $I(x) = - \log p(x)$
+> - $H(X) = - \sum_{x \in X} p(x) \cdot \log p(x)$
+> - $H(X,Y) = - \sum_{x \in X} \sum_{y \in Y} p(x,y) \cdot \log p(x,y)$
+> - $H(X,Y) = - \sum_{x \in X} \sum_{y \in Y} p(x,y) \cdot \log p(y \mid x)$
+> - $I(X;Y) = - \sum_{x,y} p(x,y) \cdot \log \frac{p(x,y)}{p(x) \cdot p(y)}$
+> - $H(p,q) = - \sum_x p(x) \cdot \log q(y)$
+> - $D(p || q) = -\sum_{x \in X} p(x) \cdot \log \frac{p(x)}{q(x)}$
 ::::
 :::
 
 # How do they relate to each other?
+
 - Chain Rule:
 $$H(X,Y) = H(X) + H(Y|X)$$
 $$H(X_1...X_n) = H(X_1) + H(X_2 \mid X_1) + ... + H(X_n \mid X_1,...X_{n-1})$$
@@ -92,27 +75,25 @@ $$I(X;Y \mid Z) = I((X;Y)|Z) = H(X \mid Z) - H(X \mid Y, Z)$$
 ::::
 :::
 
-# Examples
-1) Entropy calculation
+# Examples - Entropy calculation
 
 +--------+-----+----+
 | X \\ Y | 0   | 1  |
 +========+=====+====+
 | 0      | 1/2 | 1/5|
 +--------+-----+----+
-|1       | 1/3 | 0  |
+| 1      | 1/3 | 0  |
 +--------+-----+----+
 
 Find
 
 - $H(X), H(Y)$
 - $H(X, Y)$
-- $H(X \mid Y), H(Y \mid X)$
+- $H(X | Y), H(Y | X)$
 - $I(X;Y)$
-- $H(Y) - H(Y \mid X)$
+- $H(Y) - H(Y | X)$
 
-# Examples
-2) Entropy of functions
+# Examples - Entropy of functions
 
 What is the (in)equality relationship between H(X) and H(Y) when
 
