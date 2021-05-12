@@ -46,7 +46,7 @@ Concepts and formulations.
 > - $I(X;Y) = \sum_{x,y} p(x,y) \cdot \log \frac{p(x,y)}{p(x) \cdot p(y)}$
 > - $H(p,q) = - \sum_{x} p(x) \cdot \log q(x)$
 > - $D(p \| q) = -\sum_{x} p(x) \cdot \log \frac{p(x)}{q(x)}$
-> - $I(X;Y) = D(p(X,Y) \| p(X)P(Y))$
+> - $I(X;Y) = D(p(X,Y) \| p(X)p(Y))$
 ::::
 :::
 
@@ -108,7 +108,8 @@ What is the (in)equality relationship between H(X) and H(Y) when
 # Example - Conditional vs. basic
 
 
-> - Is this true? $H(Y|X) \le H(Y)$
+
+> - Which one is true? (1) $H(Y|X) \le H(Y)$, (2) $H(Y|X) \ge H(Y)$ or (3) No systematic bound
 > - Intuitivelly?
 > - Formally?
 
@@ -122,31 +123,51 @@ What is the (in)equality relationship between H(X) and H(Y) when
 \vspace{-0.5cm}
 ::: columns
 \small
-:::: column
+:::: {.column width="25%"}
 | Age \\ Exam | Yes | No |
 |-|-|-|
 |22|1|2|
 |23|19|7|
-|24|39|10|
+|24|39|30|
 |25|25|8|
 |$\ldots$|$\ldots$|$\ldots$|
 ::::
 
-:::: column
+:::: {.column width="25%"}
 | HW \\ Exam | Yes | No |
 |-|-|-|
 |Poor|1|21|
-|Ok|23|22|
+|Ok|23|12|
 |Excelent|41|3|
+::::
+
+:::: {.column width="25%"}
+| Age* \\ Exam | Yes | No |
+|-|-|-|
+|22|2|1|
+|23|19|1|
+|24|39|2|
+|25|25|1|
+|$\ldots$|$\ldots$|$\ldots$|
+::::
+
+:::: {.column width="25%"}
+| HW* \\ Exam | Yes | No |
+|-|-|-|
+|Poor|6|5|
+|Ok|23|0|
+|Excelent|41|0|
+|$\ldots$|$\ldots$|$\ldots$|
 ::::
 :::
 
 > - Q: Is $\text{age}$ a better predictor for $y$ than $\text{hw performance}$? How do we measure this?
 > - Idea: decide majority class, compute accuracy
-> - Issue: no consideration for split weight (39,10) vs (26,23)
+> - Issue: no consideration between equally bad (or good) features, suspectible to imbalance.
 > - A: $I(\text{exam}; \text{hw performance})$
 > - Q: Can we use conditional entropy instead?
 > - A: Yes, but!
+<!-- offset by entropy, negative sign -->
 
 # KL-divergence
 
