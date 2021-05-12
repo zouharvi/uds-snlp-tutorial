@@ -50,6 +50,27 @@ Concepts and formulations.
 ::::
 :::
 
+# Overview of Formula Relations
+
+
+::: columns
+:::: column
+- $H(X,Y) - H(Y)$
+- $H(X) - H(X|Y)$ 
+- $H(Y) - H(Y|X)$ 
+- $H(p,q) - H(p)$ 
+::::
+
+. . .
+
+:::: {.column width="65%"}
+> - Conditional entropy $H(X|Y)$
+> - Mutual information $I(X,Y)$
+> - Mutual information $I(X,Y)$
+> - KL divergence $D(p \| q)$
+::::
+:::
+
 # How do they relate to each other?
 
 - Chain Rule:
