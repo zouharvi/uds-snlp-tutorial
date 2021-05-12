@@ -33,6 +33,7 @@ Concepts and formulations.
 - Mutual Information (IG)
 - Cross-entropy
 - KL-Divergence
+- Mutual Information ($D_{KL}$)
 ::::
 
 . . .
@@ -41,10 +42,11 @@ Concepts and formulations.
 > - $I(x) = - \log p(x)$
 > - $H(X) = - \sum_{x \in X} p(x) \cdot \log p(x)$
 > - $H(X,Y) = - \sum_{x \in X, y \in Y} p(x,y) \cdot \log p(x,y)$
-> - $H(X \mid Y) = - \sum_{x \in X, y \in Y} p(x,y) \cdot \log p(y \mid x)$
+> - $H(Y | X) = - \sum_{x \in X, y \in Y} p(x,y) \cdot \log p(y \mid x)$
 > - $I(X;Y) = \sum_{x,y} p(x,y) \cdot \log \frac{p(x,y)}{p(x) \cdot p(y)}$
 > - $H(p,q) = - \sum_{x} p(x) \cdot \log q(x)$
 > - $D(p \| q) = -\sum_{x} p(x) \cdot \log \frac{p(x)}{q(x)}$
+> - $I(X;Y) = D(p(X,Y) \| p(X)P(Y))$
 ::::
 :::
 
