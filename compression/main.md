@@ -23,7 +23,12 @@ TODO
 
 # Huffman
 
-TODO
+TODO Example + computation, comparison to fixed width encoding
+
+# Huffman Bonus
+
+- When will the Huffman tree be balanced?
+- How do we store the tree? Does the efficiency of this matter? 
 
 # Resources
 
