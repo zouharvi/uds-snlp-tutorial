@@ -17,6 +17,126 @@ header-includes:
 
 TODO
 
+# OOV words
+
+
+::: frame
+## Corpus
+* Train set: 
+
+\qquad ![](img/apple.png){width=20px}
+![](img/apple.png){width=20px}
+![](img/apple.png){width=20px}
+![](img/eggplant.png){width=20px}
+![](img/apple.png){width=20px}
+![](img/banana.png){width=20px}
+![](img/banana.png){width=20px}
+![](img/cherries.png){width=20px}
+![](img/apple.png){width=20px}
+![](img/eggplant.png){width=20px}
+![](img/banana.png){width=20px}
+![](img/banana.png){width=20px}
+![](img/cherries.png){width=20px}
+![](img/banana.png){width=20px}
+![](img/apple.png){width=20px}
+![](img/eggplant.png){width=20px}
+
+
+* Test set:
+
+\qquad ![](img/dark_chocolate.png){width=20px}
+![](img/apple.png){width=20px}
+![](img/fries.png){width=20px}
+![](img/banana.png){width=20px}
+![](img/apple.png){width=20px}
+![](img/eggplant.png){width=20px}
+![](img/eggplant.png){width=20px}
+![](img/banana.png){width=20px}
+![](img/cherries.png){width=20px}
+![](img/fries.png){width=20px}
+![](img/apple.png){width=20px}
+![](img/apple.png){width=20px}
+
+:::
+
+. . .
+
+::: frame
+## Accumulate counts
+
+* 
+![](img/apple.png){width=20px} `6` \qquad
+![](img/banana.png){width=20px} `5`  \qquad
+![](img/eggplant.png){width=20px} `3` \qquad
+![](img/cherries.png){width=20px} `2` \qquad
+
+
+* 
+![](img/apple.png){width=20px} `4` \qquad
+![](img/banana.png){width=20px} `2`  \qquad
+![](img/fries.png){width=20px} `2` \qquad
+![](img/eggplant.png){width=20px} `2` \qquad
+![](img/cherries.png){width=20px} `1` \qquad
+![](img/dark_chocolate.png){width=20px} `1` \qquad
+:::
+
+. . .
+
+:::frame
+## OOV fruits
+* What about ![](img/dark_chocolate.png){width=20px} and ![](img/fries.png){width=20px}?
+* OOV rate: $2+1/4+2+2+1+1+1 = 27\%$
+:::
+
+
+# Additive smoothing (add-$\alpha$-smoothing)
+
+:::frame
+## Unifruits
+* Add zero counts to frequency table
+
+![](img/apple.png){width=20px} `6` \qquad
+![](img/banana.png){width=20px} `5`  \qquad
+![](img/eggplant.png){width=20px} `3` \qquad
+![](img/cherries.png){width=20px} `2` \qquad
+![](img/fries.png){width=20px} `0` \qquad
+![](img/dark_chocolate.png){width=20px} `0` \qquad
+
+* Increase all counts by $\alpha = 1$
+
+![](img/apple.png){width=20px} `6+1` \qquad
+![](img/banana.png){width=20px} `5+1`  \qquad
+![](img/eggplant.png){width=20px} `3+1` \qquad
+![](img/cherries.png){width=20px} `2+1` \qquad
+![](img/fries.png){width=20px} `0+1` \qquad
+![](img/dark_chocolate.png){width=20px} `0+1` \qquad
+
+* Divide by $N = 22$
+
+![](img/apple.png){width=20px} `0.32` \qquad
+![](img/banana.png){width=20px} `0.27`  \qquad
+![](img/eggplant.png){width=20px} `0.18` \qquad
+![](img/cherries.png){width=20px} `0.13` \qquad
+![](img/fries.png){width=20px} `0.05` \qquad
+![](img/dark_chocolate.png){width=20px} `0.05` \qquad
+:::
+
+:::frame
+## Perplexity
+* Relative frequencies on test corpus:
+
+![](img/apple.png){width=20px} `0.33` \qquad
+![](img/banana.png){width=20px} `0.17`  \qquad
+![](img/fries.png){width=20px} `0.17` \qquad
+![](img/eggplant.png){width=20px} `0.17` \qquad
+![](img/cherries.png){width=20px} `0.08` \qquad
+![](img/dark_chocolate.png){width=20px} `0.08` \qquad
+
+. . .
+
+* PP = $2^{(0.33 \cdot 0.32 + 0.27 \cdot 0.17 + 0.18 \cdot 0.17 + 0.13 \cdot 0.17 + 2 \cdot (0.05 \cdot 0.08))} = 1.4$
+:::
+
 # Compression
 
 TODO
