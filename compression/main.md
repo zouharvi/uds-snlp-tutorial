@@ -1,31 +1,59 @@
 ---
 title:
-- Compression
+- Assignment 3 + Compression
 subtitle: |
-    | (SNLP tutorial 4)
+    | (SNLP Tutorial 4)
 author:
 - Vilém Zouhar, Awantee Deshpande, Julius Steuer
 theme:
 - Boadilla
-date: TODOth, TODOth May 2021
+date: 18th, 20th May 2021
 aspectratio: 169
 header-includes:
   - \AtBeginDocument{}
 ---
 
-# Organisation
+# Assignment 3
 
-TODO
+- Exercise 1: Entropy Intuition
+- Exercise 2: Uncertainty of events
+- Exercise 3: KL Divergence
+- Bonus: KL Divergence calculation
 
 # Compression
 
-TODO
+- Prefix Codes: No whole code word is a prefix of any other code word 
+- Uniquely decodable codes: Each word maps to one and only one code word
+
+. . .
+
+Prefix codes are a subset of uniquely decodable codes!
+
+::: frame
+## Optimal length of code words
+$$l_i = -\log_D p(w_i)$$ <!--What does this imply? The most frequent words will have the shortest code lengths -->
+:::
+
+# Kraft's Inequality
+
+$$\sum_{i=1}^m D^{-l_i} \le 1$$
+
+> What does the sum < 1 imply? <!-- Redundancy -->
+
+> What does the sum = 1 imply? <!-- Complete code -->
+
+> What does the sum > 1 imply? <!-- Not uniquely decodable -->
+
+> What does this tell us about uniquely decodable and prefix codes? <!-- Given a uniquely decodable code, we can construct a prefix code with the same lengths --->
+
+## Exercise: Test Kraft's Inequality on Morse Code
+(Hint: What is the encoding alphabet?)
 
 # Encoding
 
 ::: frame
 ## Task
-Create coding (into binary) for the following recipe: 
+Create encoding (binary) for the following recipe: 
 
 \footnotesize `apple apple banana cherries apple dark_chocolate eggplant banana cherries banana ...`
 
@@ -99,6 +127,13 @@ vs.
 ![](img/banana.png){width=20px}
 - Can there be two equally good Huffman encodings?
 
+# Long Range Dependencies
+
+- Correlation
+- Conditional entropy
+
 # Resources
 
 1. Twitter emojis
+2. https://www.ics.uci.edu/~dan/pubs/DC-Sec1.html
+3. https://en.wikipedia.org/wiki/Shannon%27s_source_coding_theorem
