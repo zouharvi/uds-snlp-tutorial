@@ -134,7 +134,7 @@ vs.
 
 # Assignment 4
 
-- Exercise 1:Encodings (ASCII, UTF, Huffman)
+- Exercise 1: Encodings (ASCII, UTF, Huffman)
 - Exercise 2: Conditional Entropy on DNA
 - Bonus: Huffman Encoding alphabet
 
