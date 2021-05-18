@@ -45,7 +45,7 @@ Concepts and formulations.
 > - $H(Y | X) = - \sum_{x \in X, y \in Y} p(x,y) \cdot \log p(y \mid x)$
 > - $I(X;Y) = \sum_{x,y} p(x,y) \cdot \log \frac{p(x,y)}{p(x) \cdot p(y)}$
 > - $H(p,q) = - \sum_{x} p(x) \cdot \log q(x)$
-> - $D(p \| q) = -\sum_{x} p(x) \cdot \log \frac{p(x)}{q(x)}$
+> - $D(p \| q) = \sum_{x} p(x) \cdot \log \frac{p(x)}{q(x)}$
 > - $I(X;Y) = D(p(X,Y) \| p(X)p(Y))$
 ::::
 :::
