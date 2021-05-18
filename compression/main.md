@@ -128,12 +128,21 @@ vs.
 - Can there be two equally good Huffman encodings?
 
 # Long Range Dependencies
-
+<!---  Write the formulae and explain --->
 - Correlation
 - Conditional entropy
+
+# Assignment 4
+
+- Exercise 1:Encodings (ASCII, UTF, Huffman)
+- Exercise 2: Conditional Entropy on DNA
+- Bonus: Huffman Encoding alphabet
 
 # Resources
 
 1. Twitter emojis
 2. https://www.ics.uci.edu/~dan/pubs/DC-Sec1.html
 3. https://en.wikipedia.org/wiki/Shannon%27s_source_coding_theorem
+4. https://en.wikipedia.org/wiki/Huffman_coding
+5. http://www.mss.cbi.fau.de/content/uploads/epnat.pdf
+6. https://arxiv.org/pdf/adap-org/9507007.pdf
