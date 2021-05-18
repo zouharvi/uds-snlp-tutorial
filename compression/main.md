@@ -176,3 +176,5 @@ vs.
 4. https://en.wikipedia.org/wiki/Huffman_coding
 5. http://www.mss.cbi.fau.de/content/uploads/epnat.pdf
 6. https://arxiv.org/pdf/adap-org/9507007.pdf
+7. https://en.wikipedia.org/wiki/Windows_code_page
+8. https://r12a.github.io/app-conversion/
