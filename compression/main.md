@@ -49,6 +49,35 @@ $$\sum_{i=1}^m D^{-l_i} \le 1$$
 ## Exercise: Test Kraft's Inequality on Morse Code
 (Hint: What is the encoding alphabet?)
 
+# ASCII/UTF{8,16,32}/Unicode
+
+Encoding from characters to binary alphabet:
+
+::: frame
+## ASCII: 7 bits (byte was standardized to 8 bits later!)
+- Q: How many values? <!-- 128 -->
+- Q: It has to be aligned to 8 bits nowadays (modern CPU requirement). \newline What do we with the eight bit?
+:::
+
+. . .
+
+::: frame
+## Windows-1252, Windows-1250
+- Full 8 bits, map lower 128 to ASCII
+- Individual differences, different encoding for í
+:::
+
+. . .
+
+::: frame
+## UTF
+- Encoding over Unicode (character alphabet)
+<!-- - - Windows nowadays uses UTF16 and refers to it as Unicode -->
+- UTF8 - Start with 8 bits, extend to 16 or 32; UTF32 - Always 32 bits
+- Compositionality: i with little tail and acute accent `U+0301U+0328U+0069`
+- Valid misuse: snowman `U+0301U+0328U+2603`
+:::
+
 # Encoding
 
 ::: frame
@@ -126,6 +155,7 @@ vs.
 ![](img/apple.png){width=20px}
 ![](img/banana.png){width=20px}
 - Can there be two equally good Huffman encodings?
+- Can Huffman result in assigning an element code of length 1?
 
 # Long Range Dependencies
 <!---  Write the formulae and explain --->
