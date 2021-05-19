@@ -180,6 +180,167 @@ documentclass: beamer
 * PP = $2^{(0.33 \cdot 0.32 + 0.27 \cdot 0.17 + 0.18 \cdot 0.17 + 0.13 \cdot 0.17 + 2 \cdot (0.05 \cdot 0.08))} = 1.4$
 :::
 
+
+
+# Additive smoothing: Bigrams
+
+Recall the additive smoothing formula for unigrams:
+
+\begin{equation}
+p_{smoothed}(w_i) = \frac{
+  C(w_i) + \alpha
+}{
+  N + \alpha|V|
+}
+\end{equation}
+
+. . .
+
+* What is $N$? What is $V$?
+
+Remember from Assignment 2 that:
+
+\begin{equation}
+p(w_i|w_{i-1}) = \frac{C(w_{i-1},w_i)}{C(w_{i-1})}
+\end{equation}
+
+. . .
+
+* Smoothe the bigram count: $C(w_{i-1},w_i) \rightarrow C(w_{i-1}, w_i) + \alpha$
+
+* Normalization: $p_{smoothed}(w_i|w_{i-1}) = \frac{C(w_{i-1},w_i) + \alpha}{\text{\large ?}}$
+
+
+# Additive smoothing: Bigrams
+
+::: frame
+## Corpus 
+![](img/apple.png){width=20px}
+![](img/apple.png){width=20px}
+![](img/apple.png){width=20px}
+![](img/eggplant.png){width=20px}
+![](img/apple.png){width=20px}
+![](img/banana.png){width=20px}
+![](img/banana.png){width=20px}
+![](img/cherries.png){width=20px}
+![](img/apple.png){width=20px}
+![](img/eggplant.png){width=20px}
+![](img/banana.png){width=20px}
+![](img/banana.png){width=20px}
+![](img/cherries.png){width=20px}
+![](img/banana.png){width=20px}
+![](img/apple.png){width=20px}
+![](img/eggplant.png){width=20px}
+
+Bigrams:
+![](img/apple.png){width=20px}![](img/apple.png){width=20px}, ![](img/apple.png){width=20px}![](img/apple.png){width=20px}, ![](img/apple.png){width=20px}![](img/eggplant.png){width=20px}, ![](img/eggplant.png){width=20px}![](img/apple.png){width=20px}, ..., ![](img/apple.png){width=20px}![](img/eggplant.png){width=20px}, ![](img/eggplant.png){width=20px}![](img/apple.png){width=20px} $\leftarrow$ circular bigram!
+
+Bigrams: AA, AA, AE, EA, ..., AE, EA
+:::
+
+
+# Additive smoothing: Bigrams: bigram counts
+
+* Collect bigram counts & condtional probabilities for history $A$
+
+| Bigram | $C(w_i, w_{i-1})$ | $C(w_{i-1})$| $\frac{C(w_{i-1},w_i)}{C(w_{i-1})}$ |
+| ------ | :-----: | :-----: | :---: |
+| AE     | 3       | 6       | 1/2   |
+| AA     | 2       | 6       | 1/3   |
+| AB     | 1       | 6       | 1/6   |
+
+
+# Additive smoothing: Bigrams: add alpha
+
+* We encounter an unknown bigram $AF$
+
+| Bigram | $C_{\alpha}(w_{i-1},w_i)$ | $C{_\alpha}(w_{i-1})$| $\frac{C_{\alpha}(w_{i-1},w_i)}{C_{\alpha}(w_{i-1})}$ |
+| ------ | :-----: | :-----: | :---: |
+| AE     | 3+1       | 6+1       | 4/7  |
+| AA     | 2+1       | 6+1       | 3/7  |
+| AB     | 1+1       | 6+1       | 2/7  |
+| $\rightarrow$ AF | 0+1  | 6+1  | 1/7  |
+
+. . .
+
+* Not a probabilitiy distribution! 
+
+. . .
+
+* Solution: We need to adjust the divisor a tiny bit. But how tiny?
+
+
+# Additive smoothing: Bigrams: normalization
+
+* add $\alpha 3$ to history count! 
+* Pretend that we have seen the history $|V| = 3$ times more.
+
+. . .
+
+| Bigram | $C{_\alpha}(w_{i-1}) + \alpha |V|$| $\frac{C_{\alpha}(w_{i-1},w_i)}{C_{\alpha}(w_{i-1}) + \alpha |V|}$ |
+| ------ | :-----: | :---: |
+| AE     | 7 + 3   | 4/10  |
+| AA     | 7 + 3   | 3/10  |
+| AB     | 7 + 3   | 2/10  |
+| $\rightarrow$ AF | 7 + 3 | 1/10 |
+
+. . .
+
+* Now the probabilities sum up to 1: $4/10 + 3/10 + 2/10 + 1/10 = 1$
+
+
+# Additive smoothing: Bigrams: normalization
+
+* We encounter another n-gram $AD$
+* What is $|V|$ now?
+
+. . .
+
+| Bigram | $C{_\alpha}(w_{i-1}) + \alpha |V|$| $\frac{C_{\alpha}(w_{i-1},w_i)}{C_{\alpha}(w_{i-1}) + \alpha |V|}$ |
+| ------ | :-----: | :---: |
+| AE     | 7 + 4   | 4/11  |
+| AA     | 7 + 4   | 3/11  |
+| AB     | 7 + 4   | 2/11  |
+| $\rightarrow$ AF | 7 + 4 | 1/11 |
+| $\rightarrow$ AD | 7 + 4 | 1/11 |
+
+. . .
+
+* $C_{\alpha}(A)$ is constant
+* Probabilities sum up to 1: $4/11 + 3/11 + 2/11 + 1/11 + 1/11 = 1$
+
+
+# Additive smoothing: Bigrams: general case
+
+* General formula for smoothed bigram Probabilities:
+
+\begin{equation}
+p(w_i|w_{i-1}) = \frac{C(w_{i-1},w_i) + \alpha}{C(w_{i-1}) + \alpha|V|}
+\end{equation}
+
+. . .
+
+* What is $V$?
+
+. . .
+
+* $|V|$ = Number of bigram **types** starting with $w_{i-1}$
+
+. . .
+
+\begin{equation}
+p(w_i|w_{i-1}) = \frac{C(w_{i-1},w_i) + \alpha}{C(w_{i-1}) + \alpha|V_{(w_{i-1},\bullet)}|}
+\end{equation}
+
+. . .
+
+* For n-grams of length $n$:
+
+\begin{equation}
+p(w_i|w_{i-1}:w_{i-n+1} ) = \frac{C(w_{i-n+1}:w_i) + \alpha}{C(w_{i-n+1}:w_{i-1}) + \alpha|V_{(w_{i-n+1}:w_{i-1},\bullet)}|}
+\end{equation}
+
+
 # Kneser-Ney Smoothing
 
 TODO
