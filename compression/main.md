@@ -140,10 +140,10 @@ $1\times$ ![](img/fries.png){width=20px} F \qquad
 
 # Huffman Bonus
 
-- When will the Huffman tree be balanced?
-- How do we store the tree? Does the efficiency of this matter? 
-- Are there undefined sequences of bits when using Huffman encoding? <!-- at most one -->
-- Does the result of Huffman encoding depend on the text ordering? \newline
+> - When will the Huffman tree be balanced?
+> - How do we store the tree? Does the efficiency of this matter? 
+> - Are there undefined sequences of bits when using Huffman encoding? <!-- at most one -->
+> - Does the result of Huffman encoding depend on the text ordering? \newline
 E.g. 
 ![](img/apple.png){width=20px}
 ![](img/banana.png){width=20px}
@@ -154,17 +154,22 @@ vs.
 ![](img/dark_chocolate.png){width=20px}
 ![](img/apple.png){width=20px}
 ![](img/banana.png){width=20px}
-- Can there be two equally good Huffman encodings?
-- Can Huffman result in assigning an element code of length 1?
+> - Can there be two equally good Huffman encodings?
+> - Can Huffman result in assigning an element code of length 1?
 
 # Long Range Dependencies
 <!---  Write the formulae and explain --->
-- Correlation
-- Conditional entropy
+- Correlation <!-- c_d = p_d(w, w)/p(w)^2-->
+- Conditional entropy <!-- E_p[-log p(x|y)] -->
 
 # Assignment 4
 
 - Exercise 1: Encodings (ASCII, UTF, Huffman)
+```
+      a = "Hellp there!"
+      a[4] = 'o' # substitute_character(string=a, pos=4, newchar='o')
+```
+
 - Exercise 2: Conditional Entropy on DNA
 - Bonus: Huffman Encoding alphabet
 
