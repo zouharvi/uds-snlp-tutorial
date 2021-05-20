@@ -49,6 +49,15 @@ $$\sum_{i=1}^m D^{-l_i} \le 1$$
 ## Exercise: Test Kraft's Inequality on Morse Code
 (Hint: What is the encoding alphabet?)
 
+# Kraft's Inequality
+
+\centering
+
+$$\sum_{i=1}^m D^{-l_i} \le 1$$
+
+![](img/kraft_tree.png){width=500px}
+
+
 # ASCII/UTF{8,16,32}/Unicode
 
 Encoding from characters to binary alphabet:
@@ -76,6 +85,26 @@ Encoding from characters to binary alphabet:
 - UTF8 - Start with 8 bits, extend to 16 or 32; UTF32 - Always 32 bits
 - Compositionality: i with little tail and acute accent `U+0301U+0328U+0069`
 - Valid misuse: snowman `U+0301U+0328U+2603`
+:::
+
+# Encoding - Internet
+
+
+::: columns
+:::: {.column width="35%"}
+- Stacks:
+- - OS, browser, HTTP
+- - server (+ frameworks), database (running a different OS)
+- - font rendering, memory order, BOM
+- - etc.
+::::
+:::: {.column width="65%"}
+\centering
+
+![](img/encoding_internet.png){width=250px}
+
+![](img/encoding_vilem.png){width=300px}
+::::
 :::
 
 # Encoding
@@ -167,8 +196,9 @@ vs.
 - Exercise 1: Encodings (ASCII, UTF, Huffman)
 ```
       a = "Hellp there!"
-      a[4] = 'o' # substitute_character(string=a, pos=4, newchar='o')
+      a[4] = 'o'
 ```
+<!-- substitute_character(string=a, pos=4, newchar='o') -->
 
 - Exercise 2: Conditional Entropy on DNA
 - Bonus: Huffman Encoding alphabet
@@ -183,3 +213,5 @@ vs.
 6. https://arxiv.org/pdf/adap-org/9507007.pdf
 7. https://en.wikipedia.org/wiki/Windows_code_page
 8. https://r12a.github.io/app-conversion/
+9. https://en.wikipedia.org/wiki/Kraft%E2%80%93McMillan_inequality
+10. https://www.freecodecamp.org/news/everything-you-need-to-know-about-encoding/
