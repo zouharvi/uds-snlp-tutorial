@@ -96,7 +96,12 @@ Encoding from characters to binary alphabet:
 - - OS, browser, HTTP
 - - server (+ frameworks), database (running a different OS)
 - - font rendering, memory order, BOM
-- - etc.
+- - kerning, text direction, etc
+
+\centering
+
+![](img/encoding_all.png){width=200px}
+
 ::::
 :::: {.column width="65%"}
 \centering
