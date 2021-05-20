@@ -112,6 +112,24 @@ Encoding from characters to binary alphabet:
 ::::
 :::
 
+# Encoding - XKCD
+
+::: columns
+:::: {.column width="60%"}
+\centering
+
+![](img/xkcd_vomit.png){width=300px}
+::::
+
+:::: {.column width="40%"}
+\centering
+
+![](img/xkcd_diacritics.png){width=150px}
+::::
+:::
+
+
+
 # Encoding
 
 ::: frame
