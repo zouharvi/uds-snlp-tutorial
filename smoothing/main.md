@@ -1,6 +1,6 @@
 ---
 title:
-- Smoothing
+- Assignment 4,5 + Smoothing
 subtitle: |
     | (SNLP tutorial 4)
 author:

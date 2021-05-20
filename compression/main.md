@@ -1,6 +1,6 @@
 ---
 title:
-- Assignment 3 + Compression
+- Assignment 3,4 + Compression
 subtitle: |
     | (SNLP Tutorial 4)
 author:

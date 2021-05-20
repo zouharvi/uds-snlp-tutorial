@@ -1,6 +1,6 @@
 ---
 title:
-- Assignment 2 + Information Theory
+- Assignment 2,3 + KL-Divergence
 subtitle: |
     | (SNLP Tutorial 3)
 author:
