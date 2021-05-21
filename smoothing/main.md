@@ -10,7 +10,7 @@ theme:
 date: TODOth, TODOth May 2021
 aspectratio: 169
 header-includes:
-  - \AtBeginDocument{}
+  - \AtBeginDocument{\usepackage{graphicx}}
 
 documentclass: beamer
 # classoption: notes
@@ -131,6 +131,7 @@ documentclass: beamer
 * OOV rate: $2+1/4+2+2+1+1+1 = 27\%$
 :::
 
+- Solutions? character-level, subword units
 
 # Additive smoothing (add-$\alpha$-smoothing)
 
