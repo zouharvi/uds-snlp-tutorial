@@ -25,6 +25,7 @@ documentclass: beamer
 \item Homework
 \end{itemize}
 
+<!-- 
 # Entropy
 
 - Amount of information / compressed size in bits
@@ -58,8 +59,7 @@ documentclass: beamer
 
 # Correlation Function
 
-- $p_d(w1,w2)/( p(w1) p(w2))$
-
+- $p_d(w1,w2)/( p(w1) p(w2))$ -->
 
 # OOV words
 
