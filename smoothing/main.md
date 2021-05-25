@@ -225,12 +225,12 @@ Bigrams: AA, AA, AE, EA, ..., AE, EA
 
 * We encounter an unknown bigram $AF$
 
-| Bigram | $C_{\alpha}(w_{i-1},w_i)$ | $C{_\alpha}(w_{i-1})$| $\frac{C_{\alpha}(w_{i-1},w_i)}{C_{\alpha}(w_{i-1})}$ |
+| Bigram | $C_{\alpha}(w_{i-1},w_i)$ | $C(w_{i-1})$| $\frac{C_{\alpha}(w_{i-1},w_i)}{C(w_{i-1})}$ |
 | ------ | :-----: | :-----: | :---: |
-| AE     | 3+1       | 6+1       | 4/7  |
-| AA     | 2+1       | 6+1       | 3/7  |
-| AB     | 1+1       | 6+1       | 2/7  |
-| $\rightarrow$ AF | 0+1  | 6+1  | 1/7  |
+| AE     | 3+1       | 6      | 4/6  |
+| AA     | 2+1       | 6      | 3/6  |
+| AB     | 1+1       | 6      | 2/6  |
+| $\rightarrow$ AF | 0+1  | 6  | 1/6  |
 
 . . .
 
@@ -243,17 +243,17 @@ Bigrams: AA, AA, AE, EA, ..., AE, EA
 
 # Additive smoothing: Bigrams: normalization
 
-* add $\alpha 3$ to history count! 
-* Pretend that we have seen the history $|V| = 3$ times more.
+* add $\alpha \cdot 4$ to history count! 
+* Pretend that we have seen the history $|V| = 4$ times more.
 
 . . .
 
-| Bigram | $C{_\alpha}(w_{i-1}) + \alpha |V|$| $\frac{C_{\alpha}(w_{i-1},w_i)}{C_{\alpha}(w_{i-1}) + \alpha |V|}$ |
+| Bigram | $C{_\alpha}(w_{i-1}) + \alpha |V|$| $\frac{C_{\alpha}(w_{i-1},w_i)}{C(w_{i-1}) + \alpha |V|}$ |
 | ------ | :-----: | :---: |
-| AE     | 7 + 3   | 4/10  |
-| AA     | 7 + 3   | 3/10  |
-| AB     | 7 + 3   | 2/10  |
-| $\rightarrow$ AF | 7 + 3 | 1/10 |
+| AE     | 6 + 4   | 4/10  |
+| AA     | 6 + 4   | 3/10  |
+| AB     | 6 + 4   | 2/10  |
+| $\rightarrow$ AF | 6 + 4 | 1/10 |
 
 . . .
 
@@ -267,17 +267,17 @@ Bigrams: AA, AA, AE, EA, ..., AE, EA
 
 . . .
 
-| Bigram | $C{_\alpha}(w_{i-1}) + \alpha |V|$| $\frac{C_{\alpha}(w_{i-1},w_i)}{C_{\alpha}(w_{i-1}) + \alpha |V|}$ |
+| Bigram | $C{_\alpha}(w_{i-1}) + \alpha |V|$| $\frac{C_{\alpha}(w_{i-1},w_i)}{C(w_{i-1}) + \alpha |V|}$ |
 | ------ | :-----: | :---: |
-| AE     | 7 + 4   | 4/11  |
-| AA     | 7 + 4   | 3/11  |
-| AB     | 7 + 4   | 2/11  |
-| $\rightarrow$ AF | 7 + 4 | 1/11 |
-| $\rightarrow$ AD | 7 + 4 | 1/11 |
+| AE     | 6 + 5   | 4/11  |
+| AA     | 6 + 5   | 3/11  |
+| AB     | 6 + 5   | 2/11  |
+| $\rightarrow$ AF | 6 + 5 | 1/11 |
+| $\rightarrow$ AD | 6 + 5 | 1/11 |
 
 . . .
 
-* $C_{\alpha}(A)$ is constant
+* $C(A)$ is constant, unsmoothed count
 * Probabilities sum up to 1: $4/11 + 3/11 + 2/11 + 1/11 + 1/11 = 1$
 
 
@@ -310,6 +310,29 @@ p(w_i|w_{i-1}) = \frac{C(w_{i-1},w_i) + \alpha}{C(w_{i-1}) + \alpha|V_{(w_{i-1},
 \begin{equation}
 p(w_i|w_{i-1}:w_{i-n+1} ) = \frac{C(w_{i-n+1}:w_i) + \alpha}{C(w_{i-n+1}:w_{i-1}) + \alpha|V_{(w_{i-n+1}:w_{i-1},\bullet)}|}
 \end{equation}
+
+# Additive smoothing: Bigrams: general case
+
+* For n-grams of length $n$:
+
+\begin{equation}
+p(w_i|w_{i-1}:w_{i-n+1} ) = \frac{C(w_{i-n+1}:w_i) + \alpha}{C(w_{i-n+1}:w_{i-1}) + \alpha|V_{(w_{i-n+1}:w_{i-1},\bullet)}|}
+\end{equation}
+
+* We already now the shared (train + test) vocabulary $V$
+
+. . .
+
+* $V_{(A, \bullet)}$ is then $AA, AB, AC, AD, AE, AF$ $\Rightarrow$ $|V_{(A, \bullet)}| = 6 = |V|$
+
+. . .
+
+* We find that the formula we found is identical to the one on the lecture slides!
+
+\begin{equation}
+p(w_i|w_{i-1}:w_{i-n+1} ) = \frac{C(w_{i-n+1}:w_i) + \alpha}{C(w_{i-n+1}:w_{i-1}) + \alpha|V|}
+\end{equation}
+
 
 # Cross-Validation
 
