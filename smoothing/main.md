@@ -2,7 +2,7 @@
 title:
 - Assignment 4+Smoothing
 subtitle: |
-    | (SNLP tutorial 4)
+    | (SNLP Tutorial 5)
 author:
 - Vilém Zouhar, Awantee Deshpande, Julius Steuer
 theme:
@@ -16,15 +16,6 @@ documentclass: beamer
 # classoption: notes
 ---
 
-# Overview
-
-\begin{itemize}
-\setlength{\itemsep}{-0.2cm}
-\item Task, Metrics
-\item Differential Privacy
-\item Homework
-\end{itemize}
-
 # Assignment 4
 
 - Exercise 1: Huffman encoding 
@@ -37,38 +28,38 @@ documentclass: beamer
 ## Corpus
 * Train set: 
 
-\qquad ![](img/apple.png){width=20px}
-![](img/apple.png){width=20px}
-![](img/apple.png){width=20px}
-![](img/eggplant.png){width=20px}
-![](img/apple.png){width=20px}
-![](img/banana.png){width=20px}
-![](img/banana.png){width=20px}
-![](img/cherries.png){width=20px}
-![](img/apple.png){width=20px}
-![](img/eggplant.png){width=20px}
-![](img/banana.png){width=20px}
-![](img/banana.png){width=20px}
-![](img/cherries.png){width=20px}
-![](img/banana.png){width=20px}
-![](img/apple.png){width=20px}
-![](img/eggplant.png){width=20px}
+\qquad ![](img/apple.png){width=15px}
+![](img/apple.png){width=15px}
+![](img/apple.png){width=15px}
+![](img/eggplant.png){width=15px}
+![](img/apple.png){width=15px}
+![](img/banana.png){width=15px}
+![](img/banana.png){width=15px}
+![](img/cherries.png){width=15px}
+![](img/apple.png){width=15px}
+![](img/eggplant.png){width=15px}
+![](img/banana.png){width=15px}
+![](img/banana.png){width=15px}
+![](img/cherries.png){width=15px}
+![](img/banana.png){width=15px}
+![](img/apple.png){width=15px}
+![](img/eggplant.png){width=15px}
 
 
 * Test set:
 
-\qquad ![](img/dark_chocolate.png){width=20px}
-![](img/apple.png){width=20px}
-![](img/fries.png){width=20px}
-![](img/banana.png){width=20px}
-![](img/apple.png){width=20px}
-![](img/eggplant.png){width=20px}
-![](img/eggplant.png){width=20px}
-![](img/banana.png){width=20px}
-![](img/cherries.png){width=20px}
-![](img/fries.png){width=20px}
-![](img/apple.png){width=20px}
-![](img/apple.png){width=20px}
+\qquad ![](img/dark_chocolate.png){width=15px}
+![](img/apple.png){width=15px}
+![](img/fries.png){width=15px}
+![](img/banana.png){width=15px}
+![](img/apple.png){width=15px}
+![](img/eggplant.png){width=15px}
+![](img/eggplant.png){width=15px}
+![](img/banana.png){width=15px}
+![](img/cherries.png){width=15px}
+![](img/fries.png){width=15px}
+![](img/apple.png){width=15px}
+![](img/apple.png){width=15px}
 
 :::
 
@@ -78,30 +69,43 @@ documentclass: beamer
 ## Accumulate counts
 
 * 
-![](img/apple.png){width=20px} `6` \qquad
-![](img/banana.png){width=20px} `5`  \qquad
-![](img/eggplant.png){width=20px} `3` \qquad
-![](img/cherries.png){width=20px} `2` \qquad
+![](img/apple.png){width=15px} `6` \qquad
+![](img/banana.png){width=15px} `5`  \qquad
+![](img/eggplant.png){width=15px} `3` \qquad
+![](img/cherries.png){width=15px} `2` \qquad
 
 
 * 
-![](img/apple.png){width=20px} `4` \qquad
-![](img/banana.png){width=20px} `2`  \qquad
-![](img/fries.png){width=20px} `2` \qquad
-![](img/eggplant.png){width=20px} `2` \qquad
-![](img/cherries.png){width=20px} `1` \qquad
-![](img/dark_chocolate.png){width=20px} `1` \qquad
+![](img/apple.png){width=15px} `4` \qquad
+![](img/banana.png){width=15px} `2`  \qquad
+![](img/fries.png){width=15px} `2` \qquad
+![](img/eggplant.png){width=15px} `2` \qquad
+![](img/cherries.png){width=15px} `1` \qquad
+![](img/dark_chocolate.png){width=15px} `1` \qquad
 :::
 
 . . .
 
 :::frame
 ## OOV words
-* What about ![](img/dark_chocolate.png){width=20px} and ![](img/fries.png){width=20px}?
-* OOV rate: $2+1/4+2+2+1+1+1 = 27\%$
+* What about ![](img/dark_chocolate.png){width=15px} and ![](img/fries.png){width=15px}?
+* OOV rate: $2/6 = 33\%$
 :::
 
 - Solutions? character-level, subword units
+
+# Smoothing
+
+- Words present in vocabulary, but have ~0 probabilities
+- Words present in vocabulary, but have unseen context
+
+Solution: Assign probability mass from frequent events to infrequent events (Smoothing/Discounting)
+
+\centering
+
+![](img/smoothing_preview.png){width=200px}
+
+- Will cover different smoothing methods over the next few tutorials
 
 # Additive smoothing (add-$\alpha$-smoothing)
 
@@ -109,42 +113,42 @@ documentclass: beamer
 ## Unigrams
 * Add zero counts to frequency table
 
-![](img/apple.png){width=20px} `6` \qquad
-![](img/banana.png){width=20px} `5`  \qquad
-![](img/eggplant.png){width=20px} `3` \qquad
-![](img/cherries.png){width=20px} `2` \qquad
-![](img/fries.png){width=20px} `0` \qquad
-![](img/dark_chocolate.png){width=20px} `0` \qquad
+![](img/apple.png){width=15px} `6` \qquad
+![](img/banana.png){width=15px} `5`  \qquad
+![](img/eggplant.png){width=15px} `3` \qquad
+![](img/cherries.png){width=15px} `2` \qquad
+![](img/fries.png){width=15px} `0` \qquad
+![](img/dark_chocolate.png){width=15px} `0` \qquad
 
 * Increase all counts by $\alpha = 1$
 
-![](img/apple.png){width=20px} `6+1` \qquad
-![](img/banana.png){width=20px} `5+1`  \qquad
-![](img/eggplant.png){width=20px} `3+1` \qquad
-![](img/cherries.png){width=20px} `2+1` \qquad
-![](img/fries.png){width=20px} `0+1` \qquad
-![](img/dark_chocolate.png){width=20px} `0+1` \qquad
+![](img/apple.png){width=15px} `6+1` \qquad
+![](img/banana.png){width=15px} `5+1`  \qquad
+![](img/eggplant.png){width=15px} `3+1` \qquad
+![](img/cherries.png){width=15px} `2+1` \qquad
+![](img/fries.png){width=15px} `0+1` \qquad
+![](img/dark_chocolate.png){width=15px} `0+1` \qquad
 
 * Divide by $N = 22$
 
-![](img/apple.png){width=20px} `0.32` \qquad
-![](img/banana.png){width=20px} `0.27`  \qquad
-![](img/eggplant.png){width=20px} `0.18` \qquad
-![](img/cherries.png){width=20px} `0.13` \qquad
-![](img/fries.png){width=20px} `0.05` \qquad
-![](img/dark_chocolate.png){width=20px} `0.05` \qquad
+![](img/apple.png){width=15px} `0.32` \qquad
+![](img/banana.png){width=15px} `0.27`  \qquad
+![](img/eggplant.png){width=15px} `0.18` \qquad
+![](img/cherries.png){width=15px} `0.13` \qquad
+![](img/fries.png){width=15px} `0.05` \qquad
+![](img/dark_chocolate.png){width=15px} `0.05` \qquad
 :::
 
 :::frame
 ## Perplexity
 * Relative frequencies on test corpus:
 
-![](img/apple.png){width=20px} `0.33` \qquad
-![](img/banana.png){width=20px} `0.17`  \qquad
-![](img/fries.png){width=20px} `0.17` \qquad
-![](img/eggplant.png){width=20px} `0.17` \qquad
-![](img/cherries.png){width=20px} `0.08` \qquad
-![](img/dark_chocolate.png){width=20px} `0.08` \qquad
+![](img/apple.png){width=15px} `0.33` \qquad
+![](img/banana.png){width=15px} `0.17`  \qquad
+![](img/fries.png){width=15px} `0.17` \qquad
+![](img/eggplant.png){width=15px} `0.17` \qquad
+![](img/cherries.png){width=15px} `0.08` \qquad
+![](img/dark_chocolate.png){width=15px} `0.08` \qquad
 
 . . .
 
@@ -177,7 +181,7 @@ p(w_i|w_{i-1}) = \frac{C(w_{i-1},w_i)}{C(w_{i-1})}
 
 . . .
 
-* Smoothe the bigram count: $C(w_{i-1},w_i) \rightarrow C(w_{i-1}, w_i) + \alpha$
+* Smoothen the bigram count: $C(w_{i-1},w_i) \rightarrow C(w_{i-1}, w_i) + \alpha$
 
 * Normalization: $p_{smoothed}(w_i|w_{i-1}) = \frac{C(w_{i-1},w_i) + \alpha}{\text{\large ?}}$
 
@@ -186,25 +190,25 @@ p(w_i|w_{i-1}) = \frac{C(w_{i-1},w_i)}{C(w_{i-1})}
 
 ::: frame
 ## Corpus 
-![](img/apple.png){width=20px}
-![](img/apple.png){width=20px}
-![](img/apple.png){width=20px}
-![](img/eggplant.png){width=20px}
-![](img/apple.png){width=20px}
-![](img/banana.png){width=20px}
-![](img/banana.png){width=20px}
-![](img/cherries.png){width=20px}
-![](img/apple.png){width=20px}
-![](img/eggplant.png){width=20px}
-![](img/banana.png){width=20px}
-![](img/banana.png){width=20px}
-![](img/cherries.png){width=20px}
-![](img/banana.png){width=20px}
-![](img/apple.png){width=20px}
-![](img/eggplant.png){width=20px}
+![](img/apple.png){width=15px}
+![](img/apple.png){width=15px}
+![](img/apple.png){width=15px}
+![](img/eggplant.png){width=15px}
+![](img/apple.png){width=15px}
+![](img/banana.png){width=15px}
+![](img/banana.png){width=15px}
+![](img/cherries.png){width=15px}
+![](img/apple.png){width=15px}
+![](img/eggplant.png){width=15px}
+![](img/banana.png){width=15px}
+![](img/banana.png){width=15px}
+![](img/cherries.png){width=15px}
+![](img/banana.png){width=15px}
+![](img/apple.png){width=15px}
+![](img/eggplant.png){width=15px}
 
 Bigrams:
-![](img/apple.png){width=20px}![](img/apple.png){width=20px}, ![](img/apple.png){width=20px}![](img/apple.png){width=20px}, ![](img/apple.png){width=20px}![](img/eggplant.png){width=20px}, ![](img/eggplant.png){width=20px}![](img/apple.png){width=20px}, ..., ![](img/apple.png){width=20px}![](img/eggplant.png){width=20px}, ![](img/eggplant.png){width=20px}![](img/apple.png){width=20px} $\leftarrow$ circular bigram!
+![](img/apple.png){width=15px}![](img/apple.png){width=15px}, ![](img/apple.png){width=15px}![](img/apple.png){width=15px}, ![](img/apple.png){width=15px}![](img/eggplant.png){width=15px}, ![](img/eggplant.png){width=15px}![](img/apple.png){width=15px}, ..., ![](img/apple.png){width=15px}![](img/eggplant.png){width=15px}, ![](img/eggplant.png){width=15px}![](img/apple.png){width=15px} $\leftarrow$ circular bigram!
 
 Bigrams: AA, AA, AE, EA, ..., AE, EA
 :::
@@ -319,7 +323,7 @@ p(w_i|w_{i-1}:w_{i-n+1} ) = \frac{C(w_{i-n+1}:w_i) + \alpha}{C(w_{i-n+1}:w_{i-1}
 p(w_i|w_{i-1}:w_{i-n+1} ) = \frac{C(w_{i-n+1}:w_i) + \alpha}{C(w_{i-n+1}:w_{i-1}) + \alpha|V_{(w_{i-n+1}:w_{i-1},\bullet)}|}
 \end{equation}
 
-* We already now the shared (train + test) vocabulary $V$
+* We already know the shared (train + test) vocabulary $V$
 
 . . .
 
@@ -334,25 +338,38 @@ p(w_i|w_{i-1}:w_{i-n+1} ) = \frac{C(w_{i-n+1}:w_i) + \alpha}{C(w_{i-n+1}:w_{i-1}
 \end{equation}
 
 
-# Cross-Validation
+# Backing-off 
 
-TODO
+\begin{center}
+\textbf{MARY HAD A LITTLE LAMB}
+\end{center}
 
-# Estimating LOO Parameters
+- Consider the bigram (LITTLE MARY)
+- Consider the trigram (HAD A LAMB)
+
+For a trigram $P(w_3|w_2, w_1)$, use probability of bigram $P(w_3|w_2)$, else back-off to unigram probability $P(w_3)$.
+
+Will be covered in more detail in further tutorials.
 
 
 # Count Trees
 
-- remove infrequent nodes
+\centering 
 
-TODO
+![](img/count_tree.gif){width=350px}
 
-# Privacy
+\scriptsize Source:https://www.w3.org/TR/ngram-spec/
 
-TODO differential privacy
+# Assignment 5
+
+- Exercise 1: OOV Words
+- Exercise 2: Additive smoothing
+- Exercise 3: Perplexity, infinite smoothing, interpolation
+- Bonus: Other language models
 
 # Resources
 
-1. UdS SNLP Class, WSD: <https://teaching.lsv.uni-saarland.de/snlp/>
-2. Classical Statistical WSD: <https://www.aclweb.org/anthology/P91-1034.pdf>
+1. UdS SNLP Class: <https://teaching.lsv.uni-saarland.de/snlp/>
+2. Additive smoothing: <https://en.wikipedia.org/wiki/Additive_smoothing>
 3. n-gram count trees: <http://ssli.ee.washington.edu/WS07/notes/ngrams.pdf>
+4. n-gram models: <https://web.stanford.edu/~jurafsky/slp3/3.pdf>
