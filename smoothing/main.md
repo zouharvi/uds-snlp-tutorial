@@ -1,6 +1,6 @@
 ---
 title:
-- Assignment 4+Smoothing
+- Assignment 4,5 + Smoothing
 subtitle: |
     | (SNLP Tutorial 5)
 author:
@@ -88,11 +88,29 @@ documentclass: beamer
 
 :::frame
 ## OOV words
-* What about ![](img/dark_chocolate.png){width=15px} and ![](img/fries.png){width=15px}?
-* OOV rate: $2/6 = 33\%$
+> * What about ![](img/dark_chocolate.png){width=15px} and ![](img/fries.png){width=15px}?
+> * OOV rate?
+> * $2/6 = 33\%$
+> * Solutions?
 :::
 
-- Solutions? character-level, subword units
+ <!-- character-level, subword units -->
+
+# Subword Units
+
+Solution to OOV words: go lower
+
+> - Characters: $V = \{a,b,c,\ldots, \_\}$
+> - Syllables: $V = \{bo,ve,r,how, \ldots, \_\}$
+> - Data-driven units (subwords): $V = \{smi,les,es,clo, \ldots, \_\}$
+- - Byte Pair Encoding, Word Piece, Sentence Piece
+- - Start with the alphabet, merge and add frequent character-level n-grams
+- - E.g. `bedclothes became white` $\rightarrow$ `bed @cloth @es be @came @white`
+- - Used heavily in any modern NLP (MT, LM, QA, $\ldots$)
+
+## Questions
+> - Can we still get an unknown "word"? <!-- Yes, unknown character not part of the original alphabet -->
+> - How do we define perplexity for subword language models? <!-- We use the same splitting on the test corpus -->
 
 # Smoothing
 
@@ -153,6 +171,7 @@ Solution: Assign probability mass from frequent events to infrequent events (Smo
 . . .
 
 * PP = $2^{(0.33 \cdot 0.32 + 0.27 \cdot 0.17 + 0.18 \cdot 0.17 + 0.13 \cdot 0.17 + 2 \cdot (0.05 \cdot 0.08))} = 1.4$
+* What would be PP with unsmoothed model?
 :::
 
 
@@ -161,8 +180,24 @@ Solution: Assign probability mass from frequent events to infrequent events (Smo
 
 Recall the additive smoothing formula for unigrams:
 
+
 \begin{equation}
-p_{smoothed}(w_i) = \frac{
+C^*(w_i) = C(w_i) + \alpha
+\end{equation}
+\begin{equation}
+N^* = \sum_{w_i \in V} C^*(w_i) = N + \alpha |V|
+\end{equation}
+
+. . .
+
+\begin{equation}
+p_{smoothed}(w_i)
+= \frac{
+  C(w_i) + \alpha
+}{
+  N^*
+}
+= \frac{
   C(w_i) + \alpha
 }{
   N + \alpha|V|
@@ -171,9 +206,8 @@ p_{smoothed}(w_i) = \frac{
 
 . . .
 
-* What is $N$? What is $V$?
-
-Remember from Assignment 2 that:
+<!-- * What is $N$? What is $V$? -->
+<!-- Remember from Assignment 2 that: -->
 
 \begin{equation}
 p(w_i|w_{i-1}) = \frac{C(w_{i-1},w_i)}{C(w_{i-1})}
@@ -181,10 +215,8 @@ p(w_i|w_{i-1}) = \frac{C(w_{i-1},w_i)}{C(w_{i-1})}
 
 . . .
 
-* Smoothen the bigram count: $C(w_{i-1},w_i) \rightarrow C(w_{i-1}, w_i) + \alpha$
-
-* Normalization: $p_{smoothed}(w_i|w_{i-1}) = \frac{C(w_{i-1},w_i) + \alpha}{\text{\large ?}}$
-
+Smoothen the bigram count: $C(w_{i-1},w_i) \rightarrow C(w_{i-1}, w_i) + \alpha$
+<!-- * Normalization: $p_{smoothed}(w_i|w_{i-1}) = \frac{C(w_{i-1},w_i) + \alpha}{\text{\large ?}}$ -->
 
 # Additive smoothing: Bigrams
 
@@ -247,7 +279,7 @@ Bigrams: AA, AA, AE, EA, ..., AE, EA
 
 # Additive smoothing: Bigrams: normalization
 
-* add $\alpha \cdot 4$ to history count! 
+* Add $\alpha \cdot 4$ to history count
 * Pretend that we have seen the history $|V| = 4$ times more.
 
 . . .
