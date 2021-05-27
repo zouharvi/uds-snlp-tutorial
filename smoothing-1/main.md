@@ -1,6 +1,6 @@
 ---
 title:
-- Assignment 4,5 + Smoothing
+- Assignment 4,5 + Smoothing 1
 subtitle: |
     | (SNLP Tutorial 5)
 author:
@@ -86,12 +86,21 @@ documentclass: beamer
 
 . . .
 
-:::frame
+::: columns
+:::: column
 ## OOV words
 > * What about ![](img/dark_chocolate.png){width=15px} and ![](img/fries.png){width=15px}?
 > * OOV rate?
-> * $2/6 = 33\%$
+> * $3/12 = 25\%$
 > * Solutions?
+::::
+
+. . .
+
+:::: column
+## OOV words
+> * How do we even know this will be an issue?
+::::
 :::
 
  <!-- character-level, subword units -->
@@ -128,7 +137,7 @@ Solution: Assign probability mass from frequent events to infrequent events (Smo
 # Additive smoothing (add-$\alpha$-smoothing)
 
 :::frame
-## Unigrams
+## Distribution
 * Add zero counts to frequency table
 
 ![](img/apple.png){width=15px} `6` \qquad
@@ -191,7 +200,7 @@ N^* = \sum_{w_i \in V} C^*(w_i) = N + \alpha |V|
 . . .
 
 \begin{equation}
-p_{smoothed}(w_i)
+p^*(w_i)
 = \frac{
   C(w_i) + \alpha
 }{
@@ -250,7 +259,7 @@ Bigrams: AA, AA, AE, EA, ..., AE, EA
 
 * Collect bigram counts & condtional probabilities for history $A$
 
-| Bigram | $C(w_i, w_{i-1})$ | $C(w_{i-1})$| $\frac{C(w_{i-1},w_i)}{C(w_{i-1})}$ |
+| Bigram | $C(A, w_i)$ | $C(A)$| $\frac{C(A,w_i)}{CA)}$ |
 | ------ | :-----: | :-----: | :---: |
 | AE     | 3       | 6       | 1/2   |
 | AA     | 2       | 6       | 1/3   |
@@ -261,7 +270,7 @@ Bigrams: AA, AA, AE, EA, ..., AE, EA
 
 * We encounter an unknown bigram $AF$
 
-| Bigram | $C_{\alpha}(w_{i-1},w_i)$ | $C(w_{i-1})$| $\frac{C_{\alpha}(w_{i-1},w_i)}{C(w_{i-1})}$ |
+| Bigram | $C_{\alpha}(A,w_i)$ | $C(A)$| $\frac{C_{\alpha}(A,w_i)}{C(A)}$ |
 | ------ | :-----: | :-----: | :---: |
 | AE     | 3+1       | 6      | 4/6  |
 | AA     | 2+1       | 6      | 3/6  |
@@ -270,12 +279,8 @@ Bigrams: AA, AA, AE, EA, ..., AE, EA
 
 . . .
 
-* Not a probabilitiy distribution! 
-
-. . .
-
-* Solution: We need to adjust the divisor a tiny bit. But how tiny?
-
+> * Not a probabilitiy distribution! 
+> * Solution: We need to adjust the divisor a tiny bit. But how tiny?
 
 # Additive smoothing: Bigrams: normalization
 
@@ -284,7 +289,7 @@ Bigrams: AA, AA, AE, EA, ..., AE, EA
 
 . . .
 
-| Bigram | $C{_\alpha}(w_{i-1}) + \alpha |V|$| $\frac{C_{\alpha}(w_{i-1},w_i)}{C(w_{i-1}) + \alpha |V|}$ |
+| Bigram | $C{_\alpha}(A) + \alpha |V|$| $\frac{C_{\alpha}(A,w_i)}{C(A) + \alpha |V|}$ |
 | ------ | :-----: | :---: |
 | AE     | 6 + 4   | 4/10  |
 | AA     | 6 + 4   | 3/10  |
@@ -303,7 +308,7 @@ Bigrams: AA, AA, AE, EA, ..., AE, EA
 
 . . .
 
-| Bigram | $C{_\alpha}(w_{i-1}) + \alpha |V|$| $\frac{C_{\alpha}(w_{i-1},w_i)}{C(w_{i-1}) + \alpha |V|}$ |
+| Bigram | $C{_\alpha}(A) + \alpha |V|$| $\frac{C_{\alpha}(A,w_i)}{C(A) + \alpha |V|}$ |
 | ------ | :-----: | :---: |
 | AE     | 6 + 5   | 4/11  |
 | AA     | 6 + 5   | 3/11  |
@@ -379,7 +384,14 @@ p(w_i|w_{i-1}:w_{i-n+1} ) = \frac{C(w_{i-n+1}:w_i) + \alpha}{C(w_{i-n+1}:w_{i-1}
 - Consider the bigram (LITTLE MARY)
 - Consider the trigram (HAD A LAMB)
 
-For a trigram $P(w_3|w_2, w_1)$, use probability of bigram $P(w_3|w_2)$, else back-off to unigram probability $P(w_3)$.
+For a trigram $p(w_3|w_2, w_1)$, use probability of bigram $P(w_3|w_2)$, else back-off to unigram probability $P(w_3)$.
+
+$$
+0.5 \cdot p(w_3|w_2, w_1) + 0.25 \cdot p(w_3|w_2) + 0.25 \cdot p(w_3)
+$$
+$$
+0.5 \cdot p(\text{lamb}|\text{a}, \text{had}) + 0.25 \cdot p(\text{lamb}|\text{a}) + 0.25 \cdot p(\text{lamb})
+$$
 
 Will be covered in more detail in further tutorials.
 
@@ -389,8 +401,6 @@ Will be covered in more detail in further tutorials.
 \centering 
 
 ![](img/count_tree.gif){width=350px}
-
-\scriptsize Source:https://www.w3.org/TR/ngram-spec/
 
 # Assignment 5
 
@@ -405,3 +415,4 @@ Will be covered in more detail in further tutorials.
 2. Additive smoothing: <https://en.wikipedia.org/wiki/Additive_smoothing>
 3. n-gram count trees: <http://ssli.ee.washington.edu/WS07/notes/ngrams.pdf>
 4. n-gram models: <https://web.stanford.edu/~jurafsky/slp3/3.pdf>
+5. Count-trees figure: <https://www.w3.org/TR/ngram-spec/>
