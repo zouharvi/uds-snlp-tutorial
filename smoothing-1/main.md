@@ -177,9 +177,58 @@ Solution: Assign probability mass from frequent events to infrequent events (Smo
 ![](img/cherries.png){width=15px} `0.08` \qquad
 ![](img/dark_chocolate.png){width=15px} `0.08` \qquad
 
-. . .
 
-* PP = $2^{(0.33 \cdot 0.32 + 0.27 \cdot 0.17 + 0.18 \cdot 0.17 + 0.13 \cdot 0.17 + 2 \cdot (0.05 \cdot 0.08))} = 1.4$
+* Recall perplexity formula:
+\begin{equation}
+PP = \sum_{w,h} f(w,h) \cdot \log_2 p(w|h)
+\end{equation}
+:::
+
+# Additive smoothing (add-$\alpha$-smoothing)
+
+:::frame
+## Distribution
+* Add zero counts to frequency table
+
+![](img/apple.png){width=15px} `6` \qquad
+![](img/banana.png){width=15px} `5`  \qquad
+![](img/eggplant.png){width=15px} `3` \qquad
+![](img/cherries.png){width=15px} `2` \qquad
+![](img/fries.png){width=15px} `0` \qquad
+![](img/dark_chocolate.png){width=15px} `0` \qquad
+
+* Increase all counts by $\alpha = 1$
+
+![](img/apple.png){width=15px} `6+1` \qquad
+![](img/banana.png){width=15px} `5+1`  \qquad
+![](img/eggplant.png){width=15px} `3+1` \qquad
+![](img/cherries.png){width=15px} `2+1` \qquad
+![](img/fries.png){width=15px} `0+1` \qquad
+![](img/dark_chocolate.png){width=15px} `0+1` \qquad
+
+* Divide by $N = 22$
+
+![](img/apple.png){width=15px} `0.32` \qquad
+![](img/banana.png){width=15px} `0.27`  \qquad
+![](img/eggplant.png){width=15px} `0.18` \qquad
+![](img/cherries.png){width=15px} `0.13` \qquad
+![](img/fries.png){width=15px} `0.05` \qquad
+![](img/dark_chocolate.png){width=15px} `0.05` \qquad
+:::
+
+:::frame
+## Perplexity
+* Relative frequencies on test corpus:
+
+![](img/apple.png){width=15px} `0.33` \qquad
+![](img/banana.png){width=15px} `0.17`  \qquad
+![](img/fries.png){width=15px} `0.17` \qquad
+![](img/eggplant.png){width=15px} `0.17` \qquad
+![](img/cherries.png){width=15px} `0.08` \qquad
+![](img/dark_chocolate.png){width=15px} `0.08` \qquad
+
+
+* PP: $2^{-(0.33 \cdot (-1.64) + 0.17 \cdot (-1.89) + 0.17 \cdot (-4.32) + 0.17 \cdot (-2.47) + 0.08 \cdot (-2.94) + 0.08 \cdot (-4.32))} = 2^{(-2.6)} \approx 6$
 * What would be PP with unsmoothed model?
 :::
 
@@ -270,7 +319,7 @@ Bigrams: AA, AA, AE, EA, ..., AE, EA
 
 * We encounter an unknown bigram $AF$
 
-| Bigram | $C_{\alpha}(A,w_i)$ | $C(A)$| $\frac{C_{\alpha}(A,w_i)}{C(A)}$ |
+| Bigram | $C(A,w_i)$ | $C(A)$| $\frac{C_{\alpha}(A,w_i)}{C(A)}$ |
 | ------ | :-----: | :-----: | :---: |
 | AE     | 3+1       | 6      | 4/6  |
 | AA     | 2+1       | 6      | 3/6  |
@@ -289,7 +338,7 @@ Bigrams: AA, AA, AE, EA, ..., AE, EA
 
 . . .
 
-| Bigram | $C{_\alpha}(A) + \alpha |V|$| $\frac{C_{\alpha}(A,w_i)}{C(A) + \alpha |V|}$ |
+| Bigram | $C(A) + \alpha |V|$| $\frac{C_{\alpha}(A,w_i)}{C(A) + \alpha |V|}$ |
 | ------ | :-----: | :---: |
 | AE     | 6 + 4   | 4/10  |
 | AA     | 6 + 4   | 3/10  |
@@ -308,7 +357,7 @@ Bigrams: AA, AA, AE, EA, ..., AE, EA
 
 . . .
 
-| Bigram | $C{_\alpha}(A) + \alpha |V|$| $\frac{C_{\alpha}(A,w_i)}{C(A) + \alpha |V|}$ |
+| Bigram | $C(A) + \alpha |V|$| $\frac{C_{\alpha}(A,w_i)}{C(A) + \alpha |V|}$ |
 | ------ | :-----: | :---: |
 | AE     | 6 + 5   | 4/11  |
 | AA     | 6 + 5   | 3/11  |
