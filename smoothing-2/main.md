@@ -22,7 +22,55 @@ documentclass: beamer
 - Exercise 3: Perplexity, infinite smoothing, interpolation
 - Bonus: Other language models
 
-# TODO
+# Cross-validation
+- K-fold cross-validation: Divide data into k subsets, train on k-1 subsets and test on the remaining 1. 
+- Leave One Out cross-validation: Train on all data points except one. Do this N times.
+
+::: frame
+## Questions
+- Why is cross-validation beneficial?
+- How does shuffling the dataset affect the LOOV score?
+- When is k-fold cross-validation beneficial over standard cross-validation?
+::: 
+<!-- CV prevents overfitting, used in hyperparameter estimation --->
+
+# Smoothing Techniques
+Remember the basics!
+
+We perform smoothing to keep a language model from assigning 0 or ~0 probabilities to rare/unseen events.
+
+Different ways to do this...
+
+# Floor Discounting
+
+\center
+$$ P(w|h) = \frac{N(w,h) + \epsilon}{N(h) + \epsilon \cdot V}$$
+
+Variants: Laplace smoothing, Lidstone smoothing, add-$\alpha$ smoothing...
+
+<!-- Where is Laplace smoothing useful? Text classification, where zero counts are relatively fewer... -->
+
+# Linear Intepolation/Jelinek-Mercer smoothing
+
+Consider
+
+\centering
+$B_1$: (FROZEN YOGHURT)
+
+$B_2$: (FROZEN RED)
+
+
+What will floor discounting do here? Can we interpolate our bigram model with a unigram model?
+
+$$P(w|h) = \lambda_1 P(w|h) + (1 - \lambda_1) P(w)$$
+Can be generalised to higher order n-grams.
+
+Question:
+What condition must be fulfilled for higher n-grams? How is $\lambda_i$ determined?
+
+<!-- lambda determined using EM/Baum-Welch Algorithm -->
+<!-- Can also interpolate multiple LMs as in Assignment 5 -->
+
 
 # Assignment 6
 
@@ -31,7 +79,4 @@ documentclass: beamer
 # Resources
 
 1. UdS SNLP Class: <https://teaching.lsv.uni-saarland.de/snlp/>
-2. Additive smoothing: <https://en.wikipedia.org/wiki/Additive_smoothing>
-3. n-gram count trees: <http://ssli.ee.washington.edu/WS07/notes/ngrams.pdf>
 4. n-gram models: <https://web.stanford.edu/~jurafsky/slp3/3.pdf>
-5. Count-trees figure: <https://www.w3.org/TR/ngram-spec/>
