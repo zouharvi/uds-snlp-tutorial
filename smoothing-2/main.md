@@ -129,8 +129,5 @@ $$p_r = \frac{(r+1)N_{r+1}}{N_r} \cdot \frac{1}{N}$$
 # Resources
 
 1. UdS SNLP Class: <https://teaching.lsv.uni-saarland.de/snlp/>
-<<<<<<< HEAD
 4. n-gram models: <https://web.stanford.edu/~jurafsky/slp3/3.pdf>
-=======
 2. Twitter emojis
->>>>>>> 49a2364f0eda11bd65810d2613e2206d8790de85
