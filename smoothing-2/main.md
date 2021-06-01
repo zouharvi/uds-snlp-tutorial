@@ -28,16 +28,18 @@ documentclass: beamer
 
 ::: frame
 ## Questions
-- Why is cross-validation beneficial?
+- Why is k-fold cross-validation beneficial?
+- When is cross-validation harmful?
 - How does shuffling the dataset affect the LOOV score?
-- When is k-fold cross-validation beneficial over standard cross-validation?
+<!-- - When is k-fold cross-validation beneficial over standard cross-validation? -->
 ::: 
+<!-- compute requirements, in-time validation of logs/traffic -->
 <!-- CV prevents overfitting, used in hyperparameter estimation --->
 
 # Smoothing Techniques - Basics
 
-- We perform smoothing to keep a language model from assigning 0 or ~0 probabilities to rare/unseen events
-- Generally we can smooth any arbitrary distribution
+- To keep a language model from assigning 0 or ~0 probabilities to `________` <!-- rare/unseen events -->
+- Generally we can smooth any arbitrary `_________` <!-- distribution -->
 - Different ways to do this...
 
 # Floor Discounting
@@ -49,17 +51,20 @@ Variants: Laplace smoothing, Lidstone smoothing, add-$\alpha$ smoothing...
 
 <!-- Where is Laplace smoothing useful? Text classification, where zero counts are relatively fewer... -->
 
+## Questions
+- What is $N(h)$ for unigram $N(w)$?
+- What is $N(h)$ for n-gram $N(w,h)$?
+- What is $N(h)$ for zerogram?
+
 # Good-Turing
 
 Data: ![](img/apple.png){width=15px}
 ![](img/apple.png){width=15px}
 ![](img/apple.png){width=15px}
 ![](img/eggplant.png){width=15px}
-![](img/apple.png){width=15px}
 ![](img/banana.png){width=15px}
 ![](img/banana.png){width=15px}
 ![](img/cherries.png){width=15px}
-![](img/apple.png){width=15px}
 ![](img/eggplant.png){width=15px}
 ![](img/banana.png){width=15px}
 ![](img/banana.png){width=15px}
@@ -95,6 +100,7 @@ $$p_r = \frac{(r+1)N_{r+1}}{N_r} \cdot \frac{1}{N}$$
 
 # Good-Turing - Questions
 
+> - Two items have same original frequency. What will be their new probability? <!-- Same -->
 > - Let $k$ be the maximum occurence of a word. What's the issue? <!-- The next bucket is empty. -->
 > - A similar issue related to the one above? <!-- High frequency becomes sparse, neighbouring buckets are empty -->
 > - Do the probabilities sum up to $1$? <!-- Yes, do sum from 1 to max-k and multiply each prob by N_k -->
@@ -102,19 +108,32 @@ $$p_r = \frac{(r+1)N_{r+1}}{N_r} \cdot \frac{1}{N}$$
 
 # Linear Intepolation/Jelinek-Mercer Smoothing
 
-\centering
-$B_1$: (FROZEN YOGHURT)
+<!-- \centering -->
 
-$B_2$: (FROZEN RED)
+Train: 
+![](img/apple.png){width=15px}
+![](img/cherries.png){width=15px}
+![](img/banana.png){width=15px}
+![](img/banana.png){width=15px}
 
-What will floor discounting do here? Can we interpolate our bigram model with a unigram model?
+Train bigrams:
+(![](img/apple.png){width=15px}, ![](img/cherries.png){width=15px}) \qquad
+(![](img/cherries.png){width=15px}, ![](img/banana.png){width=15px}) \qquad
+(![](img/banana.png){width=15px}, ![](img/banana.png){width=15px})
 
-$$P(w|h) = \lambda_1 P(w|h) + (1 - \lambda_1) P(w)$$
+Test: 
+![](img/cherries.png){width=15px}
+![](img/apple.png){width=15px}
+![](img/cherries.png){width=15px}
+
+<!-- What will floor discounting do here? Can we interpolate our bigram model with a unigram model? -->
+
+$$P(w|h) = \lambda P(w|h) + (1 - \lambda) P(w)$$
 Can be generalised to higher order n-grams.
 
 ::: frame
 ## Questions
-- What condition must be fulfilled for higher n-grams?
+- What condition must be fulfilled for higher n-grams? <!-- convex combination -->
 - How is $\lambda_i$ determined? <!-- Held out data / Use frequencies of history (similar to discounting) -->
 - Can you smooth the above probabilities?
 ::: 
@@ -124,28 +143,26 @@ Can be generalised to higher order n-grams.
 
 # Backing-Off models
 
-- What other way can we use the lower-order n-gram distributions? Is a lot of context always a good thing?
+- What other way can we use the lower-order n-gram distributions?
+- Is a lot of context always a good thing?
 - Idea behind back-off models: Use information from a lower order n-gram distribution.
 <!-- - A "recursion" strategy... -->
 
-\begin{equation}
-{
+$$
   P(w|h) = 
   \begin{cases}
-  \frac{N(w,h)-d}{N(h)} + \alpha(h)\beta(w|h) & \text{for N(w,h) > 0}\\
+  \frac{N(w,h)}{N(h)} + \alpha(h)\beta(w|h) & \text{for N(w,h) > 0}\\
   \alpha(h)\beta(w|h) & \text{otherwise}
   \end{cases}
-}
-\end{equation}
+$$
 
 # Absolute Discounting
 <!-- Uses the best of Good Turing and interpolation -->
 
 ::: frame
 ## Corpus
-* Train set: 
-
-\qquad ![](img/apple.png){width=12px}
+* Train
+![](img/apple.png){width=12px}
 ![](img/apple.png){width=12px}
 ![](img/apple.png){width=12px}
 ![](img/eggplant.png){width=12px}
@@ -163,9 +180,8 @@ Can be generalised to higher order n-grams.
 ![](img/eggplant.png){width=12px}
 
 
-* Test set:
-
-\qquad ![](img/dark_chocolate.png){width=12px}
+* Test
+![](img/dark_chocolate.png){width=12px}
 ![](img/apple.png){width=12px}
 ![](img/fries.png){width=12px}
 ![](img/banana.png){width=12px}
