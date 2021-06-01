@@ -34,12 +34,11 @@ documentclass: beamer
 ::: 
 <!-- CV prevents overfitting, used in hyperparameter estimation --->
 
-# Smoothing Techniques
-Remember the basics!
+# Smoothing Techniques - Basics
 
-We perform smoothing to keep a language model from assigning 0 or ~0 probabilities to rare/unseen events.
-
-Different ways to do this...
+- We perform smoothing to keep a language model from assigning 0 or ~0 probabilities to rare/unseen events
+- Generally we can smooth any arbitrary distribution
+- Different ways to do this...
 
 # Floor Discounting
 
@@ -96,9 +95,9 @@ $$p_r = \frac{(r+1)N_{r+1}}{N_r} \cdot \frac{1}{N}$$
 
 # Good-Turing - Questions
 
-> - Let $k$ be the maximum occurence of a word. What's the issue?
-> - A similar issue related to the one above? <!-- High frequency becomes sparse -->
-> - Do the probabilities sum up to $1$?
+> - Let $k$ be the maximum occurence of a word. What's the issue? <!-- The next bucket is empty. -->
+> - A similar issue related to the one above? <!-- High frequency becomes sparse, neighbouring buckets are empty -->
+> - Do the probabilities sum up to $1$? <!-- Yes, do sum from 1 to max-k and multiply each prob by N_k -->
 > - How to make it work for anything above unigrams? <!-- Works for any freq distribution -->
 
 # Linear Intepolation/Jelinek-Mercer Smoothing
@@ -124,11 +123,10 @@ Can be generalised to higher order n-grams.
 <!-- Can also interpolate multiple LMs as in Assignment 5 -->
 
 # Backing-Off models
-What other way can we use the lower-order n-gram distributions? Is a lot of context always a good thing?
 
-Idea behind back-off models: Use information from a lower order n-gram distribution.
-
-A "recursion" strategy...
+- What other way can we use the lower-order n-gram distributions? Is a lot of context always a good thing?
+- Idea behind back-off models: Use information from a lower order n-gram distribution.
+<!-- - A "recursion" strategy... -->
 
 \begin{equation}
 {
@@ -247,12 +245,12 @@ $$\lambda(.) = \frac{d}{\sum_{w'}N(w')} \cdot N_{1+}$$
 
 - How does the discounting parameter *d* affect perplexity?
 - What values can *d* take? Why?
+- What if we set *d* to $\infty$?
 - What problems does Absolute Discounting have?
 
 # Kneser-Ney Smoothing
 
 Idea: Can we use the lower order distributions in a better way?
-
 
 \centering
 I WENT TO THE GROCERY _________ .
@@ -299,20 +297,19 @@ Will be covered in detail in the next tutorial...
 
 - Back-off models and interpolation save n-grams of all orders.
 
-You are storing all $V^n + V^{n-1} + ... + V + 1$ distributions!
+We are storing all $V^n + V^{n-1} + ... + V + 1$ distributions!
 
 . . . 
 
 - Idea: Store the counts which exceed a threshold $c(\bullet) > K$. Also called a "cut-off".
-
-- Another idea: Use some information-theory based approach to determine the nature of the probabilities, and then prune the lower orders. Known as *Stolcke Pruning*.
+- Idea: Use some information-theory based approach to determine the nature of the probabilities, and then prune the lower orders. Known as *Stolcke Pruning*.
 
 . . .
 
 ::: frame
 ## Questions
 - Does pruning assign 0 probability to the pruned n-grams?
-- Can you prune an entire branch/subtree? What does this mean? <!-- pruning at distribution level -->
+- Can we prune an entire branch/subtree? What does this mean? <!-- pruning at distribution level -->
 <!-- f pb = p(w|vb) and pab = p(w|va, vb), then prune the pab branch if D(pab||pb) < epsilon. 
 p(w1, . . . , wT ) = p(w1)p(w2|w1)p(w3)p(w4|w2, w3)p(w5|w2, w3, w4)· · · p(wT |wT−1) -->
 - What is a good pruning strategy?
