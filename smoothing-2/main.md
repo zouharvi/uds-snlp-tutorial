@@ -101,7 +101,7 @@ $$p_r = \frac{(r+1)N_{r+1}}{N_r} \cdot \frac{1}{N}$$
 > - Do the probabilities sum up to $1$?
 > - How to make it work for anything above unigrams? <!-- Works for any freq distribution -->
 
-# Linear Intepolation/Jelinek-Mercer smoothing
+# Linear Intepolation/Jelinek-Mercer Smoothing
 
 \centering
 $B_1$: (FROZEN YOGHURT)
@@ -116,7 +116,7 @@ Can be generalised to higher order n-grams.
 ::: frame
 ## Questions
 - What condition must be fulfilled for higher n-grams?
-- How is $\lambda_i$ determined?
+- How is $\lambda_i$ determined? <!-- Held out data / Use frequencies of history (similar to discounting) -->
 - Can you smooth the above probabilities?
 ::: 
 
@@ -141,11 +141,11 @@ A "recursion" strategy...
 \end{equation}
 
 # Absolute Discounting
+<!-- Uses the best of Good Turing and interpolation -->
 
 ::: frame
 ## Corpus
 * Train set: 
-
 
 \qquad ![](img/apple.png){width=12px}
 ![](img/apple.png){width=12px}
@@ -197,6 +197,9 @@ A "recursion" strategy...
 
 * Decrease all non-zero counts by some parameter d = 0.75
 
+<!-- Church and Gale’s clever idea was to look at a held-out corpus and just see what the count is for all those bigrams that had count
+n in the training set. They observed that except for the held-out counts for 0 and 1, all the other bigram counts in the held-out set could be estimated pretty well by just subtracting some value d from the count in the training set! -->
+
 ![](img/apple.png){width=12px} `6-0.75` \qquad
 ![](img/banana.png){width=12px} `5-0.75`  \qquad
 ![](img/eggplant.png){width=12px} `3-0.75` \qquad
@@ -214,6 +217,8 @@ A "recursion" strategy...
 ![](img/dark_chocolate.png){width=12px} `0` \qquad
 :::
 
+. . .
+
 Sum = 0.33+0.26+0.14+0.11 = 0.84 $\ne$ 1.
 
 . . .
@@ -226,20 +231,93 @@ $$P(w|h) = \frac{c(w,h) - d}{c(h)}$$
 
 Adjust the probability mass $1 - \sum_{h} \frac{c(w,h) - d}{c(h)}$
 
+<!--The intuition is that since we have good estimates already for the very high counts, a small discount d won’t affect them much-->
+. . .
+
 e.g. For bigrams,
 
-$$P_{abs}(w_i|w_{i-1}) = \frac{max{N(w_{i-1}, w_i)-d, 0}}{\sum_{w'}N(w_{i-1}, w')} + \lambda(w_{i-1})P_{abs}(w_i)$$
-$$P_{abs}(w_i) = \frac{max{N(w_i)-d, 0}}{\sum_{w'}N(w')} + \lambda(.)P_{unif}(w_i)$$
+$$P_{abs}(w_i|w_{i-1}) = \frac{max\{N(w_{i-1}, w_i)-d, 0\}}{\sum_{w'}N(w_{i-1}, w')} + \lambda(w_{i-1})P_{abs}(w_i)$$
+$$P_{abs}(w_i) = \frac{max\{N(w_i)-d, 0\}}{\sum_{w'}N(w')} + \lambda(.)P_{unif}(w_i)$$
 $$\texttt{where } \lambda(w_{i-1}) = \frac{d}{\sum_{w'}N(w_{i-1},w')} \cdot N_{1+}(w_{i-1}, \bullet)$$
 $$\lambda(.) = \frac{d}{\sum_{w'}N(w')} \cdot N_{1+}$$
 
+<!--If S seen word types occur after wi-2 wi-1 in the training data, this reserves the probability mass P(U) = (S ×D)/C(wi-2wi-1) to be computed according to P(wi | wi–1).-->
+
+# Absolute Discounting - Questions
+
+- How does the discounting parameter *d* affect perplexity?
+- What values can *d* take? Why?
+- What problems does Absolute Discounting have?
+
 # Kneser-Ney Smoothing
 
-TODO
+Idea: Can we use the lower order distributions in a better way?
+
+
+\centering
+I WENT TO THE GROCERY _________ .
+
+Options:
+
+$W_1$: STORE
+
+$W_2$: YORK
+
+. . .
+
+Use the fact that YORK generally appears as context or \textit{continuation} of the word NEW. 
+
+# Kneser-Ney Smoothing
+
+\centering
+![](img/kneser_ney.png){width=300px}
+
+<!--e our estimate of PCONTINUATION on the number of different contexts word w has appeared in, that is, the number of
+bigram types it completes-->
+
+# Kneser-Ney Smoothing
+
+$$P_{continuation}(w) \propto |\{w': C(w',w) > 0\}| $$
+
+$$\texttt{**Don't forget to normalise!**}$$
+
+$$P_{KN}(w_i|w_{i-n+1:i-1}) = \frac{max\{C_{KN}(w_{i-n+1:i-1}, w_i)-d,0\}}{\sum_{w'}C_{KN}(w_{i-n+1:i-1}w')} + \lambda(w_{i-1})P_{continuation}(w_i)$$
+
+\begin{equation}
+{ \text{where}
+  C_{KN}(\bullet) = 
+  \begin{cases}
+  count(\bullet) & \text{for highest order} \\
+  continuationcount(\bullet) & \text{for lower orders}
+  \end{cases}
+}
+\end{equation}
+
+Will be covered in detail in the next tutorial...
 
 # Pruning
 
-TODO
+- Back-off models and interpolation save n-grams of all orders.
+
+You are storing all $V^n + V^{n-1} + ... + V + 1$ distributions!
+
+. . . 
+
+- Idea: Store the counts which exceed a threshold $c(\bullet) > K$. Also called a "cut-off".
+
+- Another idea: Use some information-theory based approach to determine the nature of the probabilities, and then prune the lower orders. Known as *Stolcke Pruning*.
+
+. . .
+
+::: frame
+## Questions
+- Does pruning assign 0 probability to the pruned n-grams?
+- Can you prune an entire branch/subtree? What does this mean? <!-- pruning at distribution level -->
+<!-- f pb = p(w|vb) and pab = p(w|va, vb), then prune the pab branch if D(pab||pb) < epsilon. 
+p(w1, . . . , wT ) = p(w1)p(w2|w1)p(w3)p(w4|w2, w3)p(w5|w2, w3, w4)· · · p(wT |wT−1) -->
+- What is a good pruning strategy?
+<!-- Grow the entire tree and then prune. Don't do ad hoc pruning. -->
+::: 
 
 # Assignment 6
 
@@ -250,5 +328,6 @@ TODO
 # Resources
 
 1. UdS SNLP Class: <https://teaching.lsv.uni-saarland.de/snlp/>
-4. n-gram models: <https://web.stanford.edu/~jurafsky/slp3/3.pdf>
-2. Twitter emojis
+2. n-gram models: <https://web.stanford.edu/~jurafsky/slp3/3.pdf>
+3. Entropy pruning: <https://arxiv.org/pdf/cs/0006025.pdf>
+4. Twitter emojis
