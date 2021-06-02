@@ -15,6 +15,19 @@ header-includes:
 documentclass: beamer
 ---
 
+# Slides repository
+
+\centering
+
+[github.com/zouharvi/uds-snlp-tutorial](https://github.com/zouharvi/uds-snlp-tutorial)
+
+\vspace{1cm}
+
+\raggedright 
+
+- Contributions welcome
+- "Cheating" allowed
+
 # Assignment 5
 
 - Exercise 1: OOV Words
@@ -23,18 +36,29 @@ documentclass: beamer
 - Bonus: Other language models
 
 # Cross-validation
-- K-fold cross-validation: Divide data into k subsets, train on k-1 subsets and test on the remaining 1. 
-- Leave One Out cross-validation: Train on all data points except one. Do this N times.
+> - Cross-validation is ...
+> - Train/(valid,test) split
+> - K-fold cross-validation is ...
+> - Divide data into k subsets, train on k-1 subsets and test on the remaining 1. 
+> - Leave One Out cross-validation is ...
+> - N-fold cross-validation (use one point for testing)
+
+. . .
 
 ::: frame
 ## Questions
-- Why is k-fold cross-validation beneficial?
-- When is cross-validation harmful?
-- How does shuffling the dataset affect the LOOV score?
-<!-- - When is k-fold cross-validation beneficial over standard cross-validation? -->
+> - What is the motivation behind LOOCV?
+> - What is the main issue of LOOCV?
+> - Why is k-fold cross-validation better than cross-validation?
+> - Why is cross-validation better than k-fold cross-validation?
+> - How does shuffling the dataset affect the LOOV score?
+> - If two models have same average performance (k-fold cross-validation), are they the same?
+> - Other usage of k-fold cross-validation (or split in general)?
 ::: 
+<!-- at the end we're going to train on all given data so we want to get an estimate of such performance -->
 <!-- compute requirements, in-time validation of logs/traffic -->
 <!-- CV prevents overfitting, used in hyperparameter estimation --->
+<!-- fair performance estimate, good hyperparameters, differential privacy, ensembling -->
 
 # Smoothing Techniques - Basics
 
@@ -126,6 +150,8 @@ Test:
 ![](img/apple.png){width=15px}
 ![](img/cherries.png){width=15px}
 
+. . .
+
 <!-- What will floor discounting do here? Can we interpolate our bigram model with a unigram model? -->
 
 $$P(w|h) = \lambda P(w|h) + (1 - \lambda) P(w)$$
@@ -155,6 +181,8 @@ $$
   \alpha(h)\beta(w|h) & \text{otherwise}
   \end{cases}
 $$
+
+- How come the coefficient is a function of the history and not a fixed constant?
 
 # Absolute Discounting
 <!-- Uses the best of Good Turing and interpolation -->
@@ -252,7 +280,7 @@ e.g. For bigrams,
 
 $$P_{abs}(w_i|w_{i-1}) = \frac{max\{N(w_{i-1}, w_i)-d, 0\}}{\sum_{w'}N(w_{i-1}, w')} + \lambda(w_{i-1})P_{abs}(w_i)$$
 $$P_{abs}(w_i) = \frac{max\{N(w_i)-d, 0\}}{\sum_{w'}N(w')} + \lambda(.)P_{unif}(w_i)$$
-$$\texttt{where } \lambda(w_{i-1}) = \frac{d}{\sum_{w'}N(w_{i-1},w')} \cdot N_{1+}(w_{i-1}, \bullet)$$
+$$\text{where } \lambda(w_{i-1}) = \frac{d}{\sum_{w'}N(w_{i-1},w')} \cdot N_{1+}(w_{i-1}, \bullet)$$
 $$\lambda(.) = \frac{d}{\sum_{w'}N(w')} \cdot N_{1+}$$
 
 <!--If S seen word types occur after wi-2 wi-1 in the training data, this reserves the probability mass P(U) = (S ×D)/C(wi-2wi-1) to be computed according to P(wi | wi–1).-->
@@ -262,7 +290,11 @@ $$\lambda(.) = \frac{d}{\sum_{w'}N(w')} \cdot N_{1+}$$
 - How does the discounting parameter *d* affect perplexity?
 - What values can *d* take? Why?
 - What if we set *d* to $\infty$?
-- What problems does Absolute Discounting have?
+<!-- - What problems does Absolute Discounting have? -->
+
+<!-- depends -->
+<!-- positive -->
+<!-- uniform -->
 
 # Kneser-Ney Smoothing
 
@@ -293,7 +325,7 @@ bigram types it completes-->
 
 $$P_{continuation}(w) \propto |\{w': C(w',w) > 0\}| $$
 
-$$\texttt{**Don't forget to normalise!**}$$
+$$\text{Normalize by all bigram types.}: |\{(w_i, w_j): C(w_i, w_j) > 0\}|$$
 
 $$P_{KN}(w_i|w_{i-n+1:i-1}) = \frac{max\{C_{KN}(w_{i-n+1:i-1}, w_i)-d,0\}}{\sum_{w'}C_{KN}(w_{i-n+1:i-1}w')} + \lambda(w_{i-1})P_{continuation}(w_i)$$
 
@@ -301,8 +333,8 @@ $$P_{KN}(w_i|w_{i-n+1:i-1}) = \frac{max\{C_{KN}(w_{i-n+1:i-1}, w_i)-d,0\}}{\sum_
 { \text{where}
   C_{KN}(\bullet) = 
   \begin{cases}
-  count(\bullet) & \text{for highest order} \\
-  continuationcount(\bullet) & \text{for lower orders}
+  \text{count}(\bullet) & \text{for highest order} \\
+  \text{continuation\_count}(\bullet) & \text{for lower orders}
   \end{cases}
 }
 \end{equation}
@@ -344,3 +376,4 @@ p(w1, . . . , wT ) = p(w1)p(w2|w1)p(w3)p(w4|w2, w3)p(w5|w2, w3, w4)· · · p(wT
 2. n-gram models: <https://web.stanford.edu/~jurafsky/slp3/3.pdf>
 3. Entropy pruning: <https://arxiv.org/pdf/cs/0006025.pdf>
 4. Twitter emojis
+5. Smoothing overview: <http://mlwiki.org/index.php/Smoothing_for_Language_Models>
