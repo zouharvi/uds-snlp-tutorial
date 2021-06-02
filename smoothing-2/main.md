@@ -327,7 +327,7 @@ $$P_{continuation}(w) \propto |\{w': C(w',w) > 0\}| $$
 
 $$\text{Normalize by all bigram types.}: |\{(w_i, w_j): C(w_i, w_j) > 0\}|$$
 
-$$P_{KN}(w_i|w_{i-n+1:i-1}) = \frac{max\{C_{KN}(w_{i-n+1:i-1}, w_i)-d,0\}}{\sum_{w'}C_{KN}(w_{i-n+1:i-1}w')} + \lambda(w_{i-1})P_{continuation}(w_i)$$
+$$P_{KN}(w_i|w_{i-n+1:i-1}) = \frac{max\{C_{KN}(w_{i-n+1:i-1}, w_i)-d,0\}}{\sum_{w'}C_{KN}(w_{i-n+1:i-1}w')} + \lambda(w_{i-1})P_{KN}(w_i)$$
 
 \begin{equation}
 { \text{where}
