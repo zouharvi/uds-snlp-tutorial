@@ -9,7 +9,8 @@ Schedule (links provided only to semi-finished materials):
 - [Language Properties](language-properties/handout.pdf)
 - [KL Divergece](kl-divergence/handout.pdf)
 - [Compression](compression/handout.pdf)
-- [Smoothing](smoothing/handout.pdf)
+- [Smoothing 1](smoothing-1/handout.pdf)
+- [Smoothing 2](smoothing-2/handout.pdf)
 - Text Classification
 - Word Sense Disambiguation
 - [Information Retrieval](information-retrieval/handout.pdf)
