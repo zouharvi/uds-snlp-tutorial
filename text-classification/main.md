@@ -1,16 +1,16 @@
 ---
 title:
-- Text Classification
+- Assignment 6 + Text Classification Basics
 subtitle: |
-    | (SNLP tutorial)
+    | (SNLP Tutorial 7)
 author:
 - Vilém Zouhar
 theme:
 - Boadilla
-date: \today
+date: 8th, 10th June
 aspectratio: 169
 header-includes:
-  - \AtBeginDocument{}
+  - \AtBeginDocument{\usepackage{graphicx}}
 
 documentclass: beamer
 # classoption: notes
