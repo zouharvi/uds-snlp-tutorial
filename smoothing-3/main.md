@@ -51,11 +51,47 @@ $W_2$: YORK
 
 Use the fact that YORK generally appears as context or \textit{continuation} of the word NEW. 
 
-<!--add fruits example slide-->
+# Kneser-Ney Smoothing
+
+Data: ![](img/banana.png){width=15px}
+![](img/apple.png){width=15px}
+![](img/eggplant.png){width=15px}
+![](img/banana.png){width=15px}
+![](img/cherries.png){width=15px}
+![](img/grapes.png){width=15px}
+![](img/herb.png){width=15px}
+![](img/cherries.png){width=15px}
+![](img/grapes.png){width=15px}
+![](img/banana.png){width=15px}
+![](img/cherries.png){width=15px}
+![](img/grapes.png){width=15px}
+![](img/apple.png){width=15px}
+
+. . .
+
+\centering 
+
+N(![](img/apple.png){width=15px}) = 2 $\implies$ P(![](img/apple.png){width=15px}) = 2/13
+
+N(![](img/grapes.png){width=15px}) = 3 $\implies$ P(![](img/grapes.png){width=15px}) = 3/13
+
+. . .
+
+\raggedright
+But, 
+
+\centering
+N($\bullet$ ![](img/apple.png){width=15px}) = 2 (![](img/banana.png){width=15px} ![](img/apple.png){width=15px} , ![](img/grapes.png){width=15px} ![](img/apple.png){width=15px})
+
+N($\bullet$ ![](img/grapes.png){width=15px}) = 1 (![](img/cherries.png){width=15px} ![](img/grapes.png){width=15px})
+
+$\therefore$ P(![](img/apple.png){width=15px}) = 2/12 <!--non-circular corpus-->
+
+P(![](img/grapes.png){width=15px}) = 1/12
 
 # Kneser-Ney Smoothing
 
-$$P_{continuation}(w) = \frac{|\{w': C(w',w) > 0\}|}{|\{(w_i, w_j): C(w_i, w_j) > 0\}|}  $$ 
+$$P_{CONTINUATION}(w) = \frac{|\{w': C(w',w) > 0\}|}{|\{(w_i, w_j): C(w_i, w_j) > 0\}|}  $$ 
 <!--the history that precedes our word of interest-->
 
 For bigrams,
