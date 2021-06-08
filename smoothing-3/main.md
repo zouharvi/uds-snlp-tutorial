@@ -112,6 +112,56 @@ We are storing all $V^n + V^{n-1} + ... + V + 1$ distributions!
 
 - Idea: Store the counts which exceed a threshold $c(\bullet) \geq K$. Also called a "cut-off".
 
+# Pruning: Error in Assignment 7
+
+```python
+assert tree.get("5634") == 4
+```
+
+# Pruning: How to build a count tree
+
+\vspace{6cm}
+
+```python
+tree.add("ABCE")
+```
+
+# Pruning: How to build a count tree
+
+\vspace{6cm}
+
+```python
+for _ in range(3):
+  tree.add("ABCD")
+```
+
+# Pruning: How to build a count tree
+
+\vspace{6cm}
+
+```python
+for _ in range(5):
+  tree.add("1234")
+```
+
+# Pruning: How to build a count tree
+
+\vspace{6cm}
+
+```python
+tree.add("5634")
+```
+
+# Pruning: $K\leq4?$
+
+\vspace{6cm}
+
+```python
+tree.prune("5634")
+```
+Prune a node iff $C(history) \leq 4$, not the value of the node itself!
+
+
 # Assignment 7
 
 - Exercise 1: Count Trees and Pruning
