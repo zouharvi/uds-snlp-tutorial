@@ -7,7 +7,7 @@ author:
 - Vilém Zouhar
 theme:
 - Boadilla
-date: 15th, 17th June
+date: 22nd, 24th June
 aspectratio: 169
 header-includes:
   - \AtBeginDocument{\usepackage{graphicx}}
