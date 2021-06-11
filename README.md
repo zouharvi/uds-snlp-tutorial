@@ -11,8 +11,10 @@ Schedule (links provided only to semi-finished materials):
 - [Compression](compression/handout.pdf)
 - [Smoothing 1](smoothing-1/handout.pdf)
 - [Smoothing 2](smoothing-2/handout.pdf)
-- Text Classification
-- Word Sense Disambiguation
+- [Smoothing 3](smoothing-3/handout.pdf)
+- [Text Classification 1](text-classification-1/handout.pdf)
+- [Text Classification 2](text-classification-2/handout.pdf)
+- Word Sense Disambiguation (possibly merge above)
 - [Information Retrieval](information-retrieval/handout.pdf)
 - [Machine Translation](machine-translation/handout.pdf)
 - [Conditional Random Fields](conditional-random-fields/handout.pdf)
