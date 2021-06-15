@@ -2,9 +2,9 @@
 title:
 - Assignment 7 + Text Classification Basics
 subtitle: |
-    | (SNLP Tutorial 7)
+    | (SNLP Tutorial 8)
 author:
-- Vilém Zouhar
+- Vilém Zouhar, Awantee Deshpande, Julius Steuer
 theme:
 - Boadilla
 date: 15th, 17th June
@@ -98,10 +98,11 @@ $f_1: D \rightarrow$
 
 ![](img/hierarchical.png){width=250px}
 
+<!--{fruits, vegetables, misc}, {edible, inedible}-->
+
 
 # Single-Category vs Multi-Category
 
-> - $f: D \rightarrow 2^C$
 > - Topic detection: $\text{Document} \rightarrow \{\text{politics}, \text{NLP}, \text{healthcare}, \text{sport}, \ldots\}$
 > - Sentiment analysis: $\text{Document} \rightarrow \{\text{positive}, \text{negative}, \text{interested}, \ldots\}$
 
@@ -128,10 +129,12 @@ $f_i(doc) = \text{Number of occurences of } \texttt{"buy"}$
 
 $f_r(doc) = \frac{\text{Number of occurences of } \texttt{"buy"}}{|doc|}$
 
-<!--# Feature Selection
+##
+Name a scenario where you can use each of these...
 
-TODO
--->
+<!-- Binary: IR (retrieve doc if term is present)
+    Integer: Author classification (Good indicator if it occurs > k times) 
+    Real values: Scaling, normalisation, weighting terms, comparison purposes -->
 
 # Document Frequency
 
@@ -146,8 +149,7 @@ $$df(term) = \frac{|\{doc| term \in doc, doc \in D\}|}{|D|}$$
   No information
 
   <!--scales easily to very large corpora with an approximately linear computational complexity in the number of training documents
-  when a term belong to more than one class ,the evaluate function will make high score to it; however, if the term belong to a single category, lower frequency of occurrence lead to a lower score. DF evaluation function theory based on a hypothesis that rare term does not contain useful information (hence used with IDF to balance this).
-  -->
+  when a term belong to more than one class ,the evaluate function will make high score to it; however, if the term belong to a single category, lower frequency of occurrence lead to a lower score. DF evaluation function theory based on a hypothesis that rare term does not contain useful information (hence used with IDF to balance this).-->
 
 . . .
 
@@ -158,14 +160,18 @@ $$df(term) = \frac{|\{doc| term \in doc, doc \in D\}|}{|D|}$$
 
 - Information gained (reduction in entropy) by knowing whether a term is present
 
-## 
+## Information Gain
 
 \begin{align*}
 G(C,t) =& H(C) - H(C|t) \\
 =& - \sum_i p(c_i) \log p(c_i) \\
-&+\ p(t) \sum_i p(c_i, t) \log p(c_i, t) \\
-&+\ p(\overline{t}) \sum_i p(c_i, \overline{t}) \log p(c_i, \overline{t})
+&+\ p(t) \sum_i p(c_i, t) \log p(c_i|t) \\
+&+\ p(\overline{t}) \sum_i p(c_i, \overline{t}) \log p(c_i | \overline{t})
 \end{align*}
+
+## Questions
+- When is Information Gain 0? When is it positive? Can it be negative?
+- Term t occurs in all classes equally. Is it a good feature?
 
 <!--terms whose information gain is less than some predetermined threshold are removed from the feature space-->
 
@@ -173,7 +179,7 @@ G(C,t) =& H(C) - H(C|t) \\
 
 - Difference between observed distribution and independent
 
-## 
+## PMI
 
 \begin{align*}
 \text{pmi}(c_i, t) = \log \frac{p(c_i, t)}{p(c_i)\cdot p(t)}
@@ -257,5 +263,6 @@ X^2 (c_1, c_2) = \sum_{j=1}^{m} \frac{(O_j-E_j)^2}{E_j}
 
 # Resources
 
-1. UdS SNLP Class, WSD: <https://teaching.lsv.uni-saarland.de/snlp/>
-2. $\chi^2$ table; https://www.medcalc.org/manual/chi-square-table.php
+1. UdS SNLP Class: <https://teaching.lsv.uni-saarland.de/snlp/>
+2. Information Gain in decision trees: <https://en.wikipedia.org/wiki/Information_gain_in_decision_trees#Example>
+3. $\chi^2$ table; https://www.medcalc.org/manual/chi-square-table.php
