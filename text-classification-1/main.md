@@ -233,7 +233,7 @@ Null Hypothesis: The two events are independent.
 # $\chi^2$ Example
 
 \begin{equation}
-X^2 (c_1, c_2) = \sum_{j=1}^{m} \frac{(O_j-E_j)^2}{E_j}
+\chi^2 (c_1, c_2) = \sum_{j=1}^{m} \frac{(O_j-E_j)^2}{E_j}
 \end{equation}
 
 Imagine a language with the following syllable structure: $CV$, $C \in \{p,k\}$, $V \in \{a,u\}$:
@@ -244,14 +244,14 @@ Imagine a language with the following syllable structure: $CV$, $C \in \{p,k\}$,
 |u  |31  |61  |92  | 
 |   |106 |94  |200 |
 
-- $p_{ka} = \frac{108}{200} = 0.54$, $N = 75+31 = 106$
-- $E_{ka} = p_{ka} \cdot N_k = 0.54 \cdot 106 = 57.24$
+- $p_{a} = \frac{108}{200} = 0.54$, $N_a = 75+31 = 106$
+- $E_{ka} = p_{a} \cdot N_k = 0.54 \cdot 106 = 57.24$
 - $\frac{(O_{ka}-E_{ka})^2}{E_{ka}} = \frac{(75-57.24)^2}{57.24} \approx 5.51$
 
 # $\chi^2$ Example, continued
 
 \begin{equation}
-X^2 (c_1, c_2) = \sum_{j=1}^{m} \frac{(O_j-E_j)^2}{E_j}
+\chi^2 (c_1, c_2) = \sum_{j=1}^{m} \frac{(O_j-E_j)^2}{E_j}
 \end{equation}
 
 - And so forth for all other cells
@@ -270,14 +270,14 @@ X^2 (c_1, c_2) = \sum_{j=1}^{m} \frac{(O_j-E_j)^2}{E_j}
 |a  |5.51  | 6.21 |
 |u  |6.47  | 7.29 |
 
-- $X^2 = 5.51+6.21+6.47+7.29 = 25.48$
+- $\chi^2 = 5.51+6.21+6.47+7.29 = 25.48$
 - Degrees of freedom: $df = (\#_{rows}-1) \cdot (\#_{cols}-1) = (2-1) \cdot (2-1) = 1$ 
 - Choose significance level $\alpha$
 - Look up $\chi^2$-value in a $\chi^2$-table
 - Reject $H_0$ if $\chi^2 > \chi^2_{(\alpha,df)}$
 
 # $\chi^2$ Table Lookup
-- $Calculated \chi^2 = 25.48$
+- Calculated $\chi^2 = 25.48$
 - $df = 1$
 - $\alpha = 0.05 \rightarrow \chi^2 = 3.84$
 \center
@@ -293,9 +293,18 @@ X^2 (c_1, c_2) = \sum_{j=1}^{m} \frac{(O_j-E_j)^2}{E_j}
 - If two documents not related $\rightarrow$ low probability
 - "Constant" with stop words
 
+## Questions
+Can we use TS for
+
+- Stopword removal <!--stopwords will be discovered automatically-->
+- Document Clustering <!--Use cosine similarity to find related documents, all pairs with cosine > threshold are related -->
+
 # Resources
 
 1. UdS SNLP Class: <https://teaching.lsv.uni-saarland.de/snlp/>
 2. Information Gain in decision trees: <https://en.wikipedia.org/wiki/Information_gain_in_decision_trees#Example>
 3. PMI in classification: <https://towardsdatascience.com/multinomial-na%C3%AFve-bayes-classifier-using-pointwise-mutual-information-9ade011fcbd0>
-4. $\chi^2$ table; https://www.medcalc.org/manual/chi-square-table.php
+4. $\chi^2$ table: <https://www.medcalc.org/manual/chi-square-table.php>
+5. $\chi^2$ example: <https://towardsdatascience.com/chi-square-test-for-feature-selection-in-machine-learning-206b1f0b8223>
+6. Term Strength: <http://mlwiki.org/index.php/Term_Strength>
+7. Comparison of Feature Selection Techniques: <https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.32.9956&rep=rep1&type=pdf>
