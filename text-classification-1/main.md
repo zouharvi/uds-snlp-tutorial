@@ -26,19 +26,19 @@ documentclass: beamer
 
 Fill in the classes:
 
-> - $f: \text{Text} \rightarrow C$ (classes/categories)
-> - Topic detection: $\text{Document} \rightarrow$
-> - $\qquad \{\text{politics}, \text{NLP}, \text{healthcare}, \text{sport}, \ldots\}$
-> - Spam detection: $\text{Document}\rightarrow$
-> - $\qquad \{\text{SPAM}, \text{BENIGN}, \text{MARKETING}\}$
-> - Author identification/profiling: $\text{Document(s)}\rightarrow$
-> - $\qquad \{\text{F. Bacon}, \text{W. Shakespeare}, \ldots\}$
-> - Native language identification: $\text{Document}\rightarrow$
-> - $\qquad \{\text{German}, \text{Polish}, \ldots\}$
-> - POS Tagging: $\text{Sentence}\rightarrow$
-> - $\qquad \{NN, VERB, PART., \ldots\}^{|S|}$
-> - Sense Disambiguation: $\text{Word+sentence}\rightarrow$
-> - $\qquad \text{Senses of Word}$
+- $f: \text{Text} \rightarrow C$ (classes/categories)
+- Topic detection: $\text{Document} \rightarrow$
+- $\qquad \{\text{politics}, \text{NLP}, \text{healthcare}, \text{sport}, \ldots\}$
+- Spam detection: $\text{Document}\rightarrow$
+- $\qquad \{\text{SPAM}, \text{BENIGN}, \text{MARKETING}\}$
+- Author identification/profiling: $\text{Document(s)}\rightarrow$
+- $\qquad \{\text{F. Bacon}, \text{W. Shakespeare}, \ldots\}$
+- Native language identification: $\text{Document}\rightarrow$
+- $\qquad \{\text{German}, \text{Polish}, \ldots\}$
+- POS Tagging: $\text{Sentence}\rightarrow$
+- $\qquad \{NN, VERB, PART., \ldots\}^{|S|}$
+- Sense Disambiguation: $\text{Word+sentence}\rightarrow$
+- $\qquad \text{Senses of Word}$
 
 Issues with this?
 <!-- No structure preserved, not practical -->
