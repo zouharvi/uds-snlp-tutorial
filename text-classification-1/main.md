@@ -185,18 +185,50 @@ G(C,t) =& H(C) - H(C|t) \\
 \text{pmi}(c_i, t) = \log \frac{p(c_i, t)}{p(c_i)\cdot p(t)}
 \end{align*}
 
-- TODO (relation to mutual information)
+## Another formulation
+
+$$PMI(t,c) = \log \frac{A \cdot D}{(A+C)\cdot (A+B)}$$
+
+where 
+
+A = co-occurrence of c and t
+
+B = #times t occurs without c
+
+C = #times c occurs without t
+
+D = #documents in c
+
+# Pointwise Mutual Information
+
+## Relation to Mutual Information
+
+MI = weighted pmi = expectation of pmi over all events
+
+## Questions
+- How is pmi(c,t) used at a global scale? <!--By PMI avg or PMI max and thresholding-->
+- When is PMI 0? 
+
+  When is it positive? 
+
+  Can it be negative? 
+<!-- if there is genuine association between t and c, PMI > 0.
+If t and c are statistically independent, PMI = 0
+If t and c have complementary distributions, PMI < 0 -->
 
 # Chi Square $\chi^2$
 
 \begin{equation}
-X^2 (c_1, c_2) = \sum_{j=1}^{m} \frac{(O_j-E_j)^2}{E_j}
+\chi^2_n (c_1, c_2) = \sum_{j} \frac{(O_j-E_j)^2}{E_j}
 \end{equation}
 
-- $0_j$: Observed absolute frequency of the feature $j$
+- $n$ : Degrees of freedom
+- $O_j$: Observed absolute frequency of the feature $j$
 - $E_j$: Estimated absolute frequency of the feature $j$
-- $E_j = p_{Ej} \cdot N$
+- $E_j = p_{j} \cdot N$
 - $N$: Number of observations in one class
+
+Null Hypothesis: The two events are independent.
 
 # $\chi^2$ Example
 
@@ -212,8 +244,8 @@ Imagine a language with the following syllable structure: $CV$, $C \in \{p,k\}$,
 |u  |31  |61  |92  | 
 |   |106 |94  |200 |
 
-- $p_{E_{ka}} = \frac{108}{200} = 0.54$, $N = 75+31 = 106$
-- $E_{ka} = p_{E_{ka}} \cdot N_k = 0.54 \cdot 106 = 57.24$
+- $p_{ka} = \frac{108}{200} = 0.54$, $N = 75+31 = 106$
+- $E_{ka} = p_{ka} \cdot N_k = 0.54 \cdot 106 = 57.24$
 - $\frac{(O_{ka}-E_{ka})^2}{E_{ka}} = \frac{(75-57.24)^2}{57.24} \approx 5.51$
 
 # $\chi^2$ Example, continued
@@ -241,13 +273,13 @@ X^2 (c_1, c_2) = \sum_{j=1}^{m} \frac{(O_j-E_j)^2}{E_j}
 - $X^2 = 5.51+6.21+6.47+7.29 = 25.48$
 - Degrees of freedom: $df = (\#_{rows}-1) \cdot (\#_{cols}-1) = (2-1) \cdot (2-1) = 1$ 
 - Choose significance level $\alpha$
-- Look up $X^2$-value in a $\chi^2$-table
-- Reject $H_0$ if $X^2 > \chi^2_{(\alpha,df)}$
+- Look up $\chi^2$-value in a $\chi^2$-table
+- Reject $H_0$ if $\chi^2 > \chi^2_{(\alpha,df)}$
 
 # $\chi^2$ Table Lookup
-- $X^2 = 25.48$
+- $Calculated \chi^2 = 25.48$
 - $df = 1$
-- $\alpha = 0.05 \rightarrow P = 0.995$
+- $\alpha = 0.05 \rightarrow \chi^2 = 3.84$
 \center
 ![](img/chi2_table.png){width=300px}
 
@@ -265,4 +297,5 @@ X^2 (c_1, c_2) = \sum_{j=1}^{m} \frac{(O_j-E_j)^2}{E_j}
 
 1. UdS SNLP Class: <https://teaching.lsv.uni-saarland.de/snlp/>
 2. Information Gain in decision trees: <https://en.wikipedia.org/wiki/Information_gain_in_decision_trees#Example>
-3. $\chi^2$ table; https://www.medcalc.org/manual/chi-square-table.php
+3. PMI in classification: <https://towardsdatascience.com/multinomial-na%C3%AFve-bayes-classifier-using-pointwise-mutual-information-9ade011fcbd0>
+4. $\chi^2$ table; https://www.medcalc.org/manual/chi-square-table.php
