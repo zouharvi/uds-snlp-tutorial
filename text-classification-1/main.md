@@ -128,9 +128,10 @@ $f_i(doc) = \text{Number of occurences of } \texttt{"buy"}$
 
 $f_r(doc) = \frac{\text{Number of occurences of } \texttt{"buy"}}{|doc|}$
 
-# Feature Selection
+<!--# Feature Selection
 
 TODO
+-->
 
 # Document Frequency
 
@@ -182,10 +183,67 @@ G(C,t) =& H(C) - H(C|t) \\
 
 # Chi Square $\chi^2$
 
-$\chi^2 (c_1, c_2) = \sum_{tt,tf,ft,ff} (O-E)^2$
+\begin{equation}
+X^2 (c_1, c_2) = \sum_{j=1}^{m} \frac{(O_j-E_j)^2}{E_j}
+\end{equation}
 
-- TODO example
-- TODO table
+- $0_j$: Observed absolute frequency of the feature $j$
+- $E_j$: Estimated absolute frequency of the feature $j$
+- $E_j = p_{Ej} \cdot N$
+- $N$: Number of observations in one class
+
+# $\chi^2$ Example
+
+\begin{equation}
+X^2 (c_1, c_2) = \sum_{j=1}^{m} \frac{(O_j-E_j)^2}{E_j}
+\end{equation}
+
+Imagine a language with the following syllable structure: $CV$, $C \in \{p,k\}$, $V \in \{a,u\}$:
+
+|C/V|k   |p   |    |
+|-- |--  |--  |--  |
+|a  |75  |33  |108 |
+|u  |31  |61  |92  | 
+|   |106 |94  |200 |
+
+- $p_{E_{ka}} = \frac{108}{200} = 0.54$, $N = 75+31 = 106$
+- $E_{ka} = p_{E_{ka}} \cdot N_k = 0.54 \cdot 106 = 57.24$
+- $\frac{(O_{ka}-E_{ka})^2}{E_{ka}} = \frac{(75-57.24)^2}{57.24} \approx 5.51$
+
+# $\chi^2$ Example, continued
+
+\begin{equation}
+X^2 (c_1, c_2) = \sum_{j=1}^{m} \frac{(O_j-E_j)^2}{E_j}
+\end{equation}
+
+- And so forth for all other cells
+
+|C/V|k   |p   | 
+|-- |--  |--  |
+|a  |5.51  | $pa$ |
+|u  |$ku$  | $pu$ |
+
+# $\chi^2$ Example, continued
+
+- And so forth for all other cells:
+
+|C/V|k   |p   | 
+|-- |--  |--  |
+|a  |5.51  | 6.21 |
+|u  |6.47  | 7.29 |
+
+- $X^2 = 5.51+6.21+6.47+7.29 = 25.48$
+- Degrees of freedom: $df = (\#_{rows}-1) \cdot (\#_{cols}-1) = (2-1) \cdot (2-1) = 1$ 
+- Choose significance level $\alpha$
+- Look up $X^2$-value in a $\chi^2$-table
+- Reject $H_0$ if $X^2 > \chi^2_{(\alpha,df)}$
+
+# $\chi^2$ Table Lookup
+- $X^2 = 25.48$
+- $df = 1$
+- $\alpha = 0.05 \rightarrow P = 0.995$
+\center
+![](img/chi2_table.png){width=300px}
 
 # Term Strength
 
@@ -200,3 +258,4 @@ $\chi^2 (c_1, c_2) = \sum_{tt,tf,ft,ff} (O-E)^2$
 # Resources
 
 1. UdS SNLP Class, WSD: <https://teaching.lsv.uni-saarland.de/snlp/>
+2. $\chi^2$ table; https://www.medcalc.org/manual/chi-square-table.php
