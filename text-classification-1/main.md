@@ -1,6 +1,6 @@
 ---
 title:
-- Assignment 7 + Text Classification Basics
+- Assignment 7,8 + Text Classification Basics
 subtitle: |
     | (SNLP Tutorial 8)
 author:
@@ -26,19 +26,19 @@ documentclass: beamer
 
 Fill in the classes:
 
-- $f: \text{Text} \rightarrow C$ (classes/categories)
-- Topic detection: $\text{Document} \rightarrow$
-- $\qquad \{\text{politics}, \text{NLP}, \text{healthcare}, \text{sport}, \ldots\}$
-- Spam detection: $\text{Document}\rightarrow$
-- $\qquad \{\text{SPAM}, \text{BENIGN}, \text{MARKETING}\}$
-- Author identification/profiling: $\text{Document(s)}\rightarrow$
-- $\qquad \{\text{F. Bacon}, \text{W. Shakespeare}, \ldots\}$
-- Native language identification: $\text{Document}\rightarrow$
-- $\qquad \{\text{German}, \text{Polish}, \ldots\}$
-- POS Tagging: $\text{Sentence}\rightarrow$
-- $\qquad \{NN, VERB, PART., \ldots\}^{|S|}$
-- Sense Disambiguation: $\text{Word+sentence}\rightarrow$
-- $\qquad \text{Senses of Word}$
+> - $f: \text{Text} \rightarrow C$ (classes/categories)
+> - Topic detection: $\text{Document} \rightarrow$
+> - $\qquad \{\text{politics}, \text{NLP}, \text{healthcare}, \text{sport}, \ldots\}$
+> - Spam detection: $\text{Document}\rightarrow$
+> - $\qquad \{\text{SPAM}, \text{BENIGN}, \text{MARKETING}\}$
+> - Author identification/profiling: $\text{Document(s)}\rightarrow$
+> - $\qquad \{\text{F. Bacon}, \text{W. Shakespeare}, \ldots\}$
+> - Native language identification: $\text{Document}\rightarrow$
+> - $\qquad \{\text{German}, \text{Polish}, \ldots\}$
+> - POS Tagging: $\text{Sentence}\rightarrow$
+> - $\qquad \{NN, VERB, PART., \ldots\}^{|S|}$
+> - Sense Disambiguation: $\text{Word+sentence}\rightarrow$
+> - $\qquad \text{Senses of Word}$
 
 Issues with this?
 <!-- No structure preserved, not practical -->
@@ -76,7 +76,7 @@ How to turn this into a binary classification?
 
 . . .
 
-How to turn multiple multi-class into a single multi-class?  
+How to turn multiple {multi-class|binary} into a single multi-class?  
 
 # Flat vs. Hiearchical
 
@@ -96,19 +96,21 @@ $f_1: D \rightarrow$
 ## Hierarchical Classification
 \centering
 
-![](img/hierarchical.png){width=250px}
+![](img/hierarchical.png){width=240px}
+
+What is this structure similar to in classification?
 
 <!--{fruits, vegetables, misc}, {edible, inedible}-->
 
 
-# Single-Category vs Multi-Category
+<!-- # Single-Category vs Multi-Category
 
 > - Topic detection: $\text{Document} \rightarrow \{\text{politics}, \text{NLP}, \text{healthcare}, \text{sport}, \ldots\}$
 > - Sentiment analysis: $\text{Document} \rightarrow \{\text{positive}, \text{negative}, \text{interested}, \ldots\}$
 
 
 > - Topic detection: $\text{Document} \rightarrow {\{\text{(politics, news)}, \text{(NLP, Machine Learning)}, \text{(healthcare, nutrition)}, \text{(sport, biography)}, \ldots\}}$
-> - Sentiment analysis: $\text{Document} \rightarrow {\{\text{(positive, happy)}, \text{(negative, sad)}, \text{(neutral, ambivalent)}, \ldots\}}$
+> - Sentiment analysis: $\text{Document} \rightarrow {\{\text{(positive, happy)}, \text{(negative, sad)}, \text{(neutral, ambivalent)}, \ldots\}}$ -->
 
 # Feature Extraction
 
@@ -121,13 +123,19 @@ $f_1: D \rightarrow$
 
 $f_b(doc) = \begin{cases} 1 \qquad \text{Contains string } \texttt{"Super free \$\$\$ discount"} \\ 0 \qquad \text{Otherwise} \end{cases}$
 
+. . .
+
 ## Integer features
 
 $f_i(doc) = \text{Number of occurences of } \texttt{"buy"}$
 
+. . .
+
 ## Real-valued features
 
 $f_r(doc) = \frac{\text{Number of occurences of } \texttt{"buy"}}{|doc|}$
+
+. . .
 
 ##
 Name a scenario where you can use each of these...
@@ -153,8 +161,23 @@ $$df(term) = \frac{|\{doc| term \in doc, doc \in D\}|}{|D|}$$
 
 . . .
 
-- Sometimes not a good idea (interaction with other terms, etc.)
-- Stopword distribution gives information in author identification
+- Why not always a good idea?
+- How is this feature used in retrieval?
+
+<!-- - Stopword distribution gives information in author identification
+- Sometimes not a good idea (interaction with other terms, etc.) -->
+<!-- Inverse document frequency TIMES term frequency -->
+
+# Term Frequency - Inverse Document Frequency
+
+\begin{block}{TF-IDF}
+$$tf(term, doc) = \frac{count_{doc}(term)}{|doc|}$$
+$$df(term) = \frac{|\{doc| term \in doc, doc \in D\}|}{|D|}$$ 
+$$idf'(term) = \frac{|D|}{df(term)}, idf(term) = \log_2\bigg(\frac{|D|}{df(term)}\bigg)$$
+$$tf-idf(term, doc) = tf(term, doc) \times idf(term)$$
+\end{block}
+
+- How can we use tf-idf for document similarity?
 
 # Information Gain
 
@@ -206,7 +229,8 @@ D = #documents in c
 MI = weighted pmi = expectation of pmi over all events
 
 ## Questions
-- How is pmi(c,t) used at a global scale? <!--By PMI avg or PMI max and thresholding-->
+<!-- - How is pmi(c,t) used at a global scale? -->
+ <!-- By PMI avg or PMI max and thresholding -->
 - When is PMI 0? 
 
   When is it positive? 
@@ -228,7 +252,8 @@ If t and c have complementary distributions, PMI < 0 -->
 - $E_j = p_{j} \cdot N$
 - $N$: Number of observations in one class
 
-Null Hypothesis: The two events are independent.
+> - Null Hypothesis: ?
+> - The two events are independent.
 
 # $\chi^2$ Example
 
@@ -244,9 +269,10 @@ Imagine a language with the following syllable structure: $CV$, $C \in \{p,k\}$,
 |u  |31  |61  |92  | 
 |   |106 |94  |200 |
 
-- $p_{a} = \frac{108}{200} = 0.54$, $N_a = 75+31 = 106$
-- $E_{ka} = p_{a} \cdot N_k = 0.54 \cdot 106 = 57.24$
-- $\frac{(O_{ka}-E_{ka})^2}{E_{ka}} = \frac{(75-57.24)^2}{57.24} \approx 5.51$
+> - What is expected number of occurences of `ka`?
+> - $p_{a} = \frac{108}{200} = 0.54$, $N_a = 75+31 = 106$
+> - $E_{ka} = p_{a} \cdot N_k = 0.54 \cdot 106 = 57.24$
+> - $\frac{(O_{ka}-E_{ka})^2}{E_{ka}} = \frac{(75-57.24)^2}{57.24} \approx 5.51$
 
 # $\chi^2$ Example, continued
 
@@ -270,11 +296,13 @@ Imagine a language with the following syllable structure: $CV$, $C \in \{p,k\}$,
 |a  |5.51  | 6.21 |
 |u  |6.47  | 7.29 |
 
-- $\chi^2 = 5.51+6.21+6.47+7.29 = 25.48$
-- Degrees of freedom: $df = (\#_{rows}-1) \cdot (\#_{cols}-1) = (2-1) \cdot (2-1) = 1$ 
-- Choose significance level $\alpha$
-- Look up $\chi^2$-value in a $\chi^2$-table
-- Reject $H_0$ if $\chi^2 > \chi^2_{(\alpha,df)}$
+
+> - $\chi^2 = 5.51+6.21+6.47+7.29 = 25.48$
+> - Degrees of freedom: $df = (\#_{rows}-1) \cdot (\#_{cols}-1) = (2-1) \cdot (2-1) = 1$ 
+> - Choose significance level $\alpha$
+> - What are common significance levels?
+> - Look up $\chi^2$-value in a $\chi^2$-table
+> - Reject $H_0$ if $\chi^2 > \chi^2_{(\alpha,df)}$
 
 # $\chi^2$ Table Lookup
 - Calculated $\chi^2 = 25.48$
@@ -291,13 +319,13 @@ Imagine a language with the following syllable structure: $CV$, $C \in \{p,k\}$,
 - _What is the probability that the term $t$ will be in $d_2$ given that it is in $d_1$?_
 - If two documents related $\rightarrow$ high probability
 - If two documents not related $\rightarrow$ low probability
-- "Constant" with stop words
 
 ## Questions
-Can we use TS for
+Can we use term strength for
 
-- Stopword removal <!--stopwords will be discovered automatically-->
+- Stopword removal <!--stopwords will be discovered automatically, uniform distributio nacross documents-->
 - Document Clustering <!--Use cosine similarity to find related documents, all pairs with cosine > threshold are related -->
+
 
 # Resources
 
