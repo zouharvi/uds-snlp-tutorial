@@ -270,7 +270,7 @@ Imagine a language with the following syllable structure: $CV$, $C \in \{p,k\}$,
 |   |106 |94  |200 |
 
 > - What is expected number of occurences of `ka`?
-> - $p_{a} = \frac{108}{200} = 0.54$, $N_a = 75+31 = 106$
+> - $p_{a} = \frac{108}{200} = 0.54$, $N_k = 75+31 = 106$
 > - $E_{ka} = p_{a} \cdot N_k = 0.54 \cdot 106 = 57.24$
 > - $\frac{(O_{ka}-E_{ka})^2}{E_{ka}} = \frac{(75-57.24)^2}{57.24} \approx 5.51$
 
