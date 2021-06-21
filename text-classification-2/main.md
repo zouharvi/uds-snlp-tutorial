@@ -56,7 +56,18 @@ Disadvantages: Prone to overfitting, very sensitive to data rotation (not robust
 
 # Naïve Bayes
 
-TODO
+- Based on Bayes Theorem <!--write the formula-->
+- Algorithm
+
+![](img/nbayes.png){width=350px}
+
+## Questions
+- Why is Naive Bayes naive? 
+- What are the pros and cons?
+<!--
+Advantages: Works with lesser training data and less training time
+Disadvantages: Assumes the features are independent and unweighted i.e. they contribute equally to the outcome, requires smoothing to handle unseen events.
+-->
 
 # kNN
 - Algorithm
@@ -73,7 +84,6 @@ Advantages: No training, robust to new data
 Disadvantages: Scales poorly with large data or more dimensions, needs feature scaling, sensitive to outliers
 -->
 - Can kNN be used for regression? <!--yes, use average/max or similar metric-->
-- How will the value of k affect the bias? <!--Large k = simpler model = high bias-->
 
 # SVM
 
@@ -110,4 +120,5 @@ Algorithm:
 
 1. UdS SNLP Class, WSD: <https://teaching.lsv.uni-saarland.de/snlp/>
 2. Decision Trees: <https://www.kdnuggets.com/2020/01/decision-tree-algorithm-explained.html>
-3. kNN Example: <https://iq.opengenus.org/text-classification-using-k-nearest-neighbors/>
+3. Naive Bayes Example: <https://medium.com/analytics-vidhya/naive-bayes-classifier-for-text-classification-556fabaf252b>
+4. kNN Example: <https://iq.opengenus.org/text-classification-using-k-nearest-neighbors/>
