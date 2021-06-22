@@ -10,7 +10,7 @@ theme:
 date: 22nd, 24th June
 aspectratio: 169
 header-includes:
-  - \AtBeginDocument{\usepackage{graphicx}}
+  - \AtBeginDocument{\usepackage{graphicx}\usepackage{tikz}\usetikzlibrary{positioning,shapes,arrows}}
 
 documentclass: beamer
 # classoption: notes
@@ -25,8 +25,9 @@ documentclass: beamer
 
 # Decision Trees
 
-- Can be used for classification as well as regression
-- Algorithm
+- What is a decision tree?
+
+. . .
 
 ![](img/dtl.png){width=450px}
 
@@ -52,36 +53,69 @@ Disadvantages: Prone to overfitting, very sensitive to data rotation (not robust
 
 . . .
 
-- How to avoid overfitting? <!--Pruning, random forest-->
+> - How to avoid overfitting? <!--Pruning, random forest-->
+> - How to use decision trees for regression?
 
-# Naïve Bayes
+
+<!-- # Naïve Bayes
 
 - Based on Bayes Theorem <!--write the formula-->
 - Algorithm
 
-![](img/nbayes.png){width=350px}
+![](img/nbayes.png){width=350px} -->
+
+
+# Naïve Bayes
+
+- Formula?
 
 . . .
 
-## Questions
+<!-- - Assume absolute independence except for the one observed variable -->
+- $p(y=\text{Will rain}|x) = p(y_j|x) = \frac{p(x|y_j)p(y_j)}{p(x)} \propto p(x|y_j) p(y_j) \approx p(y_j) \prod_i p(x_i|y_j)$
+- $\rightarrow \arg \max_{y_j} p(y_j) \prod_i p(x_i|y_j)$
+
+\centering
+\begin{tikzpicture}[
+  node distance=0.5cm and 0cm,
+  mynode/.style={draw,ellipse,text width=1.7cm,align=center},
+  observed/.style={draw,rectangle,text width=1.7cm,align=center}
+]
+\node[mynode] at (0, 1.3) (clf) {Forecast};
+\node[mynode] at (3, 1.3) (ra) {Cloudy};
+\node[mynode] at (6, 1.3) (gw) {Foggy};
+\node[observed] at (3, 0) (sp) {Rain};
+\path
+(sp) edge[latex-] (clf)
+(sp) edge[latex-] (ra)
+(sp) edge[latex-] (gw);
+\end{tikzpicture}
+
+##
 - Why is Naive Bayes naive? 
-- Why is it Bayesian?
+- How is the prior of e.g. 90% probability of not raining (overall) modelled?
+<!-- - Why is it Bayesian? -->
 - What are the pros and cons?
 <!--
 Advantages: Works with lesser training data and less training time
 Disadvantages: Assumes the features are independent and unweighted i.e. they contribute equally to the outcome, requires smoothing to handle unseen events.
 -->
 
+::: notes
+- In Naïve Bayes we artificially flatten the network so that the observed variable is directly dependent to all causes and there are no other dependencies.
+- The formula shows where the approximation is taking place.
+- A practical example why this is naïve is that the variable _Rain_ is heavily dependent on the _Cloudy_ variable but as well on the _Foggy_, which in turn is almost the same thing as _Cloudy_. And if we put both all these in the formula, then we assign higher weight to the concept of _cloudyness_ than to _forecast_.
+:::
+
 # kNN
-- Algorithm
 
 ![](img/knn.png){width=350px}
-\tiny Source:https://www.researchgate.net/figure/Pseudocode-for-KNN-classification_fig7_260397165
+\tiny Source: <https://www.researchgate.net/figure/Pseudocode-for-KNN-classification_fig7_260397165>
 
 . . .
 
 \normalsize
-## Questions
+##
 - What are the training and test computation times for kNN?
 - What are the pros and cons of kNN classifiers?
 <!--
@@ -106,7 +140,7 @@ Disadvantages: Scales poorly with large data or more dimensions, needs feature s
 
 . . .
 
-## Questions
+##
 - What are the pros and cons of SVMs?
 <!--
 Advantages: Works well with clear separation boundary, effective for high dimensions esp. for sparse data (Ndim > Ndata), works very well with kernels
@@ -138,7 +172,7 @@ Algorithm:
 
 . . .
 
-## Questions
+##
 - What are the pros and cons of simple perceptrons?
 <!--
 Advantages: Computationally efficient, guaranteed for linearly separable problems, converges to a global optimum
@@ -154,9 +188,13 @@ Disadvantages: ONLY linearly separable, difficult with many features
 
 - **Recall** = $\frac{TP}{TN+FN}$ (out of all 1s, how many are marked 1?)
 
-- **F-measure** = $\frac{2 * P \cdot R}{P + R}$ (weighted average of precision and recall) <!--Gives equal importance to FP and FN -->
+- **F-measure** = $\frac{2 \cdot P \cdot R}{P + R}$ (weighted average of precision and recall) <!--Gives equal importance to FP and FN -->
 
 - **Accuracy** = $\frac{TP+TN}{TP+TN+FP+FN}$
+
+::: notes
+Precision - TP/PREdicted true values, Recall - TP/REal values
+:::
 
 # Useful Python Implementations
 
