@@ -47,7 +47,7 @@ What is importance? <!--any metric like IG, Chi Square etc.-->
 - What are the pros and cons of decision trees?
 <!--
 Advantages: Less data preparation, no data scaling, missing values are okay
-Disadvantages: Prone to overfitting, very sensitive to data rotation (not robust to change in data), high calculation and training time.
+Disadvantages: Prone to overfitting, very sensitive to data rotation (not robust to change in data), high calculation and training time. Does not consider feature combintions i.e. only 1 feature at a time. 
 -->
 
 . . .
@@ -87,34 +87,77 @@ Disadvantages: Scales poorly with large data or more dimensions, needs feature s
 
 # SVM
 
+::: columns
+:::: column
 - Find a boundary that maximizes the distance to closest vectors
 - If not possible, find one that minimizes the error
-- Add the kernel trick
+- Add the kernel trick for non-linear data
+::::
+
+:::: column
+![](img/svm.png){width=250px}
+::::
+:::
+
+## Questions
+- What are the pros and cons of SVMs?
+<!--
+Advantages: Works well with clear separation boundary, effective for high dimensions esp. for sparse data (Ndim > Ndata), works very well with kernels
+Disadvantages: Not suitable for large data, not robust to noise, no probabilistic explanation for classification, difficult to fine tune
+-->
+- Can SVMs be used for regression?
 
 # Perceptron
 
+::: columns
+:::: column
 - Binary classification
 - Linear boundary in feature space
 - $\hat{y} = \text{sign}(wx+b)$
+::::
 
-. . .
-
+:::: column
 Algorithm:
 
 - $w_0 = \overrightarrow{0}$
 - For every data point $x_i$
-- - $\hat{y_i} = \text{sign}(w_k x_i +b)$
+- $\hat{y_i} = \text{sign}(w_k x_i +b)$
 - - if $\hat{y_i} \ne y_i$:
 - - - $w_{k+1} = w_k - \hat{y_i} \cdot x$
 - - else:
 - - - $w_{k+1} = w_k$
+::::
+:::
 
-. . .
+## Questions
+- What are the pros and cons of simple perceptrons?
+<!--
+Advantages: Computationally efficient, guaranteed for linearly separable problems, converges to a global optimum
+Disadvantages: ONLY linearly separable, difficult with many features
+-->
+- Can we extend this to non-linear data?
 
-- TODO: illustration
-- TODO: advantages/disadvantages
+# Common Evaluation Measures
+
+- Confusion matrix
+
+- Precision = $\frac{TP}{TP+FP}$ (out of those marked as 1, how many are actually 1?)
+
+- Recall = $\frac{TP}{TN+FN}$ (out of all 1s, how many are marked 1?)
+
+- F-measure = $\frac{2 * P \cdot R}{P + R}$ (weighted average of precision and recall) <!--Gives equal importance to FP and FN -->
+
+- Accuracy = $\frac{TP+TN}{TP+TN+FP+FN}$
 
 # Useful Python Implementations
+
+- <https://scikit-learn.org/stable/supervised_learning.html>
+- Decision Trees: <https://scikit-learn.org/stable/modules/tree.html>
+- Naive Bayes: <https://scikit-learn.org/stable/modules/naive_bayes.html>
+- K Nearest Neighbour: <https://scikit-learn.org/stable/modules/neighbors.html>
+- SVMs: <https://scikit-learn.org/stable/modules/svm.html>
+- Perceptron: <https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Perceptron.html>
+- Evaluation metrics: <https://scikit-learn.org/stable/modules/model_evaluation.html>
 
 # Resources
 
@@ -122,3 +165,5 @@ Algorithm:
 2. Decision Trees: <https://www.kdnuggets.com/2020/01/decision-tree-algorithm-explained.html>
 3. Naive Bayes Example: <https://medium.com/analytics-vidhya/naive-bayes-classifier-for-text-classification-556fabaf252b>
 4. kNN Example: <https://iq.opengenus.org/text-classification-using-k-nearest-neighbors/>
+5. SVM: <https://monkeylearn.com/blog/introduction-to-support-vector-machines-svm/>
+6. Perceptron <https://machinelearningmastery.com/perceptron-algorithm-for-classification-in-python/>
