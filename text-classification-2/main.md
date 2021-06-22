@@ -61,8 +61,11 @@ Disadvantages: Prone to overfitting, very sensitive to data rotation (not robust
 
 ![](img/nbayes.png){width=350px}
 
+. . .
+
 ## Questions
 - Why is Naive Bayes naive? 
+- Why is it Bayesian?
 - What are the pros and cons?
 <!--
 Advantages: Works with lesser training data and less training time
@@ -74,6 +77,8 @@ Disadvantages: Assumes the features are independent and unweighted i.e. they con
 
 ![](img/knn.png){width=350px}
 \tiny Source:https://www.researchgate.net/figure/Pseudocode-for-KNN-classification_fig7_260397165
+
+. . .
 
 \normalsize
 ## Questions
@@ -98,6 +103,8 @@ Disadvantages: Scales poorly with large data or more dimensions, needs feature s
 ![](img/svm.png){width=250px}
 ::::
 :::
+
+. . .
 
 ## Questions
 - What are the pros and cons of SVMs?
@@ -129,6 +136,8 @@ Algorithm:
 ::::
 :::
 
+. . .
+
 ## Questions
 - What are the pros and cons of simple perceptrons?
 <!--
@@ -139,25 +148,37 @@ Disadvantages: ONLY linearly separable, difficult with many features
 
 # Common Evaluation Measures
 
-- Confusion matrix
+- **Confusion matrix**
 
-- Precision = $\frac{TP}{TP+FP}$ (out of those marked as 1, how many are actually 1?)
+- **Precision** = $\frac{TP}{TP+FP}$ (out of those marked as 1, how many are actually 1?)
 
-- Recall = $\frac{TP}{TN+FN}$ (out of all 1s, how many are marked 1?)
+- **Recall** = $\frac{TP}{TN+FN}$ (out of all 1s, how many are marked 1?)
 
-- F-measure = $\frac{2 * P \cdot R}{P + R}$ (weighted average of precision and recall) <!--Gives equal importance to FP and FN -->
+- **F-measure** = $\frac{2 * P \cdot R}{P + R}$ (weighted average of precision and recall) <!--Gives equal importance to FP and FN -->
 
-- Accuracy = $\frac{TP+TN}{TP+TN+FP+FN}$
+- **Accuracy** = $\frac{TP+TN}{TP+TN+FP+FN}$
 
 # Useful Python Implementations
 
 - <https://scikit-learn.org/stable/supervised_learning.html>
+
 - Decision Trees: <https://scikit-learn.org/stable/modules/tree.html>
+
 - Naive Bayes: <https://scikit-learn.org/stable/modules/naive_bayes.html>
+
 - K Nearest Neighbour: <https://scikit-learn.org/stable/modules/neighbors.html>
+
 - SVMs: <https://scikit-learn.org/stable/modules/svm.html>
+
 - Perceptron: <https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Perceptron.html>
+
 - Evaluation metrics: <https://scikit-learn.org/stable/modules/model_evaluation.html>
+
+# Assignment 9
+
+- Exercise 1: Text classification
+
+- Bonus: Support Vector Machines
 
 # Resources
 
@@ -167,3 +188,4 @@ Disadvantages: ONLY linearly separable, difficult with many features
 4. kNN Example: <https://iq.opengenus.org/text-classification-using-k-nearest-neighbors/>
 5. SVM: <https://monkeylearn.com/blog/introduction-to-support-vector-machines-svm/>
 6. Perceptron <https://machinelearningmastery.com/perceptron-algorithm-for-classification-in-python/>
+7. Maximum Entropy Classifier: <http://cseweb.ucsd.edu/~elkan/254/ari_talk.pdf>
