@@ -23,6 +23,13 @@ documentclass: beamer
 - Exercise 3: Author identification
 - Bonus: Features for clustering
 
+# Outline
+
+- Decision Trees
+- kNN
+- Naïve Bayes
+- SVM
+
 # Decision Trees
 
 - What is a decision tree?
@@ -32,9 +39,8 @@ documentclass: beamer
 ![](img/dtl.png){width=450px}
 
 ##
-What is plurality value? <!--most common value in examples-->
-
-What is importance? <!--any metric like IG, Chi Square etc.-->
+- What is plurality value? <!--most common value in examples-->
+- What is importance? <!--any metric like IG, Chi Square etc.-->
 
 # Decision Trees - Questions
 - Which of the 2 splits has a better information gain?
@@ -114,7 +120,7 @@ Disadvantages: Assumes the features are independent and unweighted i.e. they con
 . . .
 
 ![](img/knn.png){width=350px}
-\tiny Source: <www.researchgate.net/figure/Pseudocode-for-KNN-classification_fig7_260397165>
+\tiny Source: <https://researchgate.net/figure/Pseudocode-for-KNN-classification_fig7_260397165>
 
 . . .
 
@@ -122,11 +128,12 @@ Disadvantages: Assumes the features are independent and unweighted i.e. they con
 ##
 - What are the training and test computation times for kNN?
 - What are the pros and cons of kNN classifiers?
+- What is weighted kNN?
+- Can kNN be used for regression? <!--yes, use average/max or similar metric-->
 <!--
 Advantages: No training, robust to new data
 Disadvantages: Scales poorly with large data or more dimensions, needs feature scaling, sensitive to outliers
 -->
-- Can kNN be used for regression? <!--yes, use average/max or similar metric-->
 
 # SVM
 
@@ -154,7 +161,7 @@ Disadvantages: Scales poorly with large data or more dimensions, needs feature s
 Advantages: Works well with clear separation boundary, effective for high dimensions esp. for sparse data (Ndim > Ndata), works very well with kernels
 Disadvantages: Not suitable for large data, not robust to noise, no probabilistic explanation for classification, difficult to fine tune
 -->
-- Can SVMs be used for regression?
+<!-- - Can SVMs be used for regression? -->
 
 # Perceptron
 
@@ -207,23 +214,16 @@ Precision - TP/PREdicted true values, Recall - TP/REal values
 # Useful Python Implementations
 
 - <https://scikit-learn.org/stable/supervised_learning.html>
-
 - Decision Trees: <https://scikit-learn.org/stable/modules/tree.html>
-
 - Naive Bayes: <https://scikit-learn.org/stable/modules/naive_bayes.html>
-
 - K Nearest Neighbour: <https://scikit-learn.org/stable/modules/neighbors.html>
-
 - SVMs: <https://scikit-learn.org/stable/modules/svm.html>
-
 - Perceptron: <https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Perceptron.html>
-
 - Evaluation metrics: <https://scikit-learn.org/stable/modules/model_evaluation.html>
 
 # Assignment 9
 
 - Exercise 1: Text classification
-
 - Bonus: Support Vector Machines
 
 # Resources
