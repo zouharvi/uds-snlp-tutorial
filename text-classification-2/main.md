@@ -48,7 +48,7 @@ What is importance? <!--any metric like IG, Chi Square etc.-->
 - What are the pros and cons of decision trees?
 <!--
 Advantages: Less data preparation, no data scaling, missing values are okay
-Disadvantages: Prone to overfitting, very sensitive to data rotation (not robust to change in data), high calculation and training time. Does not consider feature combintions i.e. only 1 feature at a time. 
+Disadvantages: Prone to overfitting, very sensitive to data rotation (not robust to change in data), high calculation and training time. Does not consider feature combinations i.e. only 1 feature at a time. 
 -->
 
 . . .
@@ -59,7 +59,7 @@ Disadvantages: Prone to overfitting, very sensitive to data rotation (not robust
 
 <!-- # Naïve Bayes
 
-- Based on Bayes Theorem <!--write the formula-->
+- Based on Bayes Theorem <!--write the formula
 - Algorithm
 
 ![](img/nbayes.png){width=350px} -->
@@ -109,8 +109,12 @@ Disadvantages: Assumes the features are independent and unweighted i.e. they con
 
 # kNN
 
+- What is it?
+
+. . .
+
 ![](img/knn.png){width=350px}
-\tiny Source: <https://www.researchgate.net/figure/Pseudocode-for-KNN-classification_fig7_260397165>
+\tiny Source: <www.researchgate.net/figure/Pseudocode-for-KNN-classification_fig7_260397165>
 
 . . .
 
@@ -125,6 +129,10 @@ Disadvantages: Scales poorly with large data or more dimensions, needs feature s
 - Can kNN be used for regression? <!--yes, use average/max or similar metric-->
 
 # SVM
+
+- What is it?
+
+. . .
 
 ::: columns
 :::: column
@@ -182,15 +190,15 @@ Disadvantages: ONLY linearly separable, difficult with many features
 
 # Common Evaluation Measures
 
-- **Confusion matrix**
-
-- **Precision** = $\frac{TP}{TP+FP}$ (out of those marked as 1, how many are actually 1?)
-
-- **Recall** = $\frac{TP}{TN+FN}$ (out of all 1s, how many are marked 1?)
-
-- **F-measure** = $\frac{2 \cdot P \cdot R}{P + R}$ (weighted average of precision and recall) <!--Gives equal importance to FP and FN -->
-
-- **Accuracy** = $\frac{TP+TN}{TP+TN+FP+FN}$
+> - **Confusion matrix**
+> - **Precision**
+> - \qquad $\frac{TP}{TP+FP}$ (out of those marked as 1, how many are actually 1?)
+> - **Recall**
+> - \qquad $\frac{TP}{TN+FN}$ (out of all 1s, how many are marked 1?)
+> - **F-{measure,score}**
+> - \qquad $\frac{2 \cdot P \cdot R}{P + R}$ (weighted average of precision and recall) <!--Gives equal importance to FP and FN -->
+> - **Accuracy**
+> - \qquad $\frac{TP+TN}{TP+TN+FP+FN}$
 
 ::: notes
 Precision - TP/PREdicted true values, Recall - TP/REal values
