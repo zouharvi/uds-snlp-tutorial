@@ -201,7 +201,7 @@ Disadvantages: ONLY linearly separable, difficult with many features
 > - **Precision**
 > - \qquad $\frac{TP}{TP+FP}$ (out of those marked as 1, how many are actually 1?)
 > - **Recall**
-> - \qquad $\frac{TP}{TN+FN}$ (out of all 1s, how many are marked 1?)
+> - \qquad $\frac{TP}{TP+FN}$ (out of all 1s, how many are marked 1?)
 > - **F-{measure,score}**
 > - \qquad $\frac{2 \cdot P \cdot R}{P + R}$ (weighted average of precision and recall) <!--Gives equal importance to FP and FN -->
 > - **Accuracy**
