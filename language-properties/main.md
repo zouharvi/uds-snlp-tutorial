@@ -98,9 +98,11 @@ np.log(6)
 
 \begin{gather*}
 PP = 2^{-\frac{1}{n} \sum^n_1 \log p(w_i|w_{:i})} \\
-PP  = 2^{-\sum_{w,h}f(w,h)\log_2 P(w|h)}
+PP  = 2^{-\sum_{w,h}f(w,h)\log_2 P(w|w_{:i})}
 \end{gather*}
-::: 
+:::
+
+Note that $w_{:i}$ is all the previous (left) history up to $i$ (exclusive).
 
 How do these two formulae relate to each other?
 
