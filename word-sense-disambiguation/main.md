@@ -1,37 +1,25 @@
 ---
 title:
-- Word Sense Disambiguation
+- Assignment 9 + Word Sense Disambiguation
 subtitle: |
-    | (SNLP tutorial)
+    | (SNLP Tutorial 10)
 author:
-- Vilém Zouhar
+- Vilém Zouhar, Awantee Deshpande, Julius Steuer
 theme:
 - Boadilla
-date: \today
+date: 29th June, 1st July
 aspectratio: 169
 header-includes:
-  - \AtBeginDocument{}
+  - \AtBeginDocument{\usepackage{graphicx}\usepackage{tikz}\usetikzlibrary{positioning,shapes,arrows}}
 
 documentclass: beamer
 # classoption: notes
 ---
 
-# Overview
+# Assignment 9
 
-\begin{itemize}
-\setlength{\itemsep}{-0.2cm}
-\item Task
-\item One sense per ...
-\item Dictionary-based
-\item Supervised
-\item Unsupervised
-\item - Partitioning
-\item - Flip-Flop Algorithm
-\item - E-M Algorithm
-\item - Yarowsky Algoritm
-\item Notes
-\item Homework
-\end{itemize}
+- Exercise 1: Feature Engineering, Classification
+- Bonus: Support Vector Machines
 
 # Word Sense Disambiguation
 
@@ -75,40 +63,11 @@ Dialogue systems
 
 Spelling correction
 
-# Task Difficulty
-
-::: columns
-:::: column
-Humans:
-
-- 98% for obvious meanings
-- 65% for highly ambiguous words
-- Sometimes impossible
-::::
-
-. . . 
-
-:::: column
-Most Common Class Classifier:
-
-|Word|Meaning Count|Most Frequent|
-|-|-|-|
-|behavior|3|96%|
-|band|24|73%|
-|slight|8|67%|
-|aware|2|58%|
-|float|28|14%|
-::::
-:::
-
-
-(Source for both [1])
-
 # One sense per ...
 
 One sense per discourse
 
-- One meaning per word+documnet
+- One meaning per word+document
 
 . . .
 
@@ -123,12 +82,16 @@ One sense per collocation
 
 ## Lesk's Algorithm
 
+- Idea: Sense $s_i$ of ambiguous word $w$ is likely to be the correct sense if many of the words used in the dictionary definition of $s_i$ are also used in the definitions of words in the ambiguous word's context.
+
 \centering
-$\hat{s} = \arg \max_s \text{sim}(D(s), \cup_{x \in C(w)} D(x))$
+$s_{opt} = \underset{s_k}{\text{argmax}} \: sim\left(D(s_k), \bigcup_{v_j \in C} E(v_j)\right)$
+
+<!-- Explain each of these terms --->
 
 ::: frame
 ## Similarity
-
+<!-- Give an example here -->
 \vspace*{-0.4cm}
 \begin{gather*}
 \frac{2|X\cap Y|}{|X|+|Y|}
@@ -137,10 +100,8 @@ $\hat{s} = \arg \max_s \text{sim}(D(s), \cup_{x \in C(w)} D(x))$
 \end{gather*}
 :::
 
-. . .
-
-- Simple, fast
-- Low performance
+- Advantages? Disadvantages?
+<!--Simple, fast, Low performance-->
 
 # Supervised Disambiguation
 
@@ -163,11 +124,9 @@ p(C|s) = \prod_{x \in C} p(x|s)
 
 - Estimate by MLE counts (+ smoothing)
 - Independence within context
-- Position in context does not matter (can be alleviated by gaussian powers)
+- Position in context does not matter
 
-::: notes
-- bag of words
-:::
+- Advantages? Disadvantages? <!--Needs large, annotated training corpus, quick to train, scales well with data-->
 
 # Unsupervised Disambiguation
 
@@ -189,11 +148,39 @@ Partition translated words ($\{Q_1, Q_2\}$) and indicator words ($\{P_1, P_2\}$)
 $I(P;Q) = \sum_{i\in Q, t\in P} \log \frac{p(i, t)}{p(i)\cdot p(t)}$
 
 # Flip-Flop Algorithm
-TODO
-Source [2]
+
+<!--tries to find a single contextual feature that reliably indicates which sense of the ambiguous word is being used.-->
+
+1. find random partition P = {$P_1$, $P_2$} of $t_1, ..., t_m$
+2. while improving I(P;Q) do
+3.  - find partition Q = {$Q_1$, $Q_2$} of $x_1, ..., x_n$ that maximises I(P;Q)
+4.  - find partition P = {$P_1$, $P_2$} of $t_1, ..., t_m$ that maximises I(P;Q)
+5. end
+
+- $t_i$ : translations of the ambiguous word
+- $x_i$ : indicator words
+- I(P;Q) monotonically increases until convergence
+
+. . . 
+
+- Disambiguation \newline
+Determine $x_i$
+
+if $x_i \in Q_1$ assign sense 1 
+
+if $x_i \in Q_2$ assign sense 2
+
+<!--The Flip-Flop algorithm only disambiguates between 2 senses.-->
 
 # EM Algorithm
-TODO
+
+- Idea: Random initialisation followed by parameter estimation
+- Paramaters? **$P(v_j|s_k)$** and **$P(s_k)$**
+- Maximise log-likelihood $\log \prod_i \sum_k P(c_i|s_k)P(s_k)$
+- E step: $h_{ik} = \frac{P(c_i|s_k)P(s_k)}{\sum_l P(c_i|s_l)P(s_l)}$
+- M step: $P(v_j|s_k) = \frac{\sum_i C(v_j \in c_i) \cdot h_{ik}}{\sum_j \sum_i C(v_j \in c_i) \cdot h_{ik}}$ \newline
+  $P(s_k) = \frac{\sum_i h_{ik}}{\sum_k \sum_i h_{ik}}$ 
+- Disambiguation: $s_{opt} = argmax_{s_k} [\log P(s_k) + \sum_{v_j \in C} \log P(v_j|S_k)]$
 
 # Yarowsky Algorithm
 TODO
@@ -202,3 +189,5 @@ TODO
 
 1. UdS SNLP Class, WSD: <https://teaching.lsv.uni-saarland.de/snlp/>
 2. Classical Statistical WSD: <https://www.aclweb.org/anthology/P91-1034.pdf>
+3. WSD: <https://www.cs.toronto.edu/~frank/csc2501/Lectures/8%20Word%20sense%20disambiguation.pdf>
+4. Lesk Algorithm: <https://www.c-sharpcorner.com/article/lesk-algorithm-in-python-to-remove-word-ambiguity/>
