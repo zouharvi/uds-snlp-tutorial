@@ -1,6 +1,6 @@
 ---
 title:
-- Assignment 9 + Word Sense Disambiguation
+- Assignment 9, 10 + Word Sense Disambiguation
 subtitle: |
     | (SNLP Tutorial 10)
 author:
@@ -21,14 +21,29 @@ documentclass: beamer
 - Exercise 1: Feature Engineering, Classification
 - Bonus: Support Vector Machines
 
+# Exam, Learning Material, Repository
+
+> - Exam 23. 6. 2021
+> - Material: lecture slides, tutorial slides, the book, internet
+> - Tutors are happy if you report errors in the slides
+> - Better yet, if you fix it and open a pull request
+- - It's super easy - just edit one text file
+- - Let me know if you want to contribute but don't know how
+
+. . .
+
+\vspace{0.5cm}
+
+\centering
+
+\textbf{\huge \href{https://github.com/zouharvi/uds-snlp-tutorial}{github.com/zouharvi/uds-snlp-tutorial}}
+
 # Word Sense Disambiguation
 
 
 \underline{Apple} is full of vitamins. \newline
 \underline{Apple} was struggling last quarter. \newline
 \underline{Apple} was thrown away from the meeting.
-
-. . .
 
 \centering 
 ![](img/apple_0.png){width=15%} \qquad \qquad \qquad ![](img/apple_1.png){width=13%}
@@ -38,7 +53,7 @@ documentclass: beamer
 \vspace{0.5cm}
 
 \raggedright
-$f(w, C) = s \in S_w$ \newline
+$f: W \times C \rightarrow S_w$ \newline
 $f(\text{Apple}, \text{* was thrown away from the meeting}) \in \{\text{fruit}, \text{company}\}$
 
 # Word Sense Disambiguation
@@ -77,7 +92,7 @@ One sense per collocation
 
 # Dictionary 
 
-- Dictionary/Thesaurus: $\forall w, s \in S_w: D(s) = \text{ description of sense } s$
+- Dictionary/Thesaurus: $\forall w, s \in S_w: D_w(s) = \text{ description of sense } s$
 - Context: $\forall w, C(w) = \text{ context of word } w \text{ in a specific occurence}$
 
 ## Lesk's Algorithm
@@ -101,7 +116,7 @@ $s_{opt} = \underset{s_k}{\text{argmax}} \: sim\left(D(s_k), \bigcup_{v_j \in C}
 :::
 
 - Advantages? Disadvantages?
-<!--Simple, fast, Low performance-->
+<!--simple, fast, low performance, dictionary dependency -->
 
 # Simplified Lesk's Algorithm Example
 

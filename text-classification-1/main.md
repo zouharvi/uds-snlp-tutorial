@@ -1,6 +1,6 @@
 ---
 title:
-- Assignment 7,8 + Text Classification Basics
+- Assignment 7, 8 + Text Classification Basics
 subtitle: |
     | (SNLP Tutorial 8)
 author:

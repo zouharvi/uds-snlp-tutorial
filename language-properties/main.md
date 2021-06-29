@@ -1,6 +1,6 @@
 ---
 title:
-- KL Divergence
+- Assignment 1, 2 + KL Divergence
 subtitle: |
     | (SNLP tutorial 3)
 author:

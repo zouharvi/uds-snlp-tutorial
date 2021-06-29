@@ -1,6 +1,6 @@
 ---
 title:
-- Assignment 8,9 + Classifiers
+- Assignment 8, 9 + Classifiers
 subtitle: |
     | (SNLP Tutorial 9)
 author:

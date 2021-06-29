@@ -1,6 +1,6 @@
 ---
 title:
-- Assignment 5,6 + Smoothing 2
+- Assignment 5, 6 + Smoothing 2
 subtitle: |
     | (SNLP Tutorial 6)
 author:
