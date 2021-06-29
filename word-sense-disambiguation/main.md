@@ -103,9 +103,31 @@ $s_{opt} = \underset{s_k}{\text{argmax}} \: sim\left(D(s_k), \bigcup_{v_j \in C}
 - Advantages? Disadvantages?
 <!--Simple, fast, Low performance-->
 
-# Supervised Disambiguation
+# Simplified Lesk's Algorithm Example
 
-- Sequence Labelling / Classification
+Sentence: The	*bank* can guarantee deposits	will eventually cover	future	tuition	costs	 because	it	invests	in	adjustable-rate	mortgage	securities.
+
+::: frame 
+## Senses
+
+- $bank^1$ Gloss/Def$^n$: a financial institution that accepts deposits and channels the money into lending activities. \newline
+e.g.: "She cashed a cheque at the bank".
+
+- $bank^2$ Gloss/Def$^n$: sloping land (especially the slope beside a body of water). \newline
+e.g.: "They had a picnic on the river bank".
+:::
+
+<!--Choose	sense	with	most	word	overlap	between	gloss	and	context (not	counting	function	words)-->
+<!--Explain Senseval and WordNet-->
+
+```
+from nltk.corpus import senseval
+hard, interest, line, serve = senseval.fileids()
+line_instances = senseval.instances(line)
+```
+- Improvements include weighting by measures like IDF
+
+# Supervised Disambiguation
 
 ## Bayes Decision
 
@@ -115,18 +137,39 @@ $s_{opt} = \underset{s_k}{\text{argmax}} \: sim\left(D(s_k), \bigcup_{v_j \in C}
 &= \arg \max_s p(C|s)\cdot(p(s))
 \end{align*}
 
+::: frame 
 ## Naïve Bayes
 
 \vspace*{-0.4cm}
 \begin{align*}
 p(C|s) = \prod_{x \in C} p(x|s)
 \end{align*}
+:::
 
 - Estimate by MLE counts (+ smoothing)
 - Independence within context
 - Position in context does not matter
-
+- What kind of feature vectors can exist? 
+<!--
+Collocational features: Features	about	words	at	specific positions	near	target	word, word+POS
+Bag of words: words	that	occur	anywhere	in	the	window	(regardless of position), frequency counts
+-->
 - Advantages? Disadvantages? <!--Needs large, annotated training corpus, quick to train, scales well with data-->
+
+# Supervised Disambiguation Features Example
+
+Sentence: Transactions on a deposit account of the *bank* are recorded in books, and the resulting balance is recorded as its liability.
+
+- Collocational features:
+
+[$w_{i-3}, POS_{i-3}, w_{i-2}, POS_{i-2} ... , w_{i+3}, POS_{i+3}$] \newline
+[account, NN, of, PP, the, DT, ... ]
+
+[$w_{i-2}, w_{i-1}, w_{i+1}$]
+
+- Bag of Word Features \newline
+Let V : {institution, account, water, land} \newline
+Vector: [0, 1, 0, 0] for given sentence
 
 # Unsupervised Disambiguation
 
@@ -226,3 +269,4 @@ log L = ln P(sense 1 | collocation)/P(sense 1 | collocation)-->
 4. Lesk Algorithm: <https://www.c-sharpcorner.com/article/lesk-algorithm-in-python-to-remove-word-ambiguity/>
 5. Yarowsky Algorithm: <https://www.coli.uni-saarland.de/courses/comsem-10/material/Victor_Santos_Yarowsky.pdf>
 6. <https://www.aclweb.org/anthology/P95-1026.pdf>
+7. <https://web.stanford.edu/~jurafsky/slp3/slides/Chapter18.wsd.pdf>
