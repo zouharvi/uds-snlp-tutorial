@@ -132,7 +132,7 @@ p(C|s) = \prod_{x \in C} p(x|s)
 
 > - Machine translation is able to choose the right sense \newline
   (assuming different senses have different translations)
-> - MT is trained on unsupervised data
+<!-->> - MT is trained on unsupervised data -->
 > - \underline{Apple} was struggling last quarter. \newline
   \underline{Apple} hatte im letzten Quartal Probleme.
 > - \underline{Apple} is full of vitamins. \newline
