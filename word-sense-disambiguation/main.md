@@ -120,6 +120,8 @@ e.g.: "They had a picnic on the river bank".
 <!--Choose	sense	with	most	word	overlap	between	gloss	and	context (not	counting	function	words)-->
 <!--Explain Senseval and WordNet-->
 
+. . .
+
 ```
 from nltk.corpus import senseval
 hard, interest, line, serve = senseval.fileids()
@@ -149,12 +151,12 @@ p(C|s) = \prod_{x \in C} p(x|s)
 - Estimate by MLE counts (+ smoothing)
 - Independence within context
 - Position in context does not matter
-- What kind of feature vectors can exist? 
+- Advantages? Disadvantages? <!--Needs large, annotated training corpus, quick to train, scales well with data-->
+- What kind of feature vectors can exist?  <!-- For other classifiers, simple Bayes can use a BoW feature representation --->
 <!--
 Collocational features: Features	about	words	at	specific positions	near	target	word, word+POS
 Bag of words: words	that	occur	anywhere	in	the	window	(regardless of position), frequency counts
 -->
-- Advantages? Disadvantages? <!--Needs large, annotated training corpus, quick to train, scales well with data-->
 
 # Supervised Disambiguation Features Example
 
@@ -171,16 +173,16 @@ Sentence: Transactions on a deposit account of the *bank* are recorded in books,
 Let V : {institution, account, water, land} \newline
 Vector: [0, 1, 0, 0] for given sentence
 
-# Unsupervised Disambiguation
+# Flip-Flop Algorithm
 
-> - Machine translation is able to choose the right sense \newline
+- Machine translation is able to choose the right sense \newline
   (assuming different senses have different translations)
-> - \underline{Apple} was struggling last quarter. \newline
+- \underline{Apple} was struggling last quarter. \newline
   \underline{Apple} hatte im letzten Quartal Probleme.
-> - \underline{Apple} is full of vitamins. \newline
+- \underline{Apple} is full of vitamins. \newline
   \underline{Apfel} ist voller Vitamine.
-> - Translations (in German): \{Apfel, Äpfel, Apple\}
-> - Indicator words: \{struggling, quarter, full, vitamins\} (stopwords removed)
+- Translations (in German): \{Apfel, Äpfel, Apple\}
+- Indicator words: \{struggling, quarter, full, vitamins\} (stopwords removed)
 
 . . .
 
@@ -214,7 +216,7 @@ if $x_i \in Q_2$ assign sense 2
 
 <!--The Flip-Flop algorithm only disambiguates between 2 senses.-->
 
-# EM Algorithm
+# Unsupervised Disambiguation (EM Algorithm)
 
 - Idea: Random initialisation followed by parameter estimation
 - Paramaters? **$P(v_j|s_k)$** and **$P(s_k)$**
@@ -224,7 +226,7 @@ if $x_i \in Q_2$ assign sense 2
   $P(s_k) = \frac{\sum_i h_{ik}}{\sum_k \sum_i h_{ik}}$ 
 - Disambiguation: $s_{opt} = argmax_{s_k} [\log P(s_k) + \sum_{v_j \in C} \log P(v_j|S_k)]$
 
-# Yarowsky Algorithm
+# Semi-Supervised Disambiguation (Yarowsky Algorithm)
 - Utilises one sense per discourse and one sense per collocation
 - Algorithm:
 
