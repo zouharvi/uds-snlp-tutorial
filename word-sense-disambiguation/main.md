@@ -183,7 +183,40 @@ if $x_i \in Q_2$ assign sense 2
 - Disambiguation: $s_{opt} = argmax_{s_k} [\log P(s_k) + \sum_{v_j \in C} \log P(v_j|S_k)]$
 
 # Yarowsky Algorithm
-TODO
+- Utilises one sense per discourse and one sense per collocation
+- Algorithm:
+
+1. In a large corpus, identify all examples of a polysemous word, and store their contexts as an untagged training set. \newline
+e.g. \newline
+\scriptsize 
+The company *plant* is still operational... \newline
+The region abounts in *plant* life... \newline
+The classification of *plant* and animal kingdoms...
+
+\normalsize
+2. For each sense of the word ($s_1 ... s_k$), identify collocations representative of the sense, and tag all the sentences from (1) which contain the seed collocation with the respective label. \newline <!--The remaining examples are left untagged-->
+e.g. \newline
+\scriptsize
+Sense 1: The company *plant* is still operational \newline
+Sense 2: The region abounds in *plant* life... \newline
+Sense 2: The classification of *plant* and animal kingdoms
+
+# Yarowsky Algorithm
+
+3. a) Train on the seed sets (Sense 1, Sense 2). <!--This identifies the collocations that reliably partition the training data-->
+   b) Apply the obtained classifier on the entire sample set. Only retain those tags that are above a certain probability threshold. Add these examples to the seed set. <!--These now include new collocations indicative of the seed set-->
+   c) Use one sense per discourse to augment and correct the available data. \newline
+e.g. \newline
+\scriptsize 
+Sense 1: The company *plant* is still operational \newline
+? $\rightarrow$ Sense 1: The *plant* was shut down due to inflation.
+\normalsize
+   d) Repeat (3a) to (3c)
+4. Hold training parameters constant, and the algorithm will converge on the residual set.
+5. Apply the classifier to new data or original untagged data.
+
+<!--If multiple collocations are indicative of the sense, the maximal Log L sense is picked where
+log L = ln P(sense 1 | collocation)/P(sense 1 | collocation)-->
 
 # Resources
 
@@ -191,3 +224,5 @@ TODO
 2. Classical Statistical WSD: <https://www.aclweb.org/anthology/P91-1034.pdf>
 3. WSD: <https://www.cs.toronto.edu/~frank/csc2501/Lectures/8%20Word%20sense%20disambiguation.pdf>
 4. Lesk Algorithm: <https://www.c-sharpcorner.com/article/lesk-algorithm-in-python-to-remove-word-ambiguity/>
+5. Yarowsky Algorithm: <https://www.coli.uni-saarland.de/courses/comsem-10/material/Victor_Santos_Yarowsky.pdf>
+6. <https://www.aclweb.org/anthology/P95-1026.pdf>
