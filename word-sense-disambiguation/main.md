@@ -236,8 +236,9 @@ if $x_i \in Q_2$ assign sense 2
 - Idea: Random initialisation followed by parameter estimation
 - Paramaters? **$P(v_j|s_k)$** and **$P(s_k)$**
 - Maximise log-likelihood $\log \prod_i \sum_k P(c_i|s_k)P(s_k)$
-- E step: $h_{ik} = \frac{P(c_i|s_k)P(s_k)}{\sum_l P(c_i|s_l)P(s_l)}$
-- M step: $P(v_j|s_k) = \frac{\sum_i C(v_j \in c_i) \cdot h_{ik}}{\sum_j \sum_i C(v_j \in c_i) \cdot h_{ik}}$ \newline
+- E step: $h_{ik} = \frac{P(c_i|s_k)}{\sum_l P(c_i|s_l)}$
+- M step: \newline
+  $P(v_j|s_k) = \frac{\sum_i C(v_j \in c_i) \cdot h_{ik}}{\sum_k \sum_i C(v_j \in c_i) \cdot h_{ik}}$ \newline
   $P(s_k) = \frac{\sum_i h_{ik}}{\sum_k \sum_i h_{ik}}$ 
 - Disambiguation: $s_{opt} = argmax_{s_k} [\log P(s_k) + \sum_{v_j \in C} \log P(v_j|S_k)]$
 
