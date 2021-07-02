@@ -23,7 +23,7 @@ documentclass: beamer
 
 # Exam, Learning Material, Repository
 
-> - Exam 23. 6. 2021
+> - Exam 23. 7. 2021
 > - Material: lecture slides, tutorial slides, the book, internet
 > - Tutors are happy if you report errors in the slides
 > - Better yet, if you fix it and open a pull request
