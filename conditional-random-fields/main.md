@@ -67,8 +67,18 @@ documentclass: beamer
 > - Better hidden states: `{mat-num, START+person, INTERNAL+person, END+person, location, none, ...}`
 > - Transitions: MLE from annotated data
 > - Emission probabilities: MLE from annotated data (+ smoothing)
-> - $p(x,y) = \prod_i a(y_{i-1}, y_{i}) \cdot o(y_i, x_i)$
-> - Optimizes $p(x, y |\theta)$, though we are interested in $p(y|x,\theta)$
+
+# HMM: Estimation
+> - Hidden states: $\pi_1, \pi_2,...,\pi_N$
+> - Labels/outputs: $x_1, x_2,...,x_N$
+> - Transition probability: $p(\pi_i|\pi_{i-1})$
+> - Emission probability: $p(x_i|\pi_i)$
+> - $p(x_1,x_2,...,x_N,\pi_1,\pi_2,...,\pi_N) = \prod_i p(\pi_i|\pi_{i-1}) \cdot p(x_i|\pi_i)$
+<!--
+> - Optimizes $p(\Pi, X |\theta)$, though we are interested in $p(X|\Pi,\theta)$
+-->
+> - Decision rule:
+$\underset{\pi_1,\pi_2,...,\pi_N}{\text{arg max}}\Big[\prod_i p(\pi_i|\pi_{i-1}) \cdot p(x_i|\pi_i)\Big]$
 
 ::: notes
 - HMMs seem a better fit for this task, since it captures transition probabilities between latent variables and emission probabilities.
@@ -83,7 +93,7 @@ documentclass: beamer
 
 # Bayesian Network
 
-- DAG, $(x\rightarrow y) \in E:$ $y$ dependent on $x$
+- Directed acyclic graph (DAG), $(x\rightarrow y) \in E:$ $y$ dependent on $x$
 
 ::: frame
 ## Local Markov Property
@@ -118,7 +128,7 @@ $p(\text{Sprinkler}|\text{Cloudy},\text{Rain}) =p(\text{Sprinkler}|\text{Cloudy}
 # Naïve Bayes
 
 - Assume absolute independence except for the one observed variable
-- $p(y=\text{Yes}|x) = p(y_j|x) = \frac{p(x|y_j)p(y_j)}{p(x)} \propto p(x|y_j) p(y_j) \approx p(y_j) \prod_i p(x_i|y_j)$
+- $p(\pi_j=\text{Yes}|x) = p(\pi_j|x) = \frac{p(x|\pi_j)p(\pi_j)}{p(x)} \propto p(x|\pi_j) p(\pi_j) \approx p(\pi_j) \prod_i p(x_i|\pi_j)$
 
 \centering
 \begin{tikzpicture}[
@@ -176,9 +186,9 @@ observed variable _Walk duration_, latent variable: _Weather_ $\in$ \{_Sunny_, _
 \centering
 
 \begin{gather*}
-p(y|x) = \prod_i p(y_i) \cdot o(y_i, x_i) \text{ (Naïve Bayes)}\\
+p(\pi|x) = \prod_i p(\pi) \cdot p(x_i|\pi_i) \text{ (Naïve Bayes)}\\
 \Rightarrow \\
-p(y|x) = \prod_i a(y_{i-1}, y_{i}) \cdot o(y_i, x_i) \text{ (HMM)}
+p(\pi_1,\pi_2,...,\pi_N|x) = \prod_i p(\pi_i|\pi_{i-1}) \cdot p(x_i|\pi_i) \text{ (HMM)}
 \end{gather*}
 
 ::: notes
