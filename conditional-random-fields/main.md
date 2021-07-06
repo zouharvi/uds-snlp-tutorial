@@ -82,7 +82,7 @@ e.g. MaxEnt Classifier, CRFs
 
 # Bayesian Network
 
-- DAG, $(x\rightarrow y) \in E:$ $y$ dependent on $x$
+- Directed acyclic graph (DAG), $(x\rightarrow y) \in E:$ $y$ dependent on $x$
 
 <!--
 Each edge denotes a conditional dependency
