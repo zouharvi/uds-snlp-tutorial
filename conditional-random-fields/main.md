@@ -1,13 +1,13 @@
 ---
 title:
-- Conditional Random Fields
+- Assignment 10 + Conditional Random Fields
 subtitle: |
     | (SNLP tutorial)
 author:
-- Vilém Zouhar
+- Vilém Zouhar, Awantee Deshpande, Julius Steuer
 theme:
 - Boadilla
-date: \today
+date: 6th, 8th June
 aspectratio: 169
 header-includes:
   - \AtBeginDocument{\usepackage{tikz}\usetikzlibrary{positioning,shapes,arrows}}
@@ -521,7 +521,10 @@ Properties
 
 # Homework
 
-TBD
+<!---
+1) Difference between HMM and CRF
+A Hidden Markov Model can be understood as the sequence version of a Naive Bayes Model: instead of single independent decisions, a Hidden Markov Model models a linear sequence of decisions. Accordingly, Conditional Random Fields can be understood as the sequence version of Maximum Entropy Models, that means they are also discriminative models. Furthermore, in contrast to Hidden Markov Models, Conditional Random Fields are not tied to the linear-sequence structure but can be arbitrarily structured.
+-->
 
 # Resources
 
@@ -540,3 +543,4 @@ TBD
 10. Fast Linear Chain CRFs (C++): <https://taku910.github.io/crfpp/>
 11. Bayesian Networks: <https://www.ics.uci.edu/~rickl/courses/cs-171/0-ihler-2016-fq/Lectures/Ihler-final/09b-BayesNet.pdf>
 12. Naïve Bayes to HMM to CRF: <http://cnyah.com/2017/08/26/from-naive-bayes-to-linear-chain-CRF/>
+13. <https://ls11-www.cs.tu-dortmund.de/_media/techreports/tr07-13.pdf>
