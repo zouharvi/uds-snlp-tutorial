@@ -23,7 +23,7 @@ documentclass: beamer
 
 # Exam, Learning Material, Repository
 
-> - Exam 23. 6. 2021
+> - Exam 23. 7. 2021
 > - Material: lecture slides, tutorial slides, the book, internet
 > - Tutors are happy if you report errors in the slides
 > - Better yet, if you fix it and open a pull request
@@ -92,7 +92,7 @@ One sense per collocation
 
 # Dictionary 
 
-- Dictionary/Thesaurus: $\forall w, s \in S_w: D_w(s) = \text{ description of sense } s$
+- Dictionary $D$, Thesaurus: $\forall w, s \in S_w: T_w(s) = \text{ description of sense } s$
 - Context: $\forall w, C(w) = \text{ context of word } w \text{ in a specific occurence}$
 
 ## Lesk's Algorithm
@@ -100,7 +100,7 @@ One sense per collocation
 - Idea: Sense $s_i$ of ambiguous word $w$ is likely to be the correct sense if many of the words used in the dictionary definition of $s_i$ are also used in the definitions of words in the ambiguous word's context.
 
 \centering
-$s_{opt} = \underset{s_k}{\text{argmax}} \: sim\left(D(s_k), \bigcup_{v_j \in C} E(v_j)\right)$
+$s_{opt}(w) = \underset{s_k}{\text{argmax}} \: sim\left(T_w(s_k), \bigcup_{v_j \in C(w)} D(v_j)\right)$
 
 <!-- Explain each of these terms --->
 
@@ -159,7 +159,7 @@ line_instances = senseval.instances(line)
 
 \vspace*{-0.4cm}
 \begin{align*}
-p(C|s) = \prod_{x \in C} p(x|s)
+p(s|C) \approx \prod_{x \in C} p(x|s)
 \end{align*}
 :::
 
@@ -236,13 +236,15 @@ if $x_i \in Q_2$ assign sense 2
 - Idea: Random initialisation followed by parameter estimation
 - Paramaters? **$P(v_j|s_k)$** and **$P(s_k)$**
 - Maximise log-likelihood $\log \prod_i \sum_k P(c_i|s_k)P(s_k)$
-- E step: $h_{ik} = \frac{P(c_i|s_k)P(s_k)}{\sum_l P(c_i|s_l)P(s_l)}$
-- M step: $P(v_j|s_k) = \frac{\sum_i C(v_j \in c_i) \cdot h_{ik}}{\sum_j \sum_i C(v_j \in c_i) \cdot h_{ik}}$ \newline
+- E step: $h_{ik} = \frac{P(c_i|s_k)}{\sum_l P(c_i|s_l)}$
+- M step: \newline
+  $P(v_j|s_k) = \frac{\sum_i C(v_j \in c_i) \cdot h_{ik}}{\sum_k \sum_i C(v_j \in c_i) \cdot h_{ik}}$ \newline
   $P(s_k) = \frac{\sum_i h_{ik}}{\sum_k \sum_i h_{ik}}$ 
-- Disambiguation: $s_{opt} = argmax_{s_k} [\log P(s_k) + \sum_{v_j \in C} \log P(v_j|S_k)]$
+- Disambiguation: $s_{opt}(v_j) = argmax_{s_k} [\log P(s_k) + \sum_{v_j \in C} \log P(v_j|S_k)]$
 
 # Semi-Supervised Disambiguation (Yarowsky Algorithm)
 - Utilises one sense per discourse and one sense per collocation
+- Better explained here: <https://profs.info.uaic.ro/~ciortuz/SLIDES/wsd.pdf>
 - Algorithm:
 
 1. In a large corpus, identify all examples of a polysemous word, and store their contexts as an untagged training set. \newline
@@ -286,3 +288,4 @@ log L = ln P(sense 1 | collocation)/P(sense 1 | collocation)-->
 5. Yarowsky Algorithm: <https://www.coli.uni-saarland.de/courses/comsem-10/material/Victor_Santos_Yarowsky.pdf>
 6. <https://www.aclweb.org/anthology/P95-1026.pdf>
 7. <https://web.stanford.edu/~jurafsky/slp3/slides/Chapter18.wsd.pdf>
+8. <https://profs.info.uaic.ro/~ciortuz/SLIDES/wsd.pdf>

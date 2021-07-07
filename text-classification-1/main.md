@@ -188,8 +188,8 @@ $$tf-idf(term, doc) = tf(term, doc) \times idf(term)$$
 \begin{align*}
 G(C,t) =& H(C) - H(C|t) \\
 =& - \sum_i p(c_i) \log p(c_i) \\
-&+\ p(t) \sum_i p(c_i, t) \log p(c_i|t) \\
-&+\ p(\overline{t}) \sum_i p(c_i, \overline{t}) \log p(c_i | \overline{t})
+&+\ p(t) \sum_i p(c_i|t) \log p(c_i|t) \\
+&+\ p(\overline{t}) \sum_i p(c_i|\overline{t}) \log p(c_i | \overline{t})
 \end{align*}
 
 ## Questions
