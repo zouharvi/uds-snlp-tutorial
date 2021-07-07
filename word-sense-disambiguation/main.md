@@ -125,10 +125,10 @@ Sentence: The	*bank* can guarantee deposits	will eventually cover	future	tuition
 ::: frame 
 ## Senses
 
-- $bank^1$ Gloss/Def$^n$: a financial institution that accepts deposits and channels the money into lending activities. \newline
+- $bank^1$ Def: a financial institution that accepts deposits and channels the money into lending activities. \newline
 e.g.: "She cashed a cheque at the bank".
 
-- $bank^2$ Gloss/Def$^n$: sloping land (especially the slope beside a body of water). \newline
+- $bank^2$ Def: sloping land (especially the slope beside a body of water). \newline
 e.g.: "They had a picnic on the river bank".
 :::
 
@@ -150,7 +150,7 @@ line_instances = senseval.instances(line)
 
 \vspace*{-0.4cm}
 \begin{align*}
-\hat{s} &= \arg \max_s p(s|C) = \arg \max_s \frac{p(C|s)\cdot(p(s))}{p(C)} \\
+\hat{s} &= \arg \max_s p(s|C) = \arg \max_s \frac{p(C|s)\cdot p(s)}{p(C)} \\
 &= \arg \max_s p(C|s)\cdot(p(s))
 \end{align*}
 
