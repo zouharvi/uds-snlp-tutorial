@@ -20,13 +20,13 @@ documentclass: beamer
 
 # Organisation
 
-- Check that you have the finalised versions of the tutorial slides (https://github.com/zouharvi/uds-snlp-tutorial/tree/main)
+- Check that you have the finalised versions of the tutorial slides (\href{https://github.com/zouharvi/uds-snlp-tutorial}{github.com/zouharvi/uds-snlp-tutorial})
 - Check if you are eligible for the exam, and register accordingly.
-- Project will be released on Friday, expected deadline at the end of August (tentatively 20th Aug), will be specified in the project instructions.
-- Next week's tutorial discussion: Open Q&A.
-- Send a list of questions to me (Teams or Private Piazza Post) by Sunday, 11th July.
+- Project will be released on Friday, expected deadline at the end of August \newline
+    (tentatively 20th Aug), will be specified in the project instructions.
+- Next week's tutorial discussion: Open Q&A
+- Send a list of questions to me (Teams or Private Piazza Post)
 - Discussion of sample exam
-- Other questions...?
 
 # Assignment 10
 
@@ -47,8 +47,8 @@ documentclass: beamer
 
 # Sequence Labelling / Entity Recognition
 
-> - `My name is John, I live in Saarbrücken, and my matriculation number is 1234.`
-> - `My name is [John:PERSON], I live in [Saarbrücken:LOC], and my matriculation number is [1234:MATNUM].`
+> - `My name is Joachim, I live in Saarbrücken, and my matriculation number is 1234.`
+> - `My name is [Joachim:PERSON], I live in [Saarbrücken:LOC], and my matriculation number is [1234:MATNUM].`
 > - NER as Sequence labelling: \newline
     $X$: sequence of words \newline
     $Y$: labels `{MATNUM, PERSON, LOCATION, NONE}`
@@ -73,6 +73,10 @@ documentclass: beamer
 :::
 
 # Generative vs. Discriminative Models
+
+- What's the difference?
+
+. . . 
 
 - Generative: Model actual distribution of data, learn joint probability and predict conditional probability using Bayes Theorem i.e. predict $P(Y|X)$ using $P(X|Y)$ and $P(Y)$ \newline
 e.g. Naive Bayes, HMMs
@@ -108,8 +112,8 @@ This property allows us to simplify the joint distribution, obtained using the c
 ]
 \node[mynode] at (2, 2) (cl) {Cloudy};
 \node[mynode] at (0, 1) (sp) {Sprinkler};
-\node[mynode] at (4, 1) (ra) {Rain};
-\node[observed] at (2, 0) (gw) {Grass wet};
+\node[mynode] at (4, 1) (ra) {Forecast};
+\node[observed] at (2, 0) (gw) {Grass wet \newline (tomorrow)};
 \path
 (cl) edge[-latex] (sp)
 (cl) edge[-latex] (ra)
@@ -135,10 +139,10 @@ This property allows us to simplify the joint distribution, obtained using the c
   mynode/.style={draw,ellipse,text width=1.7cm,align=center},
   observed/.style={draw,rectangle,text width=1.7cm,align=center}
 ]
-\node[mynode] at (0, 1.3) (clf) {Sunny};
-\node[mynode] at (3, 1.3) (ra) {Cloudy};
-\node[mynode] at (6, 1.3) (gw) {Foggy};
-\node[observed] at (3, 0) (sp) {Rain};
+\node[mynode] at (0, 1.3) (clf) {Cloudy};
+\node[mynode] at (3, 1.3) (ra) {Sprinkler};
+\node[mynode] at (6, 1.3) (gw) {Forecast};
+\node[observed] at (3, 0) (sp) {Grass wet \newline (tomorrow)};
 \path
 (sp) edge[latex-] (clf)
 (sp) edge[latex-] (ra)
@@ -187,7 +191,7 @@ observed variable _Walk duration_, latent variable: _Weather_ $\in$ \{_Sunny_, _
 \begin{gather*}
 p(y|x) = \prod_i p(y) \cdot o(y, x_i) \text{ (Naïve Bayes)}\\
 \Rightarrow \\
-p(\bar y|x) = \prod_i a(y_{i-1}, y_{i}) \cdot o(y_i, x_i) \text{ (HMM)}
+p(Y|X) = \prod_i a(y_{i-1}, y_{i}) \cdot o(y_i, x_i) \text{ (HMM)}
 \end{gather*}
 
 ::: notes
@@ -201,13 +205,13 @@ p(\bar y|x) = \prod_i a(y_{i-1}, y_{i}) \cdot o(y_i, x_i) \text{ (HMM)}
 > - Better hidden states: `{MATNUM, START+PERSON, INTERNAL+PERSON, END+PERSON, LOCATION, NONE, ...}`
 > - Transitions: MLE from annotated data <!--P(yi|yi-1)-->
 > - Emission probabilities: MLE from annotated data (+ smoothing) <!--P(xi|yi)-->
-> - $p(x,y) = \prod_i a(y_{i-1}, y_{i}) \cdot o(y_i, x_i)$ <!--a=transition, o=emission--->
+> - $p(Y|X) = \prod_i a(y_{i-1}, y_{i}) \cdot o(y_i, x_i)$ <!--a=transition, o=emission--->
 
 . . .
 
 ## Questions
 
-- What are the drawbacks of HMMs? <!--Independence assumption depending on model order, cannot express dependencies between the tokens and hidden states--->
+- What are the drawbacks of HMMs? <!--Independence assumption depending on model order, we don't have control over features and the distribution depends only on the current state --->
 
 ::: notes
 - HMMs seem a better fit for this task, since it captures transition probabilities between latent variables and emission probabilities.
@@ -220,7 +224,7 @@ p(\bar y|x) = \prod_i a(y_{i-1}, y_{i}) \cdot o(y_i, x_i) \text{ (HMM)}
 - The reason for low performance is that the emission probabilities capture only features that dependent only on the current state and we have little control over the features.
 :::
 
-<!-- # Logistic Regression
+# Logistic Regression
 
 \centering 
 $p(y|x) = \frac{\exp(\Phi(y,x))}{\sum_{y'} \exp(\Phi(y',x))}$
@@ -230,7 +234,19 @@ $\arg \max_y \frac{\exp(\Phi(y,x))}{\sum_{y'} \exp(\Phi(y',x))} = \arg \max_y \e
 ::: notes
 - Another approach is to assign a score to every sequence and then pick the best one.
 - So Phi in this case would just score every possible sequence and by doing softmax we get a conditional probability
-::: -->
+:::
+
+# Model overview
+
+- Multinomial logistic regression: \newline
+    $p(y_j|x) = \frac{exp(Z_j\cdot x)}{\sum_i exp(Z_i\cdot x)}$
+- Multiclass naïve Bayes: \newline
+    $p(y_j|x) = \frac{p(x|y_j)p(y_j)}{p(x)} \propto p(x|y_j) p(y_j) \approx p(y_j) \prod_i p(x_i|y_j)$
+
+::: notes
+- Bayes splits input features. 
+- Why generative? p(x|y_j) is the generative part, while p(y_j|x) is discriminative.
+:::
 
 # Log-linear 1st Order Sequential Model
 
@@ -239,14 +255,14 @@ $\arg \max_y \frac{\exp(\Phi(y,x))}{\sum_{y'} \exp(\Phi(y',x))} = \arg \max_y \e
 > - Goal: Model $p(y|x)$ for all pairs $(x,y)$ \newline
 > - $p(y|x) \propto \exp \big\{\sum_i \log a(y_{i-1}, y_{i}) + \log o(y_i, x_i)\}$ \newline
 > - $p(y|x) = \frac{1}{Z(x)} \cdot \exp \big\{\sum_i \log a(y_{i-1}, y_{i}) + \log o(y_i, x_i)\}$ \newline
-> - $p(y|x) = \frac{1}{Z(x)} \cdot \prod_i \exp \{ a(y_{i-1}, y_{i}) o(y_i, x_i)\}$
+> - $p(y|x) = \frac{1}{Z(x)} \cdot \prod_i a(y_{i-1}, y_{i}) o(y_i, x_i)$
 
 ::: notes
 - Looks like HMM.
 - This has exactly the same number of parameters but they all model $p(y|x)$ and not $p(x,y)$. This is more ideal for us.
 :::
 
-<!-- # Log-linear 1st Order Sequential Model
+# Log-linear 1st Order Sequential Model
 
 Viterbi:
 
@@ -283,7 +299,7 @@ $O(|Y|^2\cdot T)$
 - To compute the full conditional probability, we also need the partition function, which we can compute using the forward algorithm.
 - Finally, we have the argmax as well as the conditional probability.
 - This can also be done using matrix methods TODO
-::: -->
+:::
 
 # Log-linear 1st Order Sequential Model
 
@@ -324,17 +340,6 @@ $O(|Y|^2\cdot T)$
 A Hidden Markov Model can be understood as the sequence version of a Naive Bayes Model: instead of single independent decisions, a Hidden Markov Model models a linear sequence of decisions. Accordingly, Conditional Random Fields can be understood as the sequence version of Maximum Entropy Models, that means they are also discriminative models. Furthermore, in contrast to Hidden Markov Models, Conditional Random Fields are not tied to the linear-sequence structure but can be arbitrarily structured.
 -->
 
-<!-- # Model overview
-
-- Multinomial logistic regression: \newline
-    $p(y_j|x) = \frac{exp(Z_j\cdot x)}{\sum_i exp(Z_i\cdot x)}$
-- Multiclass naïve Bayes: \newline
-    $p(y_j|x) = \frac{p(x|y_j)p(y_j)}{p(x)} \propto p(x|y_j) p(y_j) \approx p(y_j) \prod_i p(x_i|y_j)$
-
-::: notes
-- Bayes splits input features. 
-- Why generative? p(x|y_j) is the generative part, while p(y_j|x) is discriminative.
-::: -->
 
 # Conditional Random Fields
 
@@ -466,20 +471,20 @@ Done using gradient methods, Forward-Backward algorithm etc.
 
 . . .
 
-Inference:
+Inference (Viterbi):
 \vspace{-0.6cm}
 \begin{gather*}
 argmax_y\ p(y|x,\lambda)
 \end{gather*}
 
-Decoding:
+Interpretation: Given input $x$ and CRF *M*, find optimal $y$.
+
+Decoding (forward):
 \vspace{-0.6cm}
 \begin{gather*}
-max \: p(y|x,\lambda)
+max_y \: p(y|x,\lambda)
 \end{gather*}
 
-Interpretation: Given input $x$ and CRF *M*, find optimal $y$. \newline
-Done using Viterbi algorithm.
 
 ::: notes
 - Inference - viterbi
@@ -487,7 +492,7 @@ Done using Viterbi algorithm.
 - Training - gradient methods
 :::
 
-<!-- # Linear Chain CRF - Estimating $\lambda$
+# Linear Chain CRF - Estimating $\lambda$
 
 Gradient descent (ascent):
 
@@ -507,7 +512,7 @@ Limited-memory BFGS (quasi-Newton method)
 - For the actual optimization, limited memory approximation of BFGS (Broyden–Fletcher–Goldfarb–Shanno) algorithm is used.
 - It's a quasi Newtonian method, which means that it makes local approximation with the second term of the taylor expansion
 - And for that it approximates the inverse of the hessian matrix
-::: -->
+:::
 
 # Feature selection:
 
