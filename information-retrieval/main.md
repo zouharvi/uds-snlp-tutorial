@@ -474,9 +474,9 @@ Cons:
 - Only surface dependencies
 - SVD is not updatable
 
-# Homework
+# Dense Vector Representation
 
-TBD
+TODO
 
 # Resources
 

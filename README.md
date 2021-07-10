@@ -15,9 +15,9 @@ Schedule (links provided only to semi-finished materials):
 - [Text Classification 1](text-classification-1/handout.pdf)
 - [Text Classification 2](text-classification-2/handout.pdf)
 - [Word Sense Disambiguation](word-sense-disambiguation/handout.pdf)
-- [Information Retrieval](information-retrieval/handout.pdf)
-- [Machine Translation](machine-translation/handout.pdf)
 - [Conditional Random Fields](conditional-random-fields/handout.pdf)
+- [Information Retrieval](information-retrieval/handout.pdf)
+- [Machine Translation (incomplete, skipped)](machine-translation/handout.pdf)
 
 ## Contributing
 
