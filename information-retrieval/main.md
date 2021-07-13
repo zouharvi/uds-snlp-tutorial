@@ -32,19 +32,26 @@ classoption: handout,notes
 - Precision $\frac{|\text{retrieved} \cap \text{relevant}|}{|\text{retrieved}|}$
 ::::
 
-:::: column
+<!-- :::: column
 ## Questions?
 - When will precision be high? ![](img/apple.png){width=15px}
 - When will recall be high? ![](img/pineapple.png){width=15px} 
-<!--example of classifing apples/not-apples in a dataset of apples and pineapples-->
+<!--example of classifing apples/not-apples in a dataset of apples and pineapples
+::::
+-->
+
+:::: column
+## How to cheat so that...
+- precision is high?
+- recall is high?
 ::::
 :::
 
 . . .
 
-- {Precision,Recall}$@k$ : Retrieve $k$ documents (top $k$ scoring) 
+## {Precision,Recall}$@k$ : Retrieve $k$ documents (top $k$ scoring) 
 - Recall$@k$ $\frac{|\text{retrieved}@k \cap \text{relevant}|}{|\text{relevant}|}$
-- Precision$@k$ $\frac{|\text{retrieved}@k \cap \text{relevant}|}{k}$
+- Precision$@k$ $\frac{|\text{retrieved}@k \cap \text{relevant}|}{|\text{retrieved}@k|} = \frac{|\text{retrieved}@k \cap \text{relevant}|}{k}$
 
 # Evaluation metrics
 
@@ -62,9 +69,7 @@ classoption: handout,notes
 
 # Evaluation metrics
 
-Taking the rank into consideration \newline
-
-- Mean Reciprocal Rank
+- Taking the rank into consideration: Mean Reciprocal Rank
 - $MRR(Q) = \frac{1}{|Q|}\sum_{q \in Q} \frac{1}{\text{rank}_q}$ \newline
   $\text{rank}_q =$ position of the first relevant document 
 
@@ -85,7 +90,12 @@ Taking the rank into consideration \newline
 
 - $Q = \{\text{example}\}, MRR(Q) = \frac{1}{\text{rank}_{example}} = \frac{1}{2}$
 
-<!-- # Information retriveal - preprocessing
+::: notes
+Lots of others, accuracy, r-precision etc. Papers (as compared to MT) usually use a lot of different metrics.
+:::
+
+
+# Information retriveal - preprocessing
 
 > - Stemming (_going $\rightarrow$ go_, _studies $\rightarrow$ studi_)
 > - \- Not always: query _becomes stressed_ vs. _becom stress_
@@ -98,7 +108,7 @@ Taking the rank into consideration \newline
 
 . . .
 
-Always depends on the task. -->
+Always depends on the task.
 
 # Document Retrieval - example
 
@@ -115,7 +125,7 @@ Always depends on the task. -->
     C (unrelated context)
 > - Can these inferences be made automatically?
 
-# Document Retrieval - Bag of Words
+<!-- # Document Retrieval - Bag of Words
 
 - Text must be represented as a vector of numbers
 - BoW model requires: i) Vocabulary, ii) Measure of presence of words
@@ -123,7 +133,7 @@ Always depends on the task. -->
 Document: \emph{to be or not to be} \newline
 BoW representation: {to:2, be:2, or:1, not:1} $\rightarrow$ [1 1 1 1 0]
 - Can also store counts
-- Disregard grammar, word order
+- Disregard grammar, word order -->
 
 # Solution 1 (counts)
 
@@ -147,6 +157,7 @@ BoW representation: {to:2, be:2, or:1, not:1} $\rightarrow$ [1 1 1 1 0]
 
 \begin{block}{TF-IDF}
 $$tf(term, doc) = \frac{count_{doc}(term)}{|doc|}$$
+$$df(term) = \frac{|\{doc| term \in doc, doc \in D\}|}{|D|}$$ 
 $$idf'(term) = \frac{|D|}{df(term)}, idf(term) = \log_2\bigg(\frac{|D|}{df(term)}\bigg)$$
 $$tf-idf(term, doc) = tf(term, doc) \times idf(term)$$
 \end{block}
@@ -170,8 +181,10 @@ $$tf'(term, doc) = 0.5 + 0.5 \cdot \frac{count_{doc}(term)}{ max_{term'} \{count
 - Ranking: Cosine similarity between query and document vectors
 - Good metrics to determine the significance of a term in a document collection
 
+. . .
+
 > - Issue: still enormous vectors
-> - Issue: `demon - Mephistopheles` are equally separate concepts as `devil - lasagne`
+> - Issue: `devil - Mephistopheles` are equally separate concepts as `devil - lasagne`
 > - Issue: independent terms assumption
 
 # Document Retrieval - Probabilistic Retrieval
@@ -273,12 +286,12 @@ $d_1 = 1\times c_1 + 1\times c_2$
 Given $k$ concepts, we try to find such a matrix $A'$, that's as close to the original one, but with every document being a combination of $k$ independent vectors.
 :::
 
-<!-- # Approximation of $A$
+# Approximation of $A$
 
 > - Given: $A, k$
 > - $A' = argmin_{A' \text{rank} k} ||A-A'||$
 > - Distance e.g. Frobenius $(\sqrt{\sum_{i,j} a_{i,j}})$ 
- -->
+
 
 # Singular Value Decomposition
 
@@ -291,7 +304,7 @@ Given $k$ concepts, we try to find such a matrix $A'$, that's as close to the or
 - $S =$ roots of corresponding eigenvalues of $A^TA$
 - $A=U S V^T$
 
-<!-- # Eigen{vector,value}
+# Eigen{vector,value}
 
 Nonzero $v \in \mathbb{R}^n, \lambda \in \mathbb{R}$
 
@@ -315,7 +328,7 @@ $$Av = \lambda v$$
 "The stretch ($\lambda$) of eigenvector $v$ by $A$."
 \end{block} -->
 
-<!-- # SVD 
+# SVD 
 
 ## Proof sketch
 
@@ -326,7 +339,7 @@ A A^T U = U S^2 \rightarrow U \text{ eigenvectors of } A A^T, S \text{ root of e
 (\forall i: A A^T U_{i,*} = U_{i,*} \cdot S^2_{i,i}) \\
 A^T A V = V S^2 \rightarrow V \text{ eigenvectors of } A^T A, S \text{ root of eigenvalues} \\
 (\forall i: A^T A V_{i,*} = V_{i,*} \cdot S^2_{i,i}) \\
-\end{gather*} -->
+\end{gather*}
 
 # LSA
 
@@ -346,7 +359,7 @@ A^T A V = V S^2 \rightarrow V \text{ eigenvectors of } A^T A, S \text{ root of e
 - Essentially this crops the neighbouring matricies to first k columns and first k rows of V^T.
 :::
 
-<!-- # Properties of S
+# Properties of S
 
 ## Descending
 
@@ -355,18 +368,18 @@ U' = U \text{ +swapped $i, j$ column}, S' = S \text{ +swapped $i, j$ values}, {V
 U' = U \times C(i,j), S' = S \times C(i, j), {V'}^T = V^T \times R(i,j) \\
 U' S' = (US) \text{ with swapped $i, j$ columns}, U'S' = (US)\times C(i,j) \\
 U' S' {V'}^T = (US)\times C(i,j) \times V^T \times R(i,j) = (US)\times C(i,j) \times C(i, j) V^T = USV^T
-\end{gather*} -->
+\end{gather*}
 
-<!-- . . .
+. . .
 
 ## Non-negative
 
 \begin{gather*}
 A^T A \text{ is positive semidefinite} \Rightarrow S_{i,i} \ge 0 \\
 \forall x \ne \overrightarrow{0}: x^T A^T A x = (Ax)^T(Ax) = ||Ax|| \ge 0
-\end{gather*} -->
+\end{gather*}
 
-<!-- # LSA Concepts
+# LSA Concepts
 
 - $U_k S_k$ maps terms to latent "concepts" $(m \rightarrow k)$
 - $V_k S_k$ maps documents to "concepts" $(n \rightarrow k)$
@@ -375,7 +388,7 @@ A^T A \text{ is positive semidefinite} \Rightarrow S_{i,i} \ge 0 \\
 - The k then becomes obvious is the number of concepts
 - We don't specify the concepts, they are determined by SVD
 - From our point of view, they are latent
-::: -->
+:::
 
 # LSA Example
 
@@ -474,6 +487,10 @@ Cons:
 - Only surface dependencies
 - Determination of k <!--depends on the rank of the matrix, thresholding of descending singular values-->
 - SVD difficult to update <!-- Consider adding a new document to this corpus -->
+
+# Dense Vectors
+
+TODO
 
 # Resources
 
