@@ -2,7 +2,7 @@
 title:
 - Assignment 10 + Conditional Random Fields
 subtitle: |
-    | (SNLP tutorial 11)
+    | (SNLP Tutorial 11)
 author:
 - Vilém Zouhar, Awantee Deshpande, Julius Steuer
 theme:
@@ -189,7 +189,7 @@ observed variable _Walk duration_, latent variable: _Weather_ $\in$ \{_Sunny_, _
 \centering
 
 \begin{gather*}
-p(y|x) = \prod_i p(y) \cdot o(y, x_i) \text{ (Naïve Bayes)}\\
+p(y|x) =  p(y) \cdot \prod_i o(x_i, y) \text{ (Naïve Bayes)}\\
 \Rightarrow \\
 p(Y|X) = \prod_i a(y_{i-1}, y_{i}) \cdot o(y_i, x_i) \text{ (HMM)}
 \end{gather*}

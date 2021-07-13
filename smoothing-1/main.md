@@ -180,7 +180,7 @@ Solution: Assign probability mass from frequent events to infrequent events (Smo
 
 * Recall perplexity formula:
 \begin{equation}
-PP = \sum_{w,h} f(w,h) \cdot \log_2 p(w|h)
+PP = \exp -\sum_{w,h} f(w,h) \cdot \log_2 p(w|h)
 \end{equation}
 :::
 

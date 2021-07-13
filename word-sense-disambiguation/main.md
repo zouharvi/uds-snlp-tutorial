@@ -204,7 +204,7 @@ Vector: [0, 1, 0, 0] for given sentence
 Partition translated words ($\{Q_1, Q_2\}$) and indicator words ($\{P_1, P_2\}$) to maximize:
 
 \centering
-$I(P;Q) = \sum_{i\in Q, t\in P} \log \frac{p(i, t)}{p(i)\cdot p(t)}$
+$I(P;Q) = \sum_{i\in Q, t\in P} p(i, t) \log \frac{p(i, t)}{p(i)\cdot p(t)}$
 
 # Flip-Flop Algorithm
 
