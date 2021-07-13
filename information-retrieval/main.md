@@ -463,7 +463,6 @@ Fast SVD
 Latent Semantic Analysis
 
 > - Also called LSI (Latent Semantic Indexing)
-> - tf-idf is just a weighting scheme (tf, counts)
 
 \note{
     - tf-idf is not a vital part of LSA, though works well
@@ -475,22 +474,43 @@ Latent Semantic Analysis
 
 # Considerations
 
+Notes:
+
+> - tf-idf is just a weighting scheme (tf, counts)
+> - SVD naive approach $det (A-\lambda I) = 0$ solving $n$-th order polynomial (variable $\lambda$)\newline
+    Eigenvector Decomposition (EVD), get eigenvectors
+> - Faster, approximate methods available
+
+. . . 
+
+::: columns
+:::: column
 Pros:
 
 - Easy to implement
 - Explainable terms
 - Quite fast runtime
-- Handles synonymy of words \newline
+- Handles synonymy of words
+::::
 
+:::: column
 Cons:
 
 - Only surface dependencies
 - Determination of k <!--depends on the rank of the matrix, thresholding of descending singular values-->
 - SVD difficult to update <!-- Consider adding a new document to this corpus -->
+::::
+:::
 
 # Dense Vectors
 
-TODO
+- (Sentence)BERT (CLS): $D \cup Q \rightarrow \mathbb{R}^{768}$
+- $h_q = BERT(\textit{Goethe devil})$ 
+- $h_a = BERT(\textit{Wolfgang's idea of the demon Mephistopheles who makes a bet with God})$
+- $h_c = BERT(\textit{Devilishly good lasagne})$
+- $h_q \cdot h_a = 14.1, h_q \cdot h_c = 0.9$
+
+- Used in industry (with better models than BERT)
 
 # Resources
 
