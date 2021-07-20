@@ -212,8 +212,8 @@ $I(P;Q) = \sum_{i\in Q, t\in P} p(i, t) \log \frac{p(i, t)}{p(i)\cdot p(t)}$
 
 1. find random partition P = {$P_1$, $P_2$} of $t_1, ..., t_m$
 2. while improving I(P;Q) do
-3.  - find partition Q = {$Q_1$, $Q_2$} of $x_1, ..., x_n$ that maximises I(P;Q)
-4.  - find partition P = {$P_1$, $P_2$} of $t_1, ..., t_m$ that maximises I(P;Q)
+3.  - find partition Q = {$Q_1$, $Q_2$} of $t_1, ..., t_n$ that maximises I(P;Q)
+4.  - find partition P = {$P_1$, $P_2$} of $x_1, ..., x_m$ that maximises I(P;Q)
 5. end
 
 - $t_i$ : translations of the ambiguous word
