@@ -56,6 +56,11 @@ header-includes:
 
 - How to use Chi-Square?
 
+# Compression
+
+- Kraft's inequality and trees
+- Optimal code length: $-log_D p(w_i)$
+
 # Resources
 
 - <https://miro.medium.com/max/1400/1*neaBooRXSloZAz6A2XfHJA.png>
