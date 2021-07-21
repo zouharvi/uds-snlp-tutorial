@@ -210,7 +210,7 @@ $I(P;Q) = \sum_{i\in Q, t\in P} p(i, t) \log \frac{p(i, t)}{p(i)\cdot p(t)}$
 
 <!--tries to find a single contextual feature that reliably indicates which sense of the ambiguous word is being used.-->
 
-1. find random partition P = {$P_1$, $P_2$} of $t_1, ..., t_m$
+1. find random partition P = {$P_1$, $P_2$} of $x_1, ..., x_m$
 2. while improving I(P;Q) do
 3.  - find partition Q = {$Q_1$, $Q_2$} of $t_1, ..., t_n$ that maximises I(P;Q)
 4.  - find partition P = {$P_1$, $P_2$} of $x_1, ..., x_m$ that maximises I(P;Q)
@@ -225,9 +225,9 @@ $I(P;Q) = \sum_{i\in Q, t\in P} p(i, t) \log \frac{p(i, t)}{p(i)\cdot p(t)}$
 - Disambiguation \newline
 Determine $x_i$
 
-if $x_i \in Q_1$ assign sense 1 
+if $x_i \in P_1$ assign sense 1 
 
-if $x_i \in Q_2$ assign sense 2
+if $x_i \in P_2$ assign sense 2
 
 <!--The Flip-Flop algorithm only disambiguates between 2 senses.-->
 
