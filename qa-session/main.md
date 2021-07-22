@@ -32,6 +32,7 @@ header-includes:
 
 > - First and second-order HMM
 > - Suppose you have a sequence of length M and tagset of size T, what would be the complexity of the normalization factor Z(x) in this case?
+> - Bayesian network, clicques
 
 # Naive Bayes
 
@@ -59,7 +60,22 @@ header-includes:
 # Compression
 
 - Kraft's inequality and trees
-- Optimal code length: $-log_D p(w_i)$
+- Optimal code length: $-\log_D p(w_i)$
+- Encoding using a tree
+
+# Vector-Space Model
+
+- Representation
+- Retrieval (scoring vs bayes) + decision rule
+- Classification
+
+<!-- Generative vs discriminative model-->
+
+# Jensen's Inequality
+
+> - For convex functions, opposite holds for concave ones
+> - Such as: $x^2$, $\log$
+> - $WA(f(x_i)) \ge f(WA(x_i))$  
 
 # Resources
 
