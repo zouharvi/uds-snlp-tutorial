@@ -158,7 +158,7 @@ BoW representation: {to:2, be:2, or:1, not:1} $\rightarrow$ [1 1 1 1 0]
 \begin{block}{TF-IDF}
 $$tf(term, doc) = \frac{count_{doc}(term)}{|doc|}$$
 $$df(term) = \frac{|\{doc| term \in doc, doc \in D\}|}{|D|}$$ 
-$$idf'(term) = \frac{|D|}{df(term)}, idf(term) = \log_2\bigg(\frac{|D|}{df(term)}\bigg)$$
+$$idf'(term) = \frac{|D|}{|\{doc| term \in doc, doc \in D\}|}, idf(term) = \log_2\bigg(\frac{|D|}{|\{doc| term \in doc, doc \in D\}|}\bigg)$$
 $$tf-idf(term, doc) = tf(term, doc) \times idf(term)$$
 \end{block}
 
