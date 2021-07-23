@@ -1,6 +1,6 @@
 ---
 title:
-- Assignment 1, 2 + KL Divergence
+- Assignment 1, 2 + Language Properties
 subtitle: |
     | (SNLP tutorial 3)
 author:
