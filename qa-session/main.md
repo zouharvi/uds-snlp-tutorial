@@ -32,7 +32,7 @@ header-includes:
 
 > - First and second-order HMM
 > - Suppose you have a sequence of length M and tagset of size T, what would be the complexity of the normalization factor Z(x) in this case?
-> - Bayesian network, clicques
+> - Bayesian network, cliques
 
 # Naive Bayes
 
