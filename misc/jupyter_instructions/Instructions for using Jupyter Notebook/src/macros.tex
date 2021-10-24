@@ -1,0 +1,6 @@
+\newcommand\centerme[1]{\begin{center}#1\end{center}}
+
+% this would be elegant but lstlisting requires some special handling and doesn't work
+\newenvironment{commandexample}[1]
+{\begin{tabular}{c}\begin{verbatim}[linewidth=#1, language=Python]{}}
+{\end{verbatim}\end{tabular}}
